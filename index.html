@@ -6,128 +6,128 @@
     <title>Music UI Clone</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'IBM Plex Mono', monospace; /* Cambiato a IBM Plex Mono */
-            background-color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            font-size: 14px; /* Imposta una dimensione del font di base più piccola */
-        }
+    body {
+        font-family: 'IBM Plex Mono', monospace; /* Cambiato a IBM Plex Mono */
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        font-size: 14px; /* Imposta una dimensione del font di base più piccola */
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* Modificato a 4 colonne */
+        gap: 20px;
+        width: 95%;
+        max-width: 900px; /* Aumentato il max-width (esempio) */
+    }
+    .album {
+        text-align: center;
+        cursor: pointer;
+    }
+    .album img {
+        width: 100%; /* Make the image fill the album container */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 10px;
+        background-color: #ddd;
+        object-fit: cover;
+    }
+    .player {
+        position: fixed;
+        bottom: 0; /* Stick to the very bottom on phones */
+        left: 0; /* Extend to the edges of the screen */
+        width: 100%;
+        background: white;
+        border-radius: 15px 15px 0 0; /* Round only the top corners */
+        padding: 10px 15px; /* Add some horizontal padding */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 -2px 5px rgba(0,0,0,0.2); /* Shadow on top */
+        z-index: 10; /* Ensure it stays on top of other content */
+    }
+    .player img {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+    .controls button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    .menu {
+        display: flex;
+        justify-content: space-around;
+        padding: 15px 0; /* Add some vertical padding */
+        font-size: 14px;
+        color: gray;
+        width: 100%; /* Make the menu span the full width */
+        background-color: #f8f8f8; /* Light background for the menu */
+        position: fixed; /* Fix the menu at the bottom as well */
+        bottom: 60px; /* Position it above the player */
+        left: 0;
+        border-top: 1px solid #eee; /* Subtle top border */
+        z-index: 11; /* Ensure it's above the player */
+    }
+    .active {
+        color: black;
+        font-weight: bold;
+    }
+    .song-list {
+        display: none;
+        position: fixed;
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        text-align: center;
+        width: 85%; /* Adjust width for phone screens */
+        max-width: 400px; /* Optional: maximum width for the popup */
+    }
+    .song-list button {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+        padding: 10px;
+        background: #ddd;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Media query for smaller screens (e.g., phones) */
+    @media (max-width: 600px) {
         .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            width: 95%; /* Make the grid take up more width on smaller screens */
-            max-width: 600px; /* Optional: set a maximum width for larger phones/tablets */
-        }
-        .album {
-            text-align: center;
-            cursor: pointer;
+            grid-template-columns: 1fr; /* Display albums in a single column */
         }
         .album img {
-            width: 100%; /* Make the image fill the album container */
-            height: auto; /* Maintain aspect ratio */
-            border-radius: 10px;
-            background-color: #ddd;
-            object-fit: cover;
+            width: 80%; /* Slightly smaller image in single column */
+            margin: 0 auto; /* Center the image */
         }
         .player {
-            position: fixed;
-            bottom: 0; /* Stick to the very bottom on phones */
-            left: 0; /* Extend to the edges of the screen */
-            width: 100%;
-            background: white;
-            border-radius: 15px 15px 0 0; /* Round only the top corners */
-            padding: 10px 15px; /* Add some horizontal padding */
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.2); /* Shadow on top */
-            z-index: 10; /* Ensure it stays on top of other content */
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center items */
+            text-align: center; /* Center text */
+            padding: 15px;
         }
-        .player img {
-            width: 40px;
-            height: 40px;
-            border-radius: 5px;
-            object-fit: cover;
+        .player > * {
+            margin-bottom: 5px; /* Add spacing between player elements */
         }
-        .controls button {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
+        .player audio {
+            width: 100%; /* Make audio player full width */
         }
         .menu {
-            display: flex;
-            justify-content: space-around;
-            padding: 15px 0; /* Add some vertical padding */
-            font-size: 14px;
-            color: gray;
-            width: 100%; /* Make the menu span the full width */
-            background-color: #f8f8f8; /* Light background for the menu */
-            position: fixed; /* Fix the menu at the bottom as well */
-            bottom: 60px; /* Position it above the player */
-            left: 0;
-            border-top: 1px solid #eee; /* Subtle top border */
-            z-index: 11; /* Ensure it's above the player */
+            font-size: 12px; /* Slightly smaller font for the menu */
+            padding: 10px 0;
         }
-        .active {
-            color: black;
-            font-weight: bold;
-        }
-        .song-list {
-            display: none;
-            position: fixed;
-            top: 50%; /* Center vertically */
-            left: 50%; /* Center horizontally */
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            text-align: center;
-            width: 85%; /* Adjust width for phone screens */
-            max-width: 400px; /* Optional: maximum width for the popup */
-        }
-        .song-list button {
-            display: block;
-            width: 100%;
-            margin: 5px 0;
-            padding: 10px;
-            background: #ddd;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Media query for smaller screens (e.g., phones) */
-        @media (max-width: 600px) {
-            .grid {
-                grid-template-columns: 1fr; /* Display albums in a single column */
-            }
-            .album img {
-                width: 80%; /* Slightly smaller image in single column */
-                margin: 0 auto; /* Center the image */
-            }
-            .player {
-                flex-direction: column; /* Stack elements vertically */
-                align-items: center; /* Center items */
-                text-align: center; /* Center text */
-                padding: 15px;
-            }
-            .player > * {
-                margin-bottom: 5px; /* Add spacing between player elements */
-            }
-            .player audio {
-                width: 100%; /* Make audio player full width */
-            }
-            .menu {
-                font-size: 12px; /* Slightly smaller font for the menu */
-                padding: 10px 0;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="grid">
