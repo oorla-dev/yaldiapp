@@ -37,7 +37,7 @@
         }
         .player {
             position: fixed;
-            bottom: 0;
+            bottom: 50px; /* Sposta il player sopra il menu (altezza del menu) */
             left: 0;
             width: 100%;
             background: white;
@@ -70,7 +70,7 @@
             width: 100%;
             background-color: #f8f8f8;
             position: fixed;
-            bottom: 50px; /* Regolato per la ridotta altezza del player */
+            bottom: 0; /* Sposta il menu in basso */
             left: 0;
             border-top: 1px solid #eee;
             z-index: 11;
@@ -119,6 +119,7 @@
                 align-items: center;
                 text-align: center;
                 padding: 10px;
+                bottom: 40px; /* Regola l'altezza del player in modalità telefono */
             }
             .player > * {
                 margin-bottom: 3px;
@@ -129,6 +130,7 @@
             .menu {
                 font-size: 9px;
                 padding: 8px 0;
+                bottom: 0;
             }
         }
     </style>
@@ -150,6 +152,7 @@
     </div>
 
     <div class="player">
+        <img id="song-cover" src="https://via.placeholder.com/30" alt="Song Cover">
         <div id="song-title">Seleziona un album</div>
         <audio id="audio-player" controls>
             <source id="audio-source" src="" type="audio/mpeg">
