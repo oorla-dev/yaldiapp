@@ -6,131 +6,146 @@
     <title>Music UI Clone</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-    body {
-        font-family: 'IBM Plex Mono', monospace; /* Cambiato a IBM Plex Mono */
-        background-color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        font-size: 14px; /* Imposta una dimensione del font di base più piccola */
-    }
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* Modificato a 4 colonne */
-        gap: 20px;
-        width: 95%;
-        max-width: 900px; /* Aumentato il max-width (esempio) */
-    }
-    .album {
-        text-align: center;
-        cursor: pointer;
-    }
-    .album img {
-        width: 100%; /* Make the image fill the album container */
-        height: auto; /* Maintain aspect ratio */
-        border-radius: 10px;
-        background-color: #ddd;
-        object-fit: cover;
-    }
-    .player {
-        position: fixed;
-        bottom: 0; /* Stick to the very bottom on phones */
-        left: 0; /* Extend to the edges of the screen */
-        width: 100%;
-        background: white;
-        border-radius: 15px 15px 0 0; /* Round only the top corners */
-        padding: 10px 15px; /* Add some horizontal padding */
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 -2px 5px rgba(0,0,0,0.2); /* Shadow on top */
-        z-index: 10; /* Ensure it stays on top of other content */
-    }
-    .player img {
-        width: 40px;
-        height: 40px;
-        border-radius: 5px;
-        object-fit: cover;
-    }
-    .controls button {
-        background: none;
-        border: none;
-        font-size: 20px;
-        cursor: pointer;
-    }
-    .menu {
-        display: flex;
-        justify-content: space-around;
-        padding: 15px 0; /* Add some vertical padding */
-        font-size: 14px;
-        color: gray;
-        width: 100%; /* Make the menu span the full width */
-        background-color: #f8f8f8; /* Light background for the menu */
-        position: fixed; /* Fix the menu at the bottom as well */
-        bottom: 60px; /* Position it above the player */
-        left: 0;
-        border-top: 1px solid #eee; /* Subtle top border */
-        z-index: 11; /* Ensure it's above the player */
-    }
-    .active {
-        color: black;
-        font-weight: bold;
-    }
-    .song-list {
-        display: none;
-        position: fixed;
-        top: 50%; /* Center vertically */
-        left: 50%; /* Center horizontally */
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-        text-align: center;
-        width: 85%; /* Adjust width for phone screens */
-        max-width: 400px; /* Optional: maximum width for the popup */
-    }
-    .song-list button {
-        display: block;
-        width: 100%;
-        margin: 5px 0;
-        padding: 10px;
-        background: #ddd;
-        border: none;
-        cursor: pointer;
-    }
-
-    /* Media query for smaller screens (e.g., phones) */
-    @media (max-width: 600px) {
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px; /* Ridotto il padding generale */
+            font-size: 12px; /* Ulteriore riduzione della dimensione del font */
+        }
         .grid {
-            grid-template-columns: 1fr; /* Display albums in a single column */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Layout a 4 colonne */
+            gap: 10px; /* Ridotto lo spazio tra gli album */
+            width: 95%;
+            max-width: 900px; /* Aumentato il max-width per 4 colonne */
+            padding: 10px; /* Aggiunto un po' di padding interno al grid */
+        }
+        .album {
+            text-align: center;
+            cursor: pointer;
         }
         .album img {
-            width: 80%; /* Slightly smaller image in single column */
-            margin: 0 auto; /* Center the image */
+            width: 100%;
+            height: auto;
+            border-radius: 5px; /* Ridotto il raggio degli angoli */
+            background-color: #ddd;
+            object-fit: cover;
         }
         .player {
-            flex-direction: column; /* Stack elements vertically */
-            align-items: center; /* Center items */
-            text-align: center; /* Center text */
-            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 10px 10px 0 0; /* Ridotto il raggio degli angoli */
+            padding: 8px 10px; /* Ridotto il padding del player */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
         }
-        .player > * {
-            margin-bottom: 5px; /* Add spacing between player elements */
+        .player img {
+            width: 30px; /* Ridotta la dimensione dell'immagine del player */
+            height: 30px; /* Ridotta la dimensione dell'immagine del player */
+            border-radius: 3px; /* Ridotto il raggio degli angoli */
+            object-fit: cover;
         }
-        .player audio {
-            width: 100%; /* Make audio player full width */
+        .controls button {
+            background: none;
+            border: none;
+            font-size: 16px; /* Ridotta la dimensione delle icone di controllo */
+            cursor: pointer;
         }
         .menu {
-            font-size: 12px; /* Slightly smaller font for the menu */
-            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0; /* Ridotto il padding del menu */
+            font-size: 10px; /* Ridotta la dimensione del font del menu */
+            color: gray;
+            width: 100%;
+            background-color: #f8f8f8;
+            position: fixed;
+            bottom: 50px; /* Regolato per la ridotta altezza del player */
+            left: 0;
+            border-top: 1px solid #eee;
+            z-index: 11;
         }
-    }
-</style>
+        .active {
+            color: black;
+            font-weight: bold;
+        }
+        .song-list {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 15px; /* Ridotto il padding della lista canzoni */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px; /* Ridotto il raggio degli angoli */
+            text-align: center;
+            width: 85%;
+            max-width: 350px; /* Ridotta la larghezza massima della lista canzoni */
+        }
+        .song-list button {
+            display: block;
+            width: 100%;
+            margin: 3px 0; /* Ridotto il margine tra i bottoni delle canzoni */
+            padding: 8px; /* Ridotto il padding dei bottoni delle canzoni */
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+            font-size: 11px; /* Ridotta la dimensione del font dei bottoni delle canzoni */
+        }
+
+        /* Media query per schermi più piccoli (es. telefoni) */
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr); /* Torna a 2 colonne su schermi piccoli */
+                gap: 10px;
+            }
+            .album img {
+                width: 80%;
+                margin: 0 auto;
+            }
+            .player {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 10px;
+            }
+            .player > * {
+                margin-bottom: 3px;
+            }
+            .player audio {
+                width: 100%;
+            }
+            .menu {
+                font-size: 9px;
+                padding: 8px 0;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="grid">
+        <div class="album" onclick="showSongs('VULTURES 2', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
+            <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="VULTURES 2">
+        </div>
+        <div class="album" onclick="showSongs('VULTURES 1', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
+            <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="VULTURES 1">
+        </div>
+        <div class="album" onclick="showSongs('DONDA', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="hhttps://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
+            <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="DONDA">
+        </div>
+        <div class="album" onclick="showSongs('JESUS IS KING', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
+            <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="JESUS IS KING">
+        </div>
         <div class="album" onclick="showSongs('YALDHI', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
             <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="YALDHI">
         </div>
@@ -146,7 +161,225 @@
     </div>
 
     <div class="player">
-        <img id="song-cover" src="https://via.placeholder.com/40" alt="Song Cover">
+        <img id="song-cover" src="https://via.placeholder.com/30" alt="Song Cover">
+        <div id="song-title">Seleziona un album</div>
+        <audio id="audio-player" controls>
+            <source id="audio-source" src="" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="menu">
+        <a href="yzy.html">YZY</a>
+        <a href="snds.html" class="active">SNDS</a>
+        <a href="https://yaldi.it/">SPLY</a>
+        <a href="hq.html">HQ</a>
+    </div>
+
+    <div class="song-list" id="song-list">
+        <h3 id="album-title"></h3>
+        <div id="songs"></div>
+        <button onclick="closeSongs()">Chiudi</button>
+    </div>
+
+    <script>
+        function showSongs(album, songs, coverUrl) {
+            document.getElementById("album-title").textContent = album;
+            const songListDiv = document.getElementById("songs");
+            songListDiv.innerHTML = "";
+
+            songs.forEach(song => {
+                const button = document.createElement("button");
+                button.textContent = song;
+                button.onclick = () => playSong(song, album, coverUrl);
+                songListDiv.appendChild(button);
+            });
+
+            document.getElementById("song-list").style.display = "block";
+        }
+
+        function closeSongs() {
+            document.getElementById("song-list").style.display = "none";
+        }
+
+        function playSong(songFile, album, albumCoverUrl) {
+            const audioPlayer = document.getElementById("audio-player");
+            const audioSource = document.getElementById("audio-source");
+            const songTitle = document.getElementById("song-title");
+            const songCover = document.getElementById("song-cover");
+
+            audioSource.src = songFile;
+            audioPlayer.load();
+            audioPlayer.play();
+            songTitle.textContent = album + " - " + songFile;
+
+            songCover.src = albumCoverUrl;
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music UI Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px; /* Ridotto il padding generale */
+            font-size: 12px; /* Ulteriore riduzione della dimensione del font */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Layout a 4 colonne */
+            gap: 10px; /* Ridotto lo spazio tra gli album */
+            width: 95%;
+            max-width: 900px; /* Aumentato il max-width per 4 colonne */
+            padding: 10px; /* Aggiunto un po' di padding interno al grid */
+        }
+        .album {
+            text-align: center;
+            cursor: pointer;
+        }
+        .album img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px; /* Ridotto il raggio degli angoli */
+            background-color: #ddd;
+            object-fit: cover;
+        }
+        .player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 10px 10px 0 0; /* Ridotto il raggio degli angoli */
+            padding: 8px 10px; /* Ridotto il padding del player */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        .player img {
+            width: 30px; /* Ridotta la dimensione dell'immagine del player */
+            height: 30px; /* Ridotta la dimensione dell'immagine del player */
+            border-radius: 3px; /* Ridotto il raggio degli angoli */
+            object-fit: cover;
+        }
+        .controls button {
+            background: none;
+            border: none;
+            font-size: 16px; /* Ridotta la dimensione delle icone di controllo */
+            cursor: pointer;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0; /* Ridotto il padding del menu */
+            font-size: 10px; /* Ridotta la dimensione del font del menu */
+            color: gray;
+            width: 100%;
+            background-color: #f8f8f8;
+            position: fixed;
+            bottom: 50px; /* Regolato per la ridotta altezza del player */
+            left: 0;
+            border-top: 1px solid #eee;
+            z-index: 11;
+        }
+        .active {
+            color: black;
+            font-weight: bold;
+        }
+        .song-list {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 15px; /* Ridotto il padding della lista canzoni */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px; /* Ridotto il raggio degli angoli */
+            text-align: center;
+            width: 85%;
+            max-width: 350px; /* Ridotta la larghezza massima della lista canzoni */
+        }
+        .song-list button {
+            display: block;
+            width: 100%;
+            margin: 3px 0; /* Ridotto il margine tra i bottoni delle canzoni */
+            padding: 8px; /* Ridotto il padding dei bottoni delle canzoni */
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+            font-size: 11px; /* Ridotta la dimensione del font dei bottoni delle canzoni */
+        }
+
+        /* Media query per schermi più piccoli (es. telefoni) */
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr); /* Torna a 2 colonne su schermi piccoli */
+                gap: 10px;
+            }
+            .album img {
+                width: 80%;
+                margin: 0 auto;
+            }
+            .player {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 10px;
+            }
+            .player > * {
+                margin-bottom: 3px;
+            }
+            .player audio {
+                width: 100%;
+            }
+            .menu {
+                font-size: 9px;
+                padding: 8px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <div class="album" onclick="showSongs('VULTURES 2', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
+            <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="VULTURES 2">
+        </div>
+        <div class="album" onclick="showSongs('VULTURES 1', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
+            <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="VULTURES 1">
+        </div>
+        <div class="album" onclick="showSongs('DONDA', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="hhttps://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
+            <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="DONDA">
+        </div>
+        <div class="album" onclick="showSongs('JESUS IS KING', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
+            <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="JESUS IS KING">
+        </div>
+        <div class="album" onclick="showSongs('YALDHI', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
+            <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="YALDHI">
+        </div>
+        <div class="album" onclick="showSongs('DONDA 2', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
+            <img src=https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="DONDA 2">
+        </div>
+        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="hhttps://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
+            <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="JL">
+        </div>
+        <div class="album" onclick="showSongs('BALDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
+            <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="BALDY">
+        </div>
+    </div>
+
+    <div class="player">
+        <img id="song-cover" src="https://via.placeholder.com/30" alt="Song Cover">
         <div id="song-title">Seleziona un album</div>
         <audio id="audio-player" controls>
             <source id="audio-source" src="" type="audio/mpeg">
