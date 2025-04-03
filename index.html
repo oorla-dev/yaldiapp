@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music </title>
+    <title>Music</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -12,16 +12,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px; 
-            font-size: 12px; 
+            padding: 10px;
+            font-size: 12px;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); 
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             width: 95%;
-            max-width: 900px; 
-            padding: 10px; 
+            max-width: 900px;
+            padding: 10px;
             margin-bottom: 80px;
         }
         .album {
@@ -31,18 +31,18 @@
         .album img {
             width: 100%;
             height: auto;
-            border-radius: 5px; 
+            border-radius: 5px;
             background-color: #ddd;
             object-fit: cover;
         }
         .player {
             position: fixed;
-            bottom: 50px; 
+            bottom: 50px;
             left: 0;
             width: 100%;
             background: white;
-            border-radius: 10px 10px 0 0; 
-            padding: 8px 10px; 
+            border-radius: 10px 10px 0 0;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -50,27 +50,27 @@
             z-index: 10;
         }
         .player img {
-            width: 30px; 
+            width: 30px;
             height: 30px;
-            border-radius: 3px; 
+            border-radius: 3px;
             object-fit: cover;
         }
         .controls button {
             background: none;
             border: none;
-            font-size: 16px; 
+            font-size: 16px;
             cursor: pointer;
         }
         .menu {
             display: flex;
             justify-content: space-around;
-            padding: 10px 0; /* Ridotto il padding del menu */
-            font-size: 10px; /* Ridotta la dimensione del font del menu */
+            padding: 10px 0;
+            font-size: 10px;
             color: gray;
             width: 100%;
             background-color: #f8f8f8;
             position: fixed;
-            bottom: 0; /* Sposta il menu in basso */
+            bottom: 0;
             left: 0;
             border-top: 1px solid #eee;
             z-index: 11;
@@ -86,28 +86,26 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 15px; /* Ridotto il padding della lista canzoni */
+            padding: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 8px; /* Ridotto il raggio degli angoli */
+            border-radius: 8px;
             text-align: center;
             width: 85%;
-            max-width: 350px; /* Ridotta la larghezza massima della lista canzoni */
+            max-width: 350px;
         }
         .song-list button {
             display: block;
             width: 100%;
-            margin: 3px 0; /* Ridotto il margine tra i bottoni delle canzoni */
-            padding: 8px; /* Ridotto il padding dei bottoni delle canzoni */
+            margin: 3px 0;
+            padding: 8px;
             background: #ddd;
             border: none;
             cursor: pointer;
-            font-size: 11px; /* Ridotta la dimensione del font dei bottoni delle canzoni */
+            font-size: 11px;
         }
-
-        /* Media query per schermi più piccoli (es. telefoni) */
         @media (max-width: 600px) {
             .grid {
-                grid-template-columns: repeat(2, 1fr); /* Torna a 2 colonne su schermi piccoli */
+                grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
             .album img {
@@ -119,7 +117,7 @@
                 align-items: center;
                 text-align: center;
                 padding: 10px;
-                bottom: 40px; /* Regola l'altezza del player in modalità telefono */
+                bottom: 40px;
             }
             .player > * {
                 margin-bottom: 3px;
@@ -143,11 +141,11 @@
         <div class="album" onclick="showSongs('DONDA 2', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
             <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="DONDA 2">
         </div>
-        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="hhttps://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
+        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
             <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="JL">
         </div>
-        <div class="album" onclick="showSongs('BULDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
-            <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="BULDY">
+        <div class="album" onclick="showSongs('BULDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g/photo-6005642088869382130-y.jpg">
+            <img src="https://i.ibb.co/7xh639g/photo-6005642088869382130-y.jpg" alt="BULDY">
         </div>
     </div>
 
@@ -202,7 +200,6 @@
             audioPlayer.load();
             audioPlayer.play();
             songTitle.textContent = album + " - " + songFile;
-
             songCover.src = albumCoverUrl;
         }
     </script>
