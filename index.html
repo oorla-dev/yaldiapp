@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YALDI APP</title>p
+    <title>YALDI APP</title>
     <style>
         body {
-            font-family: 'Verdana Old Mono", monospace;
-            background-color: white;
+            font-family: 'Verdana Old Mono', monospace;
+            background-color: black;
+            color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -26,12 +27,19 @@
         .album {
             text-align: center;
             cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .album:hover {
+            transform: scale(1.05);
+            border-color: #FFD700;
         }
         .album img {
             width: 100%;
             height: auto;
             border-radius: 5px;
-            background-color: #ddd;
+            background-color: #333;
             object-fit: cover;
         }
         .player {
@@ -39,13 +47,14 @@
             bottom: 50px;
             left: 0;
             width: 100%;
-            background: white;
+            background: #222;
+            color: white;
             border-radius: 10px 10px 0 0;
             padding: 8px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.4);
             z-index: 10;
         }
         .player img {
@@ -58,7 +67,11 @@
             background: none;
             border: none;
             font-size: 16px;
+            color: white;
             cursor: pointer;
+        }
+        .controls button:hover {
+            color: #FFD700;
         }
         .menu {
             display: flex;
@@ -67,15 +80,19 @@
             font-size: 10px;
             color: gray;
             width: 100%;
-            background-color: #f8f8f8;
+            background-color: #333;
             position: fixed;
             bottom: 0;
             left: 0;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #444;
             z-index: 11;
         }
-        .active {
-            color: black;
+        .menu a {
+            color: gray;
+            text-decoration: none;
+        }
+        .menu a.active {
+            color: #FFD700;
             font-weight: bold;
         }
         .song-list {
@@ -84,9 +101,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: #333;
             padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
             border-radius: 8px;
             text-align: center;
             width: 85%;
@@ -97,10 +114,15 @@
             width: 100%;
             margin: 3px 0;
             padding: 8px;
-            background: #ddd;
+            background: #555;
             border: none;
             cursor: pointer;
-            font-size: 11px;
+            font-size: 12px;
+            color: white;
+        }
+        .song-list button:hover {
+            background: #FFD700;
+            color: black;
         }
         @media (max-width: 600px) {
             .grid {
@@ -134,17 +156,17 @@
 </head>
 <body>
     <div class="grid">
-        <div class="album" onclick="showSongs('YALDHI', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
-            <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="YALDHI">
+        <div class="album" onclick="showSongs('YALDHI', ['/musica/YALDHI/song1.mp3', '/musica/YALDHI/song2.mp3'], '/musica/YALDHI/cover.jpg')" data-cover="/musica/YALDHI/cover.jpg">
+            <img src="/musica/YALDHI/cover.jpg" alt="YALDHI">
         </div>
-        <div class="album" onclick="showSongs('DONDA 2', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
-            <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="DONDA 2">
+        <div class="album" onclick="showSongs('DONDA 2', ['/musica/DONDA2/track1.mp3', '/musica/DONDA2/track2.mp3'], '/musica/DONDA2/cover.jpg')" data-cover="/musica/DONDA2/cover.jpg">
+            <img src="/musica/DONDA2/cover.jpg" alt="DONDA 2">
         </div>
-        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
-            <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="JL">
+        <div class="album" onclick="showSongs('JL', ['/musica/JL/songA.mp3', '/musica/JL/songB.mp3'], '/musica/JL/cover.jpg')" data-cover="/musica/JL/cover.jpg">
+            <img src="/musica/JL/cover.jpg" alt="JL">
         </div>
-        <div class="album" onclick="showSongs('BULDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
-            <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="BULDY">
+        <div class="album" onclick="showSongs('BULDY', ['/musica/BULDY/trackX.mp3', '/musica/BULDY/trackY.mp3'], '/musica/BULDY/cover.jpg')" data-cover="/musica/BULDY/cover.jpg">
+            <img src="/musica/BULDY/cover.jpg" alt="BULDY">
         </div>
     </div>
 
@@ -177,7 +199,7 @@
 
             songs.forEach(song => {
                 const button = document.createElement("button");
-                button.textContent = song;
+                button.textContent = song.split('/').pop();  // Nome file
                 button.onclick = () => playSong(song, album, coverUrl);
                 songListDiv.appendChild(button);
             });
@@ -198,7 +220,7 @@
             audioSource.src = songFile;
             audioPlayer.load();
             audioPlayer.play();
-            songTitle.textContent = album + " - " + songFile;
+            songTitle.textContent = album + " - " + songFile.split('/').pop();
             songCover.src = albumCoverUrl;
         }
     </script>
