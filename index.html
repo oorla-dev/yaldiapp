@@ -165,6 +165,21 @@
             songTitle.textContent = `${album} - ${songFile}`;
             songCover.src = albumCoverUrl;
             document.querySelector('.player').style.display = 'flex';
+             function showSongs(album, songs, coverUrl) {
+            document.getElementById("album-title").textContent = album;
+            const songListDiv = document.getElementById("songs");
+            songListDiv.innerHTML = "";
+
+            document.querySelectorAll('.song-list').forEach(list => list.style.display = 'none');
+
+            songs.forEach((song, index) => {
+                const button = document.createElement("button");
+                button.textContent = (index + 1) + ". " + song;
+                button.onclick = () => playSong(song, album, coverUrl);
+                songListDiv.appendChild(button);
+            });
+
+            document.getElementById("song-list").style.display = "block";
         }
     </script>
 </body>
