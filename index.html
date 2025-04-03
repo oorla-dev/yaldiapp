@@ -121,18 +121,11 @@
         <div class="album" onclick="showSongs('DONDA 2', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
             <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="DONDA 2">
         </div>
-        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="hhttps://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
+        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
             <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="JL">
         </div>
         <div class="album" onclick="showSongs('BULDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
             <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="BULDY">
-        </div>
-        <!-- Aggiungi gli altri album qui -->
-        <div class="album" onclick="showSongs('ALBUM 5', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/someImage.jpg')" data-cover="https://i.ibb.co/someImage.jpg">
-            <img src="https://i.ibb.co/someImage.jpg" alt="ALBUM 5">
-        </div>
-        <div class="album" onclick="showSongs('ALBUM 6', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/anotherImage.jpg')" data-cover="https://i.ibb.co/anotherImage.jpg">
-            <img src="https://i.ibb.co/anotherImage.jpg" alt="ALBUM 6">
         </div>
     </div>
 
@@ -153,12 +146,10 @@
 
     <script>
         function showSongs(album, songs, coverUrl) {
-            document.getElementById("album-title").textContent = album;
-            const songListDiv = document.getElementById("songs");
-            songListDiv.innerHTML = "";
-
-            document.querySelectorAll('.song-list').forEach(list => list.style.display = 'none');
-
+            const songListDiv = document.createElement('div');
+            songListDiv.classList.add('song-list');
+            songListDiv.innerHTML = `<h3>${album}</h3>`;
+            
             songs.forEach((song, index) => {
                 const button = document.createElement("button");
                 button.textContent = (index + 1) + ". " + song;
@@ -166,7 +157,8 @@
                 songListDiv.appendChild(button);
             });
 
-            document.getElementById("song-list").style.display = "block";
+            document.body.appendChild(songListDiv);
+            songListDiv.style.display = "block";
         }
 
         function playSong(songFile, album, albumCoverUrl) {
@@ -185,3 +177,4 @@
     </script>
 </body>
 </html>
+
