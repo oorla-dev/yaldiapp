@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music </title>
+    <title>Music</title>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -12,17 +12,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 10px; /* Ridotto il padding generale */
-            font-size: 12px; /* Ulteriore riduzione della dimensione del font */
+            padding: 10px;
+            font-size: 12px;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Layout a 4 colonne */
-            gap: 10px; /* Ridotto lo spazio tra gli album */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
             width: 95%;
-            max-width: 900px; /* Aumentato il max-width per 4 colonne */
-            padding: 10px; /* Aggiunto un po' di padding interno al grid */
-            margin-bottom: 80px; /* Aggiunto un margine inferiore per lo spazio */
+            max-width: 900px;
+            padding: 10px;
+            margin-bottom: 80px;
         }
         .album {
             text-align: center;
@@ -31,165 +31,83 @@
         .album img {
             width: 100%;
             height: auto;
-            border-radius: 5px; /* Ridotto il raggio degli angoli */
+            border-radius: 5px;
             background-color: #ddd;
             object-fit: cover;
         }
         .player {
             position: fixed;
-            bottom: 50px; /* Sposta il player sopra il menu (altezza del menu) */
+            bottom: 50px;
             left: 0;
             width: 100%;
             background: white;
-            border-radius: 10px 10px 0 0; /* Ridotto il raggio degli angoli */
-            padding: 8px 10px; /* Ridotto il padding del player */
+            border-radius: 10px 10px 0 0;
+            padding: 8px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
             z-index: 10;
+            display: none;
         }
         .player img {
-            width: 30px; /* Ridotta la dimensione dell'immagine del player */
-            height: 30px; /* Ridotta la dimensione dell'immagine del player */
-            border-radius: 3px; /* Ridotto il raggio degli angoli */
+            width: 30px;
+            height: 30px;
+            border-radius: 3px;
             object-fit: cover;
-        }
-        .controls button {
-            background: none;
-            border: none;
-            font-size: 16px; /* Ridotta la dimensione delle icone di controllo */
-            cursor: pointer;
         }
         .menu {
             display: flex;
             justify-content: space-around;
-            padding: 10px 0; /* Ridotto il padding del menu */
-            font-size: 10px; /* Ridotta la dimensione del font del menu */
+            padding: 10px 0;
+            font-size: 10px;
             color: gray;
             width: 100%;
             background-color: #f8f8f8;
             position: fixed;
-            bottom: 0; /* Sposta il menu in basso */
+            bottom: 0;
             left: 0;
             border-top: 1px solid #eee;
             z-index: 11;
-        }
-        .active {
-            color: black;
-            font-weight: bold;
-        }
-        .song-list {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 15px; /* Ridotto il padding della lista canzoni */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            border-radius: 8px; /* Ridotto il raggio degli angoli */
-            text-align: center;
-            width: 85%;
-            max-width: 350px; /* Ridotta la larghezza massima della lista canzoni */
-        }
-        .song-list button {
-            display: block;
-            width: 100%;
-            margin: 3px 0; /* Ridotto il margine tra i bottoni delle canzoni */
-            padding: 8px; /* Ridotto il padding dei bottoni delle canzoni */
-            background: #ddd;
-            border: none;
-            cursor: pointer;
-            font-size: 11px; /* Ridotta la dimensione del font dei bottoni delle canzoni */
-        }
-
-        /* Media query per schermi più piccoli (es. telefoni) */
-        @media (max-width: 600px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr); /* Torna a 2 colonne su schermi piccoli */
-                gap: 10px;
-            }
-            .album img {
-                width: 80%;
-                margin: 0 auto;
-            }
-            .player {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                padding: 10px;
-                bottom: 40px; /* Regola l'altezza del player in modalità telefono */
-            }
-            .player > * {
-                margin-bottom: 3px;
-            }
-            .player audio {
-                width: 100%;
-            }
-            .menu {
-                font-size: 9px;
-                padding: 8px 0;
-                bottom: 0;
-            }
         }
     </style>
 </head>
 <body>
     <div class="grid">
-        <div class="album" onclick="showSongs('YALDHI', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
+        <div class="album" onclick="showSongs('YALDHI', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')">
             <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="YALDHI">
         </div>
-        <div class="album" onclick="showSongs('DONDA 2', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
+        <div class="album" onclick="showSongs('DONDA 2', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')">
             <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="DONDA 2">
         </div>
-        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="hhttps://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
+        <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')">
             <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="JL">
         </div>
-        <div class="album" onclick="showSongs('BULDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
+        <div class="album" onclick="showSongs('BULDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')">
             <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="BULDY">
         </div>
     </div>
 
     <div class="player">
-        <img id="song-cover" src="https://via.placeholder.com/30" alt="Song Cover">
+        <img id="song-cover" alt="Song Cover">
         <div id="song-title">Seleziona un album</div>
         <audio id="audio-player" controls>
             <source id="audio-source" src="" type="audio/mpeg">
         </audio>
     </div>
 
-    <div class="menu">
-        <a href="yzy.html">YZY</a>
-        <a href="snds.html" class="active">SNDS</a>
-        <a href="https://yaldi.it/">SPLY</a>
-        <a href="hq.html">HQ</a>
-    </div>
-
-    <div class="song-list" id="song-list">
-        <h3 id="album-title"></h3>
-        <div id="songs"></div>
-        <button onclick="closeSongs()">Chiudi</button>
-    </div>
-
     <script>
         function showSongs(album, songs, coverUrl) {
-            document.getElementById("album-title").textContent = album;
-            const songListDiv = document.getElementById("songs");
+            const songListDiv = document.createElement("div");
             songListDiv.innerHTML = "";
-
+            
             songs.forEach(song => {
                 const button = document.createElement("button");
                 button.textContent = song;
                 button.onclick = () => playSong(song, album, coverUrl);
                 songListDiv.appendChild(button);
             });
-
-            document.getElementById("song-list").style.display = "block";
-        }
-
-        function closeSongs() {
-            document.getElementById("song-list").style.display = "none";
+            document.body.appendChild(songListDiv);
         }
 
         function playSong(songFile, album, albumCoverUrl) {
@@ -198,12 +116,12 @@
             const songTitle = document.getElementById("song-title");
             const songCover = document.getElementById("song-cover");
 
-            audioSource.src = songFile;
+            audioSource.src = `/musica/${album}/${songFile}`;
             audioPlayer.load();
             audioPlayer.play();
-            songTitle.textContent = album + " - " + songFile;
-
+            songTitle.textContent = `${album} - ${songFile}`;
             songCover.src = albumCoverUrl;
+            document.querySelector('.player').style.display = 'flex';
         }
     </script>
 </body>
