@@ -22,7 +22,7 @@
             width: 95%;
             max-width: 900px;
             padding: 10px;
-            margin-bottom: 80px;
+            margin-bottom: 80px; /* Aumentato per fare spazio al player/menu */
         }
         .album {
             text-align: center;
@@ -31,30 +31,46 @@
         .album img {
             width: 100%;
             height: auto;
+            aspect-ratio: 1 / 1; /* Mantiene le immagini quadrate */
             border-radius: 5px;
             background-color: #ddd;
             object-fit: cover;
         }
         .player {
             position: fixed;
-            bottom: 50px;
+            bottom: 50px; /* Altezza del menu */
             left: 0;
             width: 100%;
             background: white;
-            border-radius: 10px 10px 0 0;
+            /* border-radius: 10px 10px 0 0; -- Rimosso se il menu è sotto */
             padding: 8px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Ombra più leggera */
             z-index: 10;
-            display: none;
+            display: none; /* Nascosto finché non si suona qualcosa */
+            box-sizing: border-box; /* Include padding nel width */
         }
         .player img {
             width: 30px;
             height: 30px;
             border-radius: 3px;
             object-fit: cover;
+            margin-right: 10px;
+        }
+        #song-title {
+            flex-grow: 1; /* Occupa lo spazio disponibile */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-right: 10px;
+            font-size: 11px; /* Leggermente più piccolo */
+        }
+        #audio-player {
+            height: 30px; /* Allinea altezza con immagine */
+            /* Potresti voler nascondere i controlli nativi e crearne di personalizzati */
+            /* width: 150px; /* Esempio di larghezza fissa per i controlli */
         }
         .menu {
             display: flex;
@@ -69,17 +85,31 @@
             left: 0;
             border-top: 1px solid #eee;
             z-index: 11;
+            box-sizing: border-box; /* Include padding nel width */
+        }
+        .menu a {
+             text-decoration: none;
+             color: inherit;
+             padding: 5px;
         }
         .active {
             color: black;
             font-weight: bold;
         }
-        .song-list {
+        .song-list-overlay { /* Sfondo scuro per il popup */
             display: none;
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        .song-list {
+            /* Rimosso display:none e position fixed qui */
             background: white;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -88,28 +118,53 @@
             width: 90%;
             max-width: 400px;
             font-family: Arial, sans-serif;
+            max-height: 70vh; /* Limita altezza */
+            overflow-y: auto; /* Scroll se necessario */
         }
         .song-list h3 {
-            font-size: 18px;
+            font-size: 16px; /* Leggermente più piccolo */
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
         }
         .song-list button {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            /* justify-content: space-between; -- Tolto per allineare a sx */
             width: 100%;
-            padding: 10px;
-            margin: 5px 0;
+            padding: 10px 5px; /* Meno padding orizzontale */
+            margin: 0; /* Rimosso margine */
             background: none;
             border: none;
-            font-size: 14px;
+            font-size: 13px; /* Leggermente più piccolo */
             cursor: pointer;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee;
             text-align: left;
+            box-sizing: border-box;
+        }
+        .song-list button:last-child {
+             border-bottom: none; /* Niente bordo per l'ultimo */
         }
         .song-list button:hover {
             background: #f0f0f0;
+        }
+        .song-list .close-button { /* Bottone per chiudere */
+             position: absolute;
+             top: 10px;
+             right: 10px;
+             background: none;
+             border: none;
+             font-size: 20px;
+             cursor: pointer;
+             padding: 5px;
+             line-height: 1;
+        }
+
+        /* Nascondi i tag audio aggiuntivi */
+        .hidden-audio {
+            display: none;
         }
     </style>
 </head>
@@ -117,64 +172,143 @@
     <div class="grid">
         <div class="album" onclick="showSongs('YALDHI', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
             <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="YALDHI">
-        </div>
+            <span>YALDHI</span> </div>
         <div class="album" onclick="showSongs('DONDA 2', ['track1.mp3', 'track2.mp3'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
             <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="DONDA 2">
+             <span>DONDA 2</span>
         </div>
         <div class="album" onclick="showSongs('JL', ['songA.mp3', 'songB.mp3'], 'https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg')" data-cover="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg">
             <img src="https://i.ibb.co/ksNCLjwv/photo-5873034892001002906-y.jpg" alt="JL">
+             <span>JL</span>
         </div>
         <div class="album" onclick="showSongs('BULDY', ['trackX.mp3', 'trackY.mp3'], 'https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg')" data-cover="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg">
             <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="BULDY">
+             <span>BULDY</span>
         </div>
-    </div>
+         </div>
 
     <div class="player">
         <img id="song-cover" alt="Song Cover">
         <div id="song-title">Seleziona un album</div>
         <audio id="audio-player" controls>
             <source id="audio-source" src="" type="audio/mpeg">
+            Il tuo browser non supporta l'elemento audio.
         </audio>
     </div>
 
     <div class="menu">
         <a href="yzy.html">YZY</a>
         <a href="snds.html" class="active">SNDS</a>
-        <a href="https://yaldi.it/">SPLY</a>
-        <a href="hq.html">HQ</a>
+        <a href="https://yaldi.it/" target="_blank">SPLY</a> <a href="hq.html">HQ</a>
     </div>
 
+    <div class="song-list-overlay" id="song-list-overlay" onclick="closeSongList(event)">
+         <div class="song-list" id="song-list-container">
+             {/* Contenuto inserito da JS */}
+         </div>
+    </div>
+
+    <div class="hidden-audio">
+        <audio id="hidden-audio-1"></audio>
+        <audio id="hidden-audio-2"></audio>
+        <audio id="hidden-audio-3"></audio>
+        <audio id="hidden-audio-4"></audio>
+        <audio id="hidden-audio-5"></audio>
+        <audio id="hidden-audio-6"></audio>
+        <audio id="hidden-audio-7"></audio>
+        <audio id="hidden-audio-8"></audio>
+        <audio id="hidden-audio-9"></audio>
+        <audio id="hidden-audio-10"></audio>
+        <audio id="hidden-audio-11"></audio>
+        <audio id="hidden-audio-12"></audio>
+        <audio id="hidden-audio-13"></audio>
+        <audio id="hidden-audio-14"></audio>
+        <audio id="hidden-audio-15"></audio>
+        <audio id="hidden-audio-16"></audio>
+        <audio id="hidden-audio-17"></audio>
+        <audio id="hidden-audio-18"></audio>
+        <audio id="hidden-audio-19"></audio>
+        <audio id="hidden-audio-20"></audio>
+        </div>
+
+
     <script>
+        const songListOverlay = document.getElementById('song-list-overlay');
+        const songListContainer = document.getElementById('song-list-container');
+        const audioPlayer = document.getElementById("audio-player");
+        const audioSource = document.getElementById("audio-source");
+        const songTitle = document.getElementById("song-title");
+        const songCover = document.getElementById("song-cover");
+        const playerDiv = document.querySelector('.player');
+
         function showSongs(album, songs, coverUrl) {
-            const songListDiv = document.createElement('div');
-            songListDiv.classList.add('song-list');
-            songListDiv.innerHTML = `<h3>${album}</h3>`;
-            
+            // Pulisce il contenitore precedente
+            songListContainer.innerHTML = '';
+
+             // Aggiunge bottone chiusura
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '&times;'; // Simbolo 'x'
+            closeBtn.className = 'close-button';
+            closeBtn.onclick = () => songListOverlay.style.display = 'none';
+            songListContainer.appendChild(closeBtn);
+
+
+            // Aggiunge titolo album
+            const title = document.createElement('h3');
+            title.textContent = album;
+            songListContainer.appendChild(title);
+
+            // Aggiunge bottoni canzoni
             songs.forEach((song, index) => {
                 const button = document.createElement("button");
-                button.textContent = (index + 1) + ". " + song;
-                button.onclick = () => playSong(song, album, coverUrl);
-                songListDiv.appendChild(button);
+                // Estrai solo il nome del file senza estensione per visualizzarlo
+                const songName = song.substring(0, song.lastIndexOf('.')) || song;
+                button.textContent = (index + 1) + ". " + songName;
+                button.onclick = (event) => {
+                     event.stopPropagation(); // Impedisce la chiusura cliccando sul bottone
+                     playSong(song, album, coverUrl);
+                     songListOverlay.style.display = 'none'; // Chiude il popup dopo la selezione
+                }
+                songListContainer.appendChild(button);
             });
 
-            document.body.appendChild(songListDiv);
-            songListDiv.style.display = "block";
+            // Mostra l'overlay e il contenitore
+            songListOverlay.style.display = "flex";
         }
+
+        function closeSongList(event) {
+             // Chiudi solo se si clicca sullo sfondo (overlay)
+             if (event.target === songListOverlay) {
+                 songListOverlay.style.display = 'none';
+             }
+        }
+
 
         function playSong(songFile, album, albumCoverUrl) {
-            const audioPlayer = document.getElementById("audio-player");
-            const audioSource = document.getElementById("audio-source");
-            const songTitle = document.getElementById("song-title");
-            const songCover = document.getElementById("song-cover");
+            // Estrai solo il nome del file senza estensione per visualizzarlo nel titolo
+            const songName = songFile.substring(0, songFile.lastIndexOf('.')) || songFile;
 
-            audioSource.src = `/musica/${album}/${songFile}`;
-            audioPlayer.load();
-            audioPlayer.play();
-            songTitle.textContent = album + " - " + songFile;
+            // Assumi che i file siano in una cartella 'musica' relativa alla radice del sito
+            // Modifica questo percorso se necessario
+            // Esempio: Se hai una struttura /assets/audio/NOMEALBUM/nomecanzone.mp3
+            // audioSource.src = `/assets/audio/${album}/${songFile}`;
+            audioSource.src = `/musica/${album}/${songFile}`; // Mantengo il tuo percorso originale
+
+            audioPlayer.load(); // Ricarica la sorgente audio
+            audioPlayer.play().catch(e => console.error("Errore riproduzione:", e)); // Aggiunto catch per debug
+
+            songTitle.textContent = `${album} - ${songName}`; // Mostra nome pulito
             songCover.src = albumCoverUrl;
-            document.querySelector('.player').style.display = 'flex';
+            playerDiv.style.display = 'flex'; // Mostra il player
         }
+
+        // Opzionale: Aggiungi event listener per chiudere il popup con il tasto ESC
+        document.addEventListener('keydown', function(event) {
+          if (event.key === "Escape") {
+            songListOverlay.style.display = 'none';
+          }
+        });
+
     </script>
 </body>
 </html>
-
