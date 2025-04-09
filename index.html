@@ -22,7 +22,7 @@
             width: 95%;
             max-width: 900px;
             padding: 10px;
-            margin-bottom: 80px; /* Aumentato per fare spazio al player/menu */
+            margin-bottom: 80px;
         }
         .album {
             text-align: center;
@@ -31,26 +31,33 @@
         .album img {
             width: 100%;
             height: auto;
-            aspect-ratio: 1 / 1; /* Mantiene le immagini quadrate */
+            aspect-ratio: 1 / 1;
             border-radius: 5px;
             background-color: #ddd;
             object-fit: cover;
+            margin-bottom: 5px;
         }
+         .album span {
+             display: block;
+             font-size: 10px;
+             white-space: nowrap;
+             overflow: hidden;
+             text-overflow: ellipsis;
+         }
         .player {
             position: fixed;
-            bottom: 50px; /* Altezza del menu */
+            bottom: 50px;
             left: 0;
             width: 100%;
             background: white;
-            /* border-radius: 10px 10px 0 0; -- Rimosso se il menu è sotto */
             padding: 8px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Ombra più leggera */
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
             z-index: 10;
-            display: none; /* Nascosto finché non si suona qualcosa */
-            box-sizing: border-box; /* Include padding nel width */
+            display: none;
+            box-sizing: border-box;
         }
         .player img {
             width: 30px;
@@ -60,17 +67,15 @@
             margin-right: 10px;
         }
         #song-title {
-            flex-grow: 1; /* Occupa lo spazio disponibile */
+            flex-grow: 1;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             margin-right: 10px;
-            font-size: 11px; /* Leggermente più piccolo */
+            font-size: 11px;
         }
         #audio-player {
-            height: 30px; /* Allinea altezza con immagine */
-            /* Potresti voler nascondere i controlli nativi e crearne di personalizzati */
-            /* width: 150px; /* Esempio di larghezza fissa per i controlli */
+            height: 30px;
         }
         .menu {
             display: flex;
@@ -85,7 +90,7 @@
             left: 0;
             border-top: 1px solid #eee;
             z-index: 11;
-            box-sizing: border-box; /* Include padding nel width */
+            box-sizing: border-box;
         }
         .menu a {
              text-decoration: none;
@@ -96,7 +101,7 @@
             color: black;
             font-weight: bold;
         }
-        .song-list-overlay { /* Sfondo scuro per il popup */
+        .song-list-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -109,20 +114,21 @@
             align-items: center;
         }
         .song-list {
-            /* Rimosso display:none e position fixed qui */
             background: white;
             padding: 20px;
+            padding-top: 40px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             text-align: left;
             width: 90%;
             max-width: 400px;
-            font-family: Arial, sans-serif;
-            max-height: 70vh; /* Limita altezza */
-            overflow-y: auto; /* Scroll se necessario */
+             font-family: Arial, sans-serif;
+            max-height: 70vh;
+            overflow-y: auto;
+            position: relative;
         }
         .song-list h3 {
-            font-size: 16px; /* Leggermente più piccolo */
+            font-size: 16px;
             font-weight: bold;
             margin-top: 0;
             margin-bottom: 15px;
@@ -132,37 +138,41 @@
         .song-list button {
             display: flex;
             align-items: center;
-            /* justify-content: space-between; -- Tolto per allineare a sx */
             width: 100%;
-            padding: 10px 5px; /* Meno padding orizzontale */
-            margin: 0; /* Rimosso margine */
+            padding: 10px 5px;
+            margin: 0;
             background: none;
             border: none;
-            font-size: 13px; /* Leggermente più piccolo */
+            font-size: 13px;
+            font-family: inherit;
             cursor: pointer;
             border-bottom: 1px solid #eee;
             text-align: left;
             box-sizing: border-box;
         }
         .song-list button:last-child {
-             border-bottom: none; /* Niente bordo per l'ultimo */
+             border-bottom: none;
         }
         .song-list button:hover {
             background: #f0f0f0;
         }
-        .song-list .close-button { /* Bottone per chiudere */
+        .song-list .close-button {
              position: absolute;
              top: 10px;
              right: 10px;
              background: none;
              border: none;
-             font-size: 20px;
+             font-size: 24px;
+             font-weight: bold;
+             color: #888;
              cursor: pointer;
-             padding: 5px;
+             padding: 0 5px;
              line-height: 1;
         }
+         .song-list .close-button:hover {
+             color: #333;
+         }
 
-        /* Nascondi i tag audio aggiuntivi */
         .hidden-audio {
             display: none;
         }
@@ -170,10 +180,11 @@
 </head>
 <body>
     <div class="grid">
-        <div class="album" onclick="showSongs('YALDHI', ['song1.mp3', 'song2.mp3'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
+        <div class="album" onclick="showSongs('YALDHI', ['THE GARDEN OF ALDI.mp3', 'THE ALDI STORM.m4a', 'NEW ALDY.mp3', '80 ALDHIES.m4a'], 'https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg')" data-cover="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg">
             <img src="https://i.ibb.co/p6TdtLVH/1-20250302-130159-0000.jpg" alt="YALDHI">
-            <span>YALDHI</span> </div>
-        <div class="album" onclick="showSongs('DONDA 2', ['THE GARDEN OF ALDI.mp3', 'THE ALDI STORM.m4a', 'NEW ALDY.mp3', '80 ALDHIES.m4a'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
+            <span>YALDHI</span>
+        </div>
+        <div class="album" onclick="showSongs('DONDA 2', ['Garden.mp3', 'Hurric.m4a', 'New.mp3', 'Storm.m4a'], 'https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg')" data-cover="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg">
             <img src="https://i.ibb.co/DHzbH9xM/photo-6010535559858078528-y.jpg" alt="DONDA 2">
              <span>DONDA 2</span>
         </div>
@@ -185,13 +196,13 @@
             <img src="https://i.ibb.co/7xh639g4/photo-6005642088869382130-y.jpg" alt="BULDY">
              <span>BULDY</span>
         </div>
-         </div>
+    </div>
 
     <div class="player">
         <img id="song-cover" alt="Song Cover">
         <div id="song-title">Seleziona un album</div>
         <audio id="audio-player" controls>
-            <source id="MUSICA/YALDHI/YALDHI" src="" type="audio/mpeg">
+            <source id="audio-source" src="">
             Il tuo browser non supporta l'elemento audio.
         </audio>
     </div>
@@ -199,7 +210,8 @@
     <div class="menu">
         <a href="yzy.html">YZY</a>
         <a href="snds.html" class="active">SNDS</a>
-        <a href="https://yaldi.it/" target="_blank">SPLY</a> <a href="hq.html">HQ</a>
+        <a href="https://yaldi.it/" target="_blank">SPLY</a>
+        <a href="hq.html">HQ</a>
     </div>
 
     <div class="song-list-overlay" id="song-list-overlay" onclick="closeSongList(event)">
@@ -209,11 +221,11 @@
     </div>
 
     <div class="hidden-audio">
-        <audio id="MUSICA/YALDHI/YALDHI/Garden.mp3"></audio>
-        <audio id="MUSICA/YALDHI/YALDHI/Hurric.m4a"></audio>
-        <audio id="MUSICA/YALDHI/YALDHI/New.mp3"></audio>
-        <audio id="MUSICA/YALDHI/YALDHI/Sky.mp3"></audio>
-        <audio id="MUSICA/YALDHI/YALDHI/Storm.m4a"></audio>
+        <audio id="hidden-audio-1"></audio>
+        <audio id="hidden-audio-2"></audio>
+        <audio id="hidden-audio-3"></audio>
+        <audio id="hidden-audio-4"></audio>
+        <audio id="hidden-audio-5"></audio>
         <audio id="hidden-audio-6"></audio>
         <audio id="hidden-audio-7"></audio>
         <audio id="hidden-audio-8"></audio>
@@ -229,8 +241,7 @@
         <audio id="hidden-audio-18"></audio>
         <audio id="hidden-audio-19"></audio>
         <audio id="hidden-audio-20"></audio>
-        </div>
-
+    </div>
 
     <script>
         const songListOverlay = document.getElementById('song-list-overlay');
@@ -242,73 +253,79 @@
         const playerDiv = document.querySelector('.player');
 
         function showSongs(album, songs, coverUrl) {
-            // Pulisce il contenitore precedente
             songListContainer.innerHTML = '';
 
-             // Aggiunge bottone chiusura
             const closeBtn = document.createElement('button');
-            closeBtn.innerHTML = '&times;'; // Simbolo 'x'
+            closeBtn.innerHTML = '&times;';
             closeBtn.className = 'close-button';
             closeBtn.onclick = () => songListOverlay.style.display = 'none';
             songListContainer.appendChild(closeBtn);
 
-
-            // Aggiunge titolo album
             const title = document.createElement('h3');
-            title.textContent = album;
+            title.textContent = album; // Mostra ancora il nome dell'album cliccato
             songListContainer.appendChild(title);
 
-            // Aggiunge bottoni canzoni
             songs.forEach((song, index) => {
                 const button = document.createElement("button");
-                // Estrai solo il nome del file senza estensione per visualizzarlo
                 const songName = song.substring(0, song.lastIndexOf('.')) || song;
-                button.textContent = (index + 1) + ". " + songName;
+                button.textContent = `${index + 1}. ${songName}`;
                 button.onclick = (event) => {
-                     event.stopPropagation(); // Impedisce la chiusura cliccando sul bottone
+                     event.stopPropagation();
+                     // Passa ancora il nome dell'album per il titolo, ma il percorso è fisso
                      playSong(song, album, coverUrl);
-                     songListOverlay.style.display = 'none'; // Chiude il popup dopo la selezione
+                     songListOverlay.style.display = 'none';
                 }
                 songListContainer.appendChild(button);
             });
 
-            // Mostra l'overlay e il contenitore
             songListOverlay.style.display = "flex";
         }
 
         function closeSongList(event) {
-             // Chiudi solo se si clicca sullo sfondo (overlay)
              if (event.target === songListOverlay) {
                  songListOverlay.style.display = 'none';
              }
         }
 
+        // MODIFICATA: La funzione playSong ora usa un percorso fisso
+        function playSong(songFile, albumForTitle, albumCoverUrl) { // Rinominato album -> albumForTitle per chiarezza
+            if (!audioSource) {
+                console.error("Elemento <source> con id 'audio-source' non trovato!");
+                return;
+            }
 
-        function playSong(songFile, album, albumCoverUrl) {
-            // Estrai solo il nome del file senza estensione per visualizzarlo nel titolo
             const songName = songFile.substring(0, songFile.lastIndexOf('.')) || songFile;
+            const fileExtension = songFile.split('.').pop().toLowerCase();
 
-            // Assumi che i file siano in una cartella 'musica' relativa alla radice del sito
-            // Modifica questo percorso se necessario
-            // Esempio: Se hai una struttura /assets/audio/NOMEALBUM/nomecanzone.mp3
-            // audioSource.src = `/assets/audio/${album}/${songFile}`;
-            audioSource.src = `/musica/${album}/${songFile}`; // Mantengo il tuo percorso originale
+            // *** MODIFICA: Percorso fisso per l'audio ***
+            audioSource.src = `/MUSICA/YALDHI/YALDHI/${songFile}`;
 
-            audioPlayer.load(); // Ricarica la sorgente audio
-            audioPlayer.play().catch(e => console.error("Errore riproduzione:", e)); // Aggiunto catch per debug
+            // Imposta il tipo MIME corretto
+            if (fileExtension === 'mp3') {
+                audioSource.type = 'audio/mpeg';
+            } else if (fileExtension === 'm4a') {
+                audioSource.type = 'audio/mp4'; // o 'audio/aac'
+            } else {
+                audioSource.type = 'audio/mpeg';
+                console.warn(`Estensione file non riconosciuta: ${fileExtension}, impostato type a audio/mpeg`);
+            }
 
-            songTitle.textContent = `${album} - ${songName}`; // Mostra nome pulito
+            audioPlayer.load();
+            audioPlayer.play().catch(e => console.error("Errore durante la riproduzione:", e));
+
+            // Usa albumForTitle per visualizzare il nome corretto dell'album nel player
+            songTitle.textContent = `${albumForTitle} - ${songName}`;
             songCover.src = albumCoverUrl;
-            playerDiv.style.display = 'flex'; // Mostra il player
+            playerDiv.style.display = 'flex';
         }
 
-        // Opzionale: Aggiungi event listener per chiudere il popup con il tasto ESC
         document.addEventListener('keydown', function(event) {
           if (event.key === "Escape") {
-            songListOverlay.style.display = 'none';
+            if (songListOverlay.style.display === 'flex') {
+                 songListOverlay.style.display = 'none';
+            }
           }
         });
-
     </script>
 </body>
 </html>
