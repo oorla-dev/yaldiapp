@@ -116,6 +116,7 @@ body {
     padding: 15px 0;
     border-top: 1px solid #eee;
     background-color: white;
+    margin-top: auto; /* Aggiungi questa linea */
 }
 
 .nav-item {
