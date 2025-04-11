@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Data
+  // Data (rimane invariato)
   const albums = [
     {
       id: 1,
       title: "YALDHI",
       year: "2025",
-      image: "images/yaldhi.png", // Immagine personalizzata per YALDHI
+      image: "images/yaldhi.png",
       tracks: [
         { id: 101, title: "The Garden Of Aldi", duration: "3:05", audioSrc: "YALDHI/garden.mp3" },
         { id: 102, title: "The Aldi Storm", duration: "3:38", audioSrc: "MUSICA/YALDHI/YALDHI/Storm.m4a" },
@@ -15,14 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 106, title: "Aldien", duration: "2:04", audioSrc: "YALDHI/alien.mp3" },
         { id: 107, title: "Brothers Of Aldi", duration: "4:15", audioSrc: "audio/yaldhi-praise-god.mp3" },
         { id: 108, title: "Fuck Gianvoit", duration: "2:00", audioSrc: "YALDHI/fg.mp3" },
-        
       ],
     },
     {
       id: 2,
       title: "DONDA 2",
       year: "2022",
-      image: "images/donda2.jpg", // Immagine personalizzata per DONDA 2
+      image: "images/donda2.jpg",
       tracks: [
         { id: 201, title: "True Love", duration: "3:15", audioSrc: "audio/donda2-true-love.mp3" },
         { id: 202, title: "Broken Road", duration: "4:02", audioSrc: "audio/donda2-broken-road.mp3" },
@@ -30,120 +29,85 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 204, title: "Too Easy", duration: "3:22", audioSrc: "audio/donda2-too-easy.mp3" },
       ],
     },
-    {
+     {
       id: 3,
       title: "BULDY",
       year: "2025",
-      image: "images/buldy.jpg", // Immagine personalizzata per BULDY
+      image: "images/buldy.jpg",
       tracks: [
         { id: 301, title: "First Time", duration: "3:33", audioSrc: "audio/buldy-first-time.mp3" },
-
       ],
     },
     {
       id: 4,
       title: "JL 2",
       year: "2025",
-      image: "images/jl2.jpg", // Immagine personalizzata per JL 2
+      image: "images/jl2.jpg",
       tracks: [
         { id: 401, title: "Stars", duration: "3:10", audioSrc: "audio/jl2-stars.mp3" },
         { id: 402, title: "Vultures", duration: "4:05", audioSrc: "audio/jl2-vultures.mp3" },
         { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
-        { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
-        { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
-        { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
         { id: 404, title: "Keys To My Life", duration: "3:25", audioSrc: "audio/jl2-keys-to-my-life.mp3" },
       ],
     },
-  ]
+  ];
 
-  const products = [
-    {
-      id: "AY-01",
-      name: "YALDHI CD",
-      image: "images/yaldhicd.png",
-      price: "€30.00",
-      category: "music",
-    },
-    {
-      id: "FM-104",
-      name: "FREE MARINAIO TEE",
-      image: "images/fm.jpg",
-      price: "€80.00",
-      category: "apparel",
-    },
-    {
-      id: "YS-22",
-      name: "YALDHI HOODIE",
-      image: "images/hoodie.jpg",
-      price: "€120.00",
-      category: "apparel",
-    },
-    {
-      id: "BL-05",
-      name: "BULDY VINYL",
-      image: "images/buldy.jpg",
-      price: "€35.00",
-      category: "music",
-    },
-  ]
+  const products = [ // Dati prodotti invariati...
+    { id: "AY-01", name: "YALDHI CD", image: "images/yaldhicd.png", price: "€30.00", category: "music" },
+    { id: "FM-104", name: "FREE MARINAIO TEE", image: "images/fm.jpg", price: "€80.00", category: "apparel" },
+    { id: "YS-22", name: "YALDHI HOODIE", image: "images/hoodie.jpg", price: "€120.00", category: "apparel" },
+    { id: "BL-05", name: "BULDY VINYL", image: "images/buldy.jpg", price: "€35.00", category: "music" },
+  ];
 
-  const events = [
-    {
-      title: "Y$Ø",
-      subtitle: "YALDHI",
-      desc: "LISTENING EXPERIENCE",
-      location: "PERUGIA",
-      venue: "DISCALDI ARENA",
-      date: "1 4 25",
-    },
-    {
-      title: "YE",
-      subtitle: "DONDA 2",
-      desc: "LISTENING EXPERIENCE",
-      location: "PESARO",
-      venue: "DISCALDI ARENA",
-      date: "4 9 25",
-    },
-  ]
+  const events = [ // Dati eventi invariati...
+     { title: "Y$Ø", subtitle: "YALDHI", desc: "LISTENING EXPERIENCE", location: "PERUGIA", venue: "DISCALDI ARENA", date: "1 4 25" },
+     { title: "YE", subtitle: "DONDA 2", desc: "LISTENING EXPERIENCE", location: "PESARO", venue: "DISCALDI ARENA", date: "4 9 25" },
+  ];
 
   // State
   let currentView = "main-view";
   let currentAlbum = null;
-  let currentTrack = null;
-  let isPlaying = false;
-  const audioPlayer = document.getElementById("audio-player"); // Seleziona ancora il player della main-view
+  let currentTrack = null; // Traccia controllata dal player principale
+  let isPlaying = false;    // Stato del player principale
+  const audioPlayer = document.getElementById("audio-player"); // Player principale
 
   // Initialize
   function init() {
     renderAlbumGrid();
     renderEvents();
-    renderProducts(); // Chiamata iniziale per mostrare tutti i prodotti
+    renderProducts();
     setupNavigation();
     setupAudioPlayer();
-    setupCategoryFilters(); // Imposta i filtri delle categorie
+    setupCategoryFilters();
   }
 
-  // Navigation
+  // Navigation (con pausa audio al cambio vista)
   function setupNavigation() {
     const navItems = document.querySelectorAll(".nav-item");
-    const allViews = document.querySelectorAll(".app-container"); // Seleziona tutti i container
-
     navItems.forEach((item) => {
       item.addEventListener("click", function () {
         const targetViewId = this.getAttribute("data-view");
-        if (!targetViewId || targetViewId === currentView) return; // Non fare nulla se è la stessa vista
+        if (!targetViewId || targetViewId === currentView) return;
+
+        // Pausa player principale e player incorporati quando si cambia vista
+        if (isPlaying) {
+            audioPlayer.pause();
+        }
+        document.querySelectorAll('.embedded-audio').forEach(audio => {
+            if (!audio.paused) {
+                audio.pause();
+            }
+        });
+        // Resetta highlight lista se si esce da dettaglio
+        if(currentView === 'album-detail-view') {
+             updateTrackListUI(null);
+        }
 
         switchView(targetViewId);
 
-        // Aggiorna la classe active su tutti i nav-bar
         document.querySelectorAll('.nav-bar').forEach(navbar => {
             navbar.querySelectorAll('.nav-item').forEach(navItem => {
-                 if (navItem.getAttribute('data-view') === targetViewId) {
-                     navItem.classList.add('active');
-                 } else {
-                     navItem.classList.remove('active');
-                 }
+                 navItem.classList.toggle('active', navItem.getAttribute('data-view') === targetViewId);
             });
         });
       });
@@ -154,13 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function switchView(viewId) {
     console.log("Switching to view:", viewId);
     currentView = viewId;
-
-    // Hide all views
-    document.querySelectorAll(".app-container").forEach((view) => {
-      view.classList.add("hidden");
-    });
-
-    // Show target view
+    document.querySelectorAll(".app-container").forEach((view) => view.classList.add("hidden"));
     const targetViewElement = document.getElementById(viewId);
     if (targetViewElement) {
         targetViewElement.classList.remove("hidden");
@@ -169,25 +127,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Album Grid
+  // Album Grid (invariato)
   function renderAlbumGrid() {
     const albumGrid = document.querySelector("#main-view .album-grid");
-    if (!albumGrid) return; // Verifica se l'elemento esiste
+    if (!albumGrid) return;
     albumGrid.innerHTML = "";
-
     albums.forEach((album) => {
       const albumElement = document.createElement("div");
       albumElement.className = "album-item";
-      // MODIFICA: Usa <picture> e <source>
-      // Determina il tipo MIME dall'estensione (semplificato)
-      let imageType = "image/jpeg"; // Default
-      if (album.image.endsWith(".png")) {
-          imageType = "image/png";
-      } else if (album.image.endsWith(".svg")) {
-          imageType = "image/svg+xml";
-      } else if (album.image.endsWith(".webp")) {
-          imageType = "image/webp";
-      }
+      let imageType = "image/jpeg";
+      if (album.image.endsWith(".png")) imageType = "image/png";
+      else if (album.image.endsWith(".svg")) imageType = "image/svg+xml";
+      else if (album.image.endsWith(".webp")) imageType = "image/webp";
       albumElement.innerHTML = `
                 <picture>
                     <source srcset="${album.image}" type="${imageType}">
@@ -196,178 +147,232 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="album-title">${album.title}</div>
                 <div class="album-year">${album.year}</div>
             `;
-
-      albumElement.addEventListener("click", () => {
-        showAlbumDetail(album);
-      });
-
+      albumElement.addEventListener("click", () => showAlbumDetail(album));
       albumGrid.appendChild(albumElement);
     });
   }
 
   // Album Detail
   function showAlbumDetail(album) {
-    currentAlbum = album; // Imposta l'album corrente
-
-    // Seleziona elementi nella vista dettaglio
+    currentAlbum = album;
     const detailView = document.getElementById("album-detail-view");
     if (!detailView) return;
 
-    detailView.querySelector(".album-title").textContent = album.title; // Titolo piccolo nell'header
-    detailView.querySelector(".album-title-large").textContent = album.title; // Titolo grande
+    // Aggiorna intestazione e dettagli album (invariato)
+    detailView.querySelector(".album-title").textContent = album.title;
+    detailView.querySelector(".album-title-large").textContent = album.title;
     detailView.querySelector(".album-year").textContent = album.year;
     detailView.querySelector(".album-tracks-count").textContent = `${album.tracks.length} brani`;
-
-    // MODIFICA: Aggiorna l'elemento <picture>
     const albumDetailPicture = detailView.querySelector(".album-cover-picture");
     const albumDetailSource = albumDetailPicture.querySelector(".album-source");
     const albumDetailImg = albumDetailPicture.querySelector(".album-cover");
-
-    // Determina il tipo MIME dall'estensione (semplificato)
-    let imageType = "image/jpeg"; // Default
-    if (album.image.endsWith(".png")) {
-        imageType = "image/png";
-    } else if (album.image.endsWith(".svg")) {
-        imageType = "image/svg+xml";
-    } else if (album.image.endsWith(".webp")) {
-        imageType = "image/webp";
-    }
-
+    let imageType = "image/jpeg";
+    if (album.image.endsWith(".png")) imageType = "image/png";
+    else if (album.image.endsWith(".svg")) imageType = "image/svg+xml";
+    else if (album.image.endsWith(".webp")) imageType = "image/webp";
     albumDetailSource.srcset = album.image;
-    albumDetailSource.type = imageType; // Imposta il tipo corretto
+    albumDetailSource.type = imageType;
     albumDetailImg.src = album.image;
-    albumDetailImg.alt = `${album.title} album cover`; // Alt text descrittivo
+    albumDetailImg.alt = `${album.title} album cover`;
 
     // Render tracks
     const tracksList = detailView.querySelector(".tracks-list");
-    tracksList.innerHTML = ""; // Pulisci la lista precedente
+    tracksList.innerHTML = "";
 
-    album.tracks.forEach((track, index) => { // Aggiunto index
+    album.tracks.forEach((track, index) => {
       const trackElement = document.createElement("div");
       trackElement.className = "track-item";
-      trackElement.dataset.trackId = track.id; // Aggiungi un data attribute per identificare la traccia
-      trackElement.innerHTML = `
-                <div class="track-left">
-                    <i class="fas fa-music track-icon"></i>
-                    <span class="track-name">${track.title}</span> </div>
-                <div class="track-duration">${track.duration}</div>
-            `;
+      // Usa l'id della traccia come identificatore per l'elemento lista
+      trackElement.dataset.trackId = track.id;
 
-      trackElement.addEventListener("click", () => {
-        playTrack(track, album); // Passa anche l'album
+      // --- MODIFICA INIZIO: Includi info traccia E tag audio ---
+      trackElement.innerHTML = `
+                <div class="track-info-container">
+                    <div class="track-left">
+                        <i class="fas fa-music track-icon"></i>
+                        <span class="track-name">${track.title}</span>
+                    </div>
+                    <div class="track-duration">${track.duration}</div>
+                </div>
+                <audio class="embedded-audio" controls style="width: 100%; height: 35px; margin-top: 5px;" src="${track.audioSrc}" data-track-id="${track.id}">
+                    Your browser does not support the audio element.
+                </audio>
+            `;
+       // --- MODIFICA FINE ---
+
+
+      // --- MODIFICA: Il click sull'ELEMENTO LISTA (trackElement) controlla il player principale ---
+      trackElement.addEventListener("click", (event) => {
+          // Impedisci al click di propagarsi ai controlli audio interni se clicchi sull'area generale
+          if (event.target.closest('.embedded-audio')) {
+              return; // Non fare nulla se il click è avvenuto dentro l'audio incorporato
+          }
+          playTrack(track, album); // Chiama la funzione per usare il player centrale
       });
+      // --- Fine Modifica ---
 
       tracksList.appendChild(trackElement);
     });
 
-    // Show album detail view
+     // Aggiorna UI lista se necessario
+     if (currentTrack && currentTrack.albumId === currentAlbum.id) {
+         updateTrackListUI(currentTrack.id);
+     } else {
+         updateTrackListUI(null);
+     }
+
     switchView("album-detail-view");
 
-    // Setup back button (assicurati che sia aggiunto una sola volta o rimuovi listener precedenti)
+    // Setup back button (con pausa audio)
     const backButton = detailView.querySelector(".back-btn");
-    // Rimuovi eventuali listener precedenti per evitare duplicazioni
     const newBackButton = backButton.cloneNode(true);
     backButton.parentNode.replaceChild(newBackButton, backButton);
-    // Aggiungi il nuovo listener
     newBackButton.addEventListener("click", () => {
+        if (isPlaying) {
+            audioPlayer.pause();
+        }
+        detailView.querySelectorAll('.embedded-audio').forEach(audio => {
+             if (!audio.paused) {
+                 audio.pause();
+             }
+        });
         switchView("main-view");
-        // Aggiorna la nav-bar nella main-view
         document.querySelectorAll('#main-view .nav-item').forEach(navItem => {
-            if (navItem.getAttribute('data-view') === 'main-view') {
-                navItem.classList.add('active');
-            } else {
-                navItem.classList.remove('active');
-            }
+            navItem.classList.toggle('active', navItem.getAttribute('data-view') === 'main-view');
         });
     });
   }
 
- // Player (Unificato per tutte le viste)
+ // Player Principale (setup e controlli)
  function setupAudioPlayer() {
-    // Aggiungi listener ai pulsanti in tutte le barre del player
     document.querySelectorAll(".play-btn").forEach(btn => btn.addEventListener("click", togglePlayPause));
     document.querySelectorAll(".next-btn").forEach(btn => btn.addEventListener("click", playNextTrack));
     document.querySelectorAll(".prev-btn").forEach(btn => btn.addEventListener("click", playPrevTrack));
 
     audioPlayer.addEventListener("ended", playNextTrack);
-    audioPlayer.addEventListener("play", () => { isPlaying = true; updatePlayPauseButton(); updateTrackIcon(true); });
-    audioPlayer.addEventListener("pause", () => { isPlaying = false; updatePlayPauseButton(); updateTrackIcon(false); });
-    audioPlayer.addEventListener("error", (e) => {
-        console.error("Errore audio player:", e);
+    audioPlayer.addEventListener("play", () => {
+        isPlaying = true;
+        updatePlayPauseButton();
+        updateTrackIcon(true);
+        // Assicura che l'audio incorporato corrispondente sia in pausa
+        pauseEmbeddedAudio(currentTrack ? currentTrack.id : null, true); // Pausa tutti tranne (potenzialmente) quello corrente
+    });
+    audioPlayer.addEventListener("pause", () => {
         isPlaying = false;
         updatePlayPauseButton();
         updateTrackIcon(false);
-        // Potresti voler mostrare un messaggio all'utente qui
+        // Non interagiamo con gli incorporati quando il principale si ferma
+    });
+    audioPlayer.addEventListener("error", (e) => {
+        console.error("Errore audio player principale:", e);
+        isPlaying = false;
+        updatePlayPauseButton();
+        updateTrackIcon(false);
+        // Reset UI player principale
+        document.querySelectorAll(".player-bar").forEach(playerBar => {
+            playerBar.querySelector(".now-playing img").src = "placeholder.svg";
+            playerBar.querySelector(".track-title").textContent = "";
+            playerBar.querySelector(".track-album").textContent = "";
+        });
+        currentTrack = null;
+        currentAlbum = null;
+        if(currentView === 'album-detail-view') {
+            updateTrackListUI(null);
+        }
     });
  }
 
- function playTrack(track, album) { // Accetta anche l'album
-    if (!album) {
-        console.error("Album non fornito per la traccia:", track.title);
-        return; // Se l'album non è passato, esci
+ function playTrack(track, album) {
+    if (!album) return;
+
+    // Se la traccia cliccata è già quella corrente nel player principale e sta suonando, mettila in pausa
+    if (currentTrack && currentTrack.id === track.id && isPlaying) {
+        audioPlayer.pause();
+        return;
     }
+    // Se la traccia cliccata è già quella corrente ed è in pausa, riprendi la riproduzione
+    if (currentTrack && currentTrack.id === track.id && !isPlaying) {
+         audioPlayer.play().catch(error => console.error("Errore ripresa riproduzione:", error));
+         return;
+     }
+
+    // --- MODIFICA: Pausa tutti gli audio incorporati prima di avviare il principale ---
+    console.log("Pausing all embedded audio players...");
+    pauseEmbeddedAudio(null, false); // Pausa tutti senza eccezioni
+    // --- Fine Modifica ---
+
+    // Carica e suona la nuova traccia nel player principale
     currentTrack = track;
-    currentAlbum = album; // Assicurati che l'album corrente sia aggiornato
+    currentAlbum = album;
+    currentTrack.albumId = currentAlbum.id; // Associa album a traccia
 
-    console.log(`Playing track: ${track.title} from ${album.title}`);
-
-    audioPlayer.src = track.audioSrc; // Imposta src sull'elemento audioPlayer (quello della main-view)
+    console.log(`Avvio traccia (player principale): ${track.title} from ${album.title}`);
+    audioPlayer.src = track.audioSrc;
     audioPlayer.load();
 
-    // Aggiorna la UI in *tutte* le barre del player
+    // Aggiorna UI player principale
     document.querySelectorAll(".player-bar").forEach(playerBar => {
         const img = playerBar.querySelector(".now-playing img");
         const titleEl = playerBar.querySelector(".track-title");
         const albumEl = playerBar.querySelector(".track-album");
-
-        if (img) {
-            img.src = currentAlbum.image;
-            img.alt = `Now playing: ${track.title}`;
-        }
+        if (img) { img.src = currentAlbum.image; img.alt = `Now playing: ${track.title}`; }
         if (titleEl) titleEl.textContent = track.title;
         if (albumEl) albumEl.textContent = currentAlbum.title;
     });
 
-
-    // Aggiorna la UI della track list *solo se la vista dettaglio è attiva*
+    // Aggiorna UI lista tracce (evidenziazione/icona)
     if (currentView === "album-detail-view") {
         updateTrackListUI(track.id);
     }
 
-
-    // Play the track using audioPlayer (quello della main-view)
-    audioPlayer.play().then(() => {
-        // Successo
-        isPlaying = true;
-        updatePlayPauseButton();
-        updateTrackIcon(true); // Aggiorna icona traccia attiva
-    }).catch(error => {
-        console.error("Errore durante la riproduzione:", error);
-        isPlaying = false;
-        updatePlayPauseButton();
-        updateTrackIcon(false);
+    // Avvia riproduzione player principale
+    audioPlayer.play().catch(error => {
+        console.error("Errore durante avvio riproduzione principale:", error);
+        // Gestito dall'event listener 'error'
     });
  }
 
+// --- NUOVA FUNZIONE HELPER: Pausa audio incorporati ---
+// excludeTrackId: ID della traccia da non mettere in pausa (se null, pausa tutte)
+// resetTime: se true, porta currentTime a 0 degli audio in pausa
+function pauseEmbeddedAudio(excludeTrackId = null, resetTime = false) {
+    if (currentView !== "album-detail-view") return; // Sicurezza: opera solo in dettaglio
+    const embeddedAudios = document.querySelectorAll('#album-detail-view .embedded-audio');
+    embeddedAudios.forEach(audio => {
+        const audioTrackId = audio.dataset.trackId;
+        // Se l'ID non corrisponde a quello da escludere (o se non c'è esclusione)
+        if (excludeTrackId === null || audioTrackId != excludeTrackId) {
+            if (!audio.paused) {
+                audio.pause();
+                console.log(`Paused embedded audio for track ID: ${audioTrackId || 'unknown'}`);
+            }
+            if (resetTime) {
+                audio.currentTime = 0;
+            }
+        }
+    });
+}
+// --- Fine Funzione Helper ---
+
  function updateTrackListUI(activeTrackId) {
+    if (currentView !== "album-detail-view") return;
     const tracksListContainer = document.querySelector("#album-detail-view .tracks-list");
     if (!tracksListContainer) return;
 
     tracksListContainer.querySelectorAll(".track-item").forEach(item => {
         const icon = item.querySelector(".track-icon");
-        const trackId = item.dataset.trackId;
+        const isCurrentTrack = item.dataset.trackId == activeTrackId; // Confronto ID
 
-        if (trackId == activeTrackId) { // Usa == per comparare stringa e numero se necessario
-            item.classList.add("active");
-            if (icon) {
+        item.classList.toggle("active", isCurrentTrack); // Classe sull'intero elemento item
+
+        if (icon) {
+            icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up", "active");
+            if (isCurrentTrack) {
+                // L'icona riflette lo stato del PLAYER PRINCIPALE
                 icon.classList.add("active");
-                icon.className = `fas ${isPlaying ? 'fa-volume-up' : 'fa-pause'} track-icon active`; // Cambia icona in base allo stato
-            }
-        } else {
-            item.classList.remove("active");
-            if (icon) {
-                icon.classList.remove("active");
-                icon.className = "fas fa-music track-icon"; // Icona di default
+                icon.classList.add("fas", isPlaying ? "fa-volume-up" : "fa-pause");
+            } else {
+                icon.classList.add("fas", "fa-music");
             }
         }
     });
@@ -378,8 +383,10 @@ document.addEventListener("DOMContentLoaded", () => {
          const activeTrackItem = document.querySelector(`#album-detail-view .track-item[data-track-id="${currentTrack.id}"]`);
          if (activeTrackItem) {
              const icon = activeTrackItem.querySelector(".track-icon");
-             if (icon && activeTrackItem.classList.contains('active')) { // Aggiorna solo l'icona attiva
-                 icon.className = `fas ${isPlayingNow ? 'fa-volume-up' : 'fa-pause'} track-icon active`;
+             if (icon && activeTrackItem.classList.contains('active')) {
+                  icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up");
+                  // Icona basata sullo stato del PLAYER PRINCIPALE
+                  icon.classList.add("fas", isPlayingNow ? 'fa-volume-up' : 'fa-pause');
              }
          }
      }
@@ -387,33 +394,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
  function togglePlayPause() {
-    if (!audioPlayer.src || audioPlayer.src === window.location.href) { // Controlla se src è impostato
-        // Se nessuna traccia è caricata, prova a suonare la prima del primo album
+    if (!audioPlayer.src || !currentTrack) {
         if (albums.length > 0 && albums[0].tracks.length > 0) {
-            playTrack(albums[0].tracks[0], albums[0]);
+            playTrack(albums[0].tracks[0], albums[0]); // Avvia la prima traccia se nessuna è selezionata
         }
         return;
     }
-
     if (isPlaying) {
       audioPlayer.pause();
     } else {
-      audioPlayer.play().catch(error => console.error("Errore ripresa riproduzione:", error));
+      if (audioPlayer.readyState >= 2) {
+          audioPlayer.play().catch(error => console.error("Errore ripresa riproduzione:", error));
+      }
     }
-    // Lo stato isPlaying viene aggiornato dagli eventi 'play' e 'pause' del player
  }
 
  function updatePlayPauseButton() {
-     // Aggiorna *tutti* i pulsanti play/pause
      document.querySelectorAll(".play-btn").forEach(btn => {
         btn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
      });
  }
 
-
  function findTrackIndex(track, album) {
      if (!album || !album.tracks) return -1;
-     return album.tracks.findIndex(t => t.id === track.id);
+     return album.tracks.findIndex(t => t.id == track.id);
  }
 
 
@@ -423,8 +427,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentIndex !== -1 && currentIndex < currentAlbum.tracks.length - 1) {
       playTrack(currentAlbum.tracks[currentIndex + 1], currentAlbum);
     } else {
-        console.log("Ultima traccia dell'album");
-        // Opzionale: ferma la riproduzione o passa al prossimo album
+        console.log("Ultima traccia dell'album (player principale).");
+        // Potresti voler fermare qui o gestire diversamente
+        if (!audioPlayer.paused) audioPlayer.pause(); // Ferma il player principale
+        // updateTrackListUI(null); // Opzionale: deseleziona nella lista
     }
  }
 
@@ -433,27 +439,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentIndex = findTrackIndex(currentTrack, currentAlbum);
     if (currentIndex > 0) {
       playTrack(currentAlbum.tracks[currentIndex - 1], currentAlbum);
-    } else {
-        console.log("Prima traccia dell'album");
-        // Opzionale: torna all'ultima traccia o ferma
+    } else if (currentIndex === 0) {
+        console.log("Prima traccia dell'album (player principale).");
+        if (audioPlayer.currentTime > 3) {
+             audioPlayer.currentTime = 0; // Riavvolge se oltre 3 sec
+        }
+        // Non fa altro se si preme prev sulla prima traccia entro 3 sec
     }
  }
 
 
-  // Store
-  function renderProducts(category = "all") { // Accetta categoria come argomento
+  // Store (invariato)
+  function renderProducts(category = "all") {
     const productsGrid = document.querySelector("#stores-view .products-grid");
-    if (!productsGrid) return; // Controllo
-    productsGrid.innerHTML = ""; // Pulisci prima di renderizzare
-
-    const filteredProducts = category === "all" ? products : products.filter((product) => product.category === category);
-
+    if (!productsGrid) return;
+    productsGrid.innerHTML = "";
+    const filteredProducts = category === "all" ? products : products.filter((p) => p.category === category);
     if (filteredProducts.length === 0) {
-        productsGrid.innerHTML = "<p>Nessun prodotto trovato in questa categoria.</p>"; // Messaggio se vuoto
-        return;
+        productsGrid.innerHTML = "<p>Nessun prodotto trovato.</p>"; return;
     }
-
-    filteredProducts.forEach((product) => {
+    filteredProducts.forEach((product) => { /* ... codice render prodotto ... */
       const productElement = document.createElement("div");
       productElement.className = "product-item";
       productElement.innerHTML = `
@@ -465,37 +470,24 @@ document.addEventListener("DOMContentLoaded", () => {
       productsGrid.appendChild(productElement);
     });
   }
-
-  // Imposta i listener per i bottoni delle categorie
   function setupCategoryFilters() {
       const categoryButtons = document.querySelectorAll("#stores-view .category-btn");
       categoryButtons.forEach((button) => {
           button.addEventListener("click", function() {
               const category = this.getAttribute("data-category");
-
-              // Update active button
               categoryButtons.forEach((btn) => btn.classList.remove("active"));
               this.classList.add("active");
-
-              // Render products for the selected category
               renderProducts(category);
           });
       });
   }
 
-
-  // Events
+  // Events (invariato)
   function renderEvents() {
     const eventsGrid = document.querySelector("#events-view .events-grid");
-    if (!eventsGrid) return; // Controllo
-    eventsGrid.innerHTML = ""; // Pulisci
-
-    if (events.length === 0) {
-        eventsGrid.innerHTML = "<p>Nessun evento al momento.</p>";
-        return;
-    }
-
-    events.forEach((event) => {
+    if (!eventsGrid) return; eventsGrid.innerHTML = "";
+    if (events.length === 0) { eventsGrid.innerHTML = "<p>Nessun evento.</p>"; return; }
+    events.forEach((event) => { /* ... codice render evento ... */
       const eventElement = document.createElement("div");
       eventElement.className = "event-card";
       eventElement.innerHTML = `
