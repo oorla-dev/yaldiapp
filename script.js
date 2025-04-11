@@ -7,11 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
       year: "2025",
       image: "images/yaldhi.png", // Immagine personalizzata per YALDHI
       tracks: [
-        { id: 101, title: "Intro", duration: "1:30", audioSrc: "audio/yaldhi-intro.mp3" },
-        { id: 102, title: "Praise God", duration: "3:45", audioSrc: "audio/yaldhi-praise-god.mp3" },
-        { id: 103, title: "New Again", duration: "4:12", audioSrc: "audio/yaldhi-new-again.mp3" },
-        { id: 104, title: "Heaven and Hell", duration: "2:58", audioSrc: "audio/yaldhi-heaven-and-hell.mp3" },
-        { id: 105, title: "Outro", duration: "2:10", audioSrc: "audio/yaldhi-outro.mp3" },
+        { id: 101, title: "The Garden Of Aldi", duration: "3:05", audioSrc: "MUSICA/YALDHI/YALDHI/Garden.mp3" },
+        { id: 102, title: "The Aldi Storm", duration: "3:38", audioSrc: "MUSICA/YALDHI/YALDHI/Storm.m4a" },
+        { id: 103, title: "New Aldi", duration: "4:00", audioSrc: "MUSICA/YALDHI/YALDHI/New.mp3" },
+        { id: 104, title: "80 Aldyies", duration: "2:48", audioSrc: "MUSICA/YALDHI/YALDHI/Hurric.m4a" },
+        { id: 105, title: "Aldi In The Sky", duration: "4:44", audioSrc: "audio/yaldhi-outro.mp3" },
+        { id: 106, title: "Aldien", duration: "2:04", audioSrc: "audio/yaldhi-praise-god.mp3" },
+        { id: 107, title: "Brothers Of Aldi", duration: "4:15", audioSrc: "audio/yaldhi-praise-god.mp3" },
+        { id: 108, title: "Fuck Gianvoit", duration: "2:00", audioSrc: "audio/yaldhi-praise-god.mp3" },
+        
       ],
     },
     {
@@ -33,8 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
       image: "images/buldy.jpg", // Immagine personalizzata per BULDY
       tracks: [
         { id: 301, title: "First Time", duration: "3:33", audioSrc: "audio/buldy-first-time.mp3" },
-        { id: 302, title: "Talking", duration: "2:55", audioSrc: "audio/buldy-talking.mp3" },
-        { id: 303, title: "Back to Me", duration: "4:20", audioSrc: "audio/buldy-back-to-me.mp3" },
+
       ],
     },
     {
@@ -45,6 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
       tracks: [
         { id: 401, title: "Stars", duration: "3:10", audioSrc: "audio/jl2-stars.mp3" },
         { id: 402, title: "Vultures", duration: "4:05", audioSrc: "audio/jl2-vultures.mp3" },
+        { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
+        { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
+        { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
         { id: 403, title: "Carnival", duration: "3:50", audioSrc: "audio/jl2-carnival.mp3" },
         { id: 404, title: "Keys To My Life", duration: "3:25", audioSrc: "audio/jl2-keys-to-my-life.mp3" },
       ],
@@ -69,14 +75,14 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: "YS-22",
       name: "YALDHI HOODIE",
-      image: "images/hoodie.png",
+      image: "images/hoodie.jpg",
       price: "€120.00",
       category: "apparel",
     },
     {
       id: "BL-05",
       name: "BULDY VINYL",
-      image: "images/buldyvin.svg",
+      image: "images/buldy.jpg",
       price: "€35.00",
       category: "music",
     },
