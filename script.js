@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
       year: "2025",
       image: "images/yaldhi.png", // Immagine personalizzata per YALDHI
       tracks: [
-        { id: 101, title: "The Garden Of Aldi", duration: "3:05", audioSrc: "MUSICA/YALDHI/YALDHI/Garden.mp3" },
+        { id: 101, title: "The Garden Of Aldi", duration: "3:05", audioSrc: "YALDHI/garden.mp3" },
         { id: 102, title: "The Aldi Storm", duration: "3:38", audioSrc: "MUSICA/YALDHI/YALDHI/Storm.m4a" },
         { id: 103, title: "New Aldi", duration: "4:00", audioSrc: "MUSICA/YALDHI/YALDHI/New.mp3" },
         { id: 104, title: "80 Aldyies", duration: "2:48", audioSrc: "MUSICA/YALDHI/YALDHI/Hurric.m4a" },
-        { id: 105, title: "Aldi In The Sky", duration: "4:44", audioSrc: "audio/yaldhi-outro.mp3" },
-        { id: 106, title: "Aldien", duration: "2:04", audioSrc: "audio/yaldhi-praise-god.mp3" },
+        { id: 105, title: "Aldi In The Sky", duration: "4:44", audioSrc: "YALDHI/city.mp3" },
+        { id: 106, title: "Aldien", duration: "2:04", audioSrc: "YALDHI/alien.mp3" },
         { id: 107, title: "Brothers Of Aldi", duration: "4:15", audioSrc: "audio/yaldhi-praise-god.mp3" },
-        { id: 108, title: "Fuck Gianvoit", duration: "2:00", audioSrc: "audio/yaldhi-praise-god.mp3" },
+        { id: 108, title: "Fuck Gianvoit", duration: "2:00", audioSrc: "YALDHI/fg.mp3" },
         
       ],
     },
