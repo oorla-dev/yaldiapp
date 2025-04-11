@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: "YS-22",
       name: "YALDHI HOODIE",
-      image: "placeholder.svg",
+      image: "hoodie.svg",
       price: "€120.00",
       category: "apparel",
     },
     {
       id: "BL-05",
       name: "BULDY VINYL",
-      image: "placeholder.svg",
+      image: "buldyvin.svg",
       price: "€35.00",
       category: "music",
     },
