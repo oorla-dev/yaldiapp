@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentAlbum = null;
   let currentTrack = null;
   let isPlaying = false;
-  const audioPlayer = document.getElementById("audio-player");
+  const audioPlayer = document.getElementById("audio-player"); // Seleziona ancora il player della main-view
 
   // Initialize
   function init() {
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(`Playing track: ${track.title} from ${album.title}`);
 
-    audioPlayer.src = track.audioSrc;
+    audioPlayer.src = track.audioSrc; // Imposta src sull'elemento audioPlayer (quello della main-view)
     audioPlayer.load();
 
     // Aggiorna la UI in *tutte* le barre del player
@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    // Play the track
+    // Play the track using audioPlayer (quello della main-view)
     audioPlayer.play().then(() => {
         // Successo
         isPlaying = true;
@@ -515,4 +515,3 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize the app
   init();
 });
-
