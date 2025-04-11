@@ -41,7 +41,7 @@ body {
 }
 
 .album-item img {
-  width: 90%;
+  width: 80%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 5px;
@@ -322,8 +322,7 @@ body {
   gap: 15px;
   padding: 15px;
   overflow-y: auto;
-  flex-grow: 1; /* Aggiunto per occupare spazio */
-}
+  
 
 
 .event-card {
