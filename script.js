@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
      {
       id: 1, title: "YALDHI", year: "2025", image: "images/yaldhi.png", tracks: [
         // !!! IMPORTANTE: Verifica che questi percorsi siano VALIDI dalla posizione di index.html !!!
-        { id: 101, title: "The Garden Of Aldi", duration: "3:05", audioSrc: "YALDHI/garden.mp3" },
+        { id: 101, title: "The Garden Of Aldi", duration: "3:05", audioSrc: "garden.mp3" },
         { id: 102, title: "The Aldi Storm", duration: "3:38", audioSrc: "MUSICA/YALDHI/YALDHI/Storm.m4a" },
         { id: 103, title: "New Aldi", duration: "4:00", audioSrc: "MUSICA/YALDHI/YALDHI/New.mp3" },
         { id: 104, title: "80 Aldyies", duration: "2:48", audioSrc: "MUSICA/YALDHI/YALDHI/Hurric.m4a" },
