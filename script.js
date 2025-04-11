@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Data (rimane invariato)
   const albums = [
-    {
+     {
       id: 1,
       title: "YALDHI",
       year: "2025",
@@ -51,14 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
     },
   ];
-
   const products = [ // Dati prodotti invariati...
     { id: "AY-01", name: "YALDHI CD", image: "images/yaldhicd.png", price: "€30.00", category: "music" },
     { id: "FM-104", name: "FREE MARINAIO TEE", image: "images/fm.jpg", price: "€80.00", category: "apparel" },
     { id: "YS-22", name: "YALDHI HOODIE", image: "images/hoodie.jpg", price: "€120.00", category: "apparel" },
     { id: "BL-05", name: "BULDY VINYL", image: "images/buldy.jpg", price: "€35.00", category: "music" },
   ];
-
   const events = [ // Dati eventi invariati...
      { title: "Y$Ø", subtitle: "YALDHI", desc: "LISTENING EXPERIENCE", location: "PERUGIA", venue: "DISCALDI ARENA", date: "1 4 25" },
      { title: "YE", subtitle: "DONDA 2", desc: "LISTENING EXPERIENCE", location: "PESARO", venue: "DISCALDI ARENA", date: "4 9 25" },
@@ -81,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupCategoryFilters();
   }
 
-  // Navigation (con pausa audio al cambio vista)
+  // Navigation (semplificata: solo pausa player principale)
   function setupNavigation() {
     const navItems = document.querySelectorAll(".nav-item");
     navItems.forEach((item) => {
@@ -89,15 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetViewId = this.getAttribute("data-view");
         if (!targetViewId || targetViewId === currentView) return;
 
-        // Pausa player principale e player incorporati quando si cambia vista
+        // Pausa player principale quando si cambia vista
         if (isPlaying) {
             audioPlayer.pause();
         }
-        document.querySelectorAll('.embedded-audio').forEach(audio => {
-            if (!audio.paused) {
-                audio.pause();
-            }
-        });
         // Resetta highlight lista se si esce da dettaglio
         if(currentView === 'album-detail-view') {
              updateTrackListUI(null);
@@ -113,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
 
   function switchView(viewId) {
     console.log("Switching to view:", viewId);
@@ -165,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     detailView.querySelector(".album-tracks-count").textContent = `${album.tracks.length} brani`;
     const albumDetailPicture = detailView.querySelector(".album-cover-picture");
     const albumDetailSource = albumDetailPicture.querySelector(".album-source");
-    const albumDetailImg = albumDetailPicture.querySelector(".album-cover");
+    const albumDetailImg = detailView.querySelector(".album-cover");
     let imageType = "image/jpeg";
     if (album.image.endsWith(".png")) imageType = "image/png";
     else if (album.image.endsWith(".svg")) imageType = "image/svg+xml";
@@ -177,39 +169,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Render tracks
     const tracksList = detailView.querySelector(".tracks-list");
-    tracksList.innerHTML = "";
+    tracksList.innerHTML = ""; // Pulisci la lista
 
     album.tracks.forEach((track, index) => {
       const trackElement = document.createElement("div");
       trackElement.className = "track-item";
-      // Usa l'id della traccia come identificatore per l'elemento lista
       trackElement.dataset.trackId = track.id;
 
-      // --- MODIFICA INIZIO: Includi info traccia E tag audio ---
+      // --- MODIFICA JS: Rimuovi il tag <audio> dalla generazione dell'HTML ---
       trackElement.innerHTML = `
-                <div class="track-info-container">
-                    <div class="track-left">
-                        <i class="fas fa-music track-icon"></i>
-                        <span class="track-name">${track.title}</span>
-                    </div>
-                    <div class="track-duration">${track.duration}</div>
+                <div class="track-left">
+                    <i class="fas fa-music track-icon"></i>
+                    <span class="track-name">${track.title}</span>
                 </div>
-                <audio class="embedded-audio" controls style="width: 100%; height: 35px; margin-top: 5px;" src="${track.audioSrc}" data-track-id="${track.id}">
-                    Your browser does not support the audio element.
-                </audio>
+                <div class="track-duration">${track.duration}</div>
             `;
-       // --- MODIFICA FINE ---
-
-
-      // --- MODIFICA: Il click sull'ELEMENTO LISTA (trackElement) controlla il player principale ---
-      trackElement.addEventListener("click", (event) => {
-          // Impedisci al click di propagarsi ai controlli audio interni se clicchi sull'area generale
-          if (event.target.closest('.embedded-audio')) {
-              return; // Non fare nulla se il click è avvenuto dentro l'audio incorporato
-          }
-          playTrack(track, album); // Chiama la funzione per usare il player centrale
-      });
       // --- Fine Modifica ---
+
+      // Listener per controllare il player principale al click
+      trackElement.addEventListener("click", () => {
+          playTrack(track, album);
+      });
 
       tracksList.appendChild(trackElement);
     });
@@ -223,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     switchView("album-detail-view");
 
-    // Setup back button (con pausa audio)
+    // Setup back button (solo pausa player principale)
     const backButton = detailView.querySelector(".back-btn");
     const newBackButton = backButton.cloneNode(true);
     backButton.parentNode.replaceChild(newBackButton, backButton);
@@ -231,11 +211,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isPlaying) {
             audioPlayer.pause();
         }
-        detailView.querySelectorAll('.embedded-audio').forEach(audio => {
-             if (!audio.paused) {
-                 audio.pause();
-             }
-        });
         switchView("main-view");
         document.querySelectorAll('#main-view .nav-item').forEach(navItem => {
             navItem.classList.toggle('active', navItem.getAttribute('data-view') === 'main-view');
@@ -253,58 +228,47 @@ document.addEventListener("DOMContentLoaded", () => {
     audioPlayer.addEventListener("play", () => {
         isPlaying = true;
         updatePlayPauseButton();
-        updateTrackIcon(true);
-        // Assicura che l'audio incorporato corrispondente sia in pausa
-        pauseEmbeddedAudio(currentTrack ? currentTrack.id : null, true); // Pausa tutti tranne (potenzialmente) quello corrente
+        updateTrackIcon(true); // Aggiorna icona nella lista
+        // Rimosso: Non c'è più bisogno di pausare audio incorporati
     });
     audioPlayer.addEventListener("pause", () => {
         isPlaying = false;
         updatePlayPauseButton();
-        updateTrackIcon(false);
-        // Non interagiamo con gli incorporati quando il principale si ferma
+        updateTrackIcon(false); // Aggiorna icona nella lista
     });
     audioPlayer.addEventListener("error", (e) => {
         console.error("Errore audio player principale:", e);
         isPlaying = false;
         updatePlayPauseButton();
         updateTrackIcon(false);
-        // Reset UI player principale
-        document.querySelectorAll(".player-bar").forEach(playerBar => {
+        document.querySelectorAll(".player-bar").forEach(playerBar => { // Reset UI
             playerBar.querySelector(".now-playing img").src = "placeholder.svg";
             playerBar.querySelector(".track-title").textContent = "";
             playerBar.querySelector(".track-album").textContent = "";
         });
-        currentTrack = null;
-        currentAlbum = null;
-        if(currentView === 'album-detail-view') {
-            updateTrackListUI(null);
-        }
+        currentTrack = null; currentAlbum = null;
+        if(currentView === 'album-detail-view') updateTrackListUI(null);
     });
  }
 
  function playTrack(track, album) {
     if (!album) return;
 
-    // Se la traccia cliccata è già quella corrente nel player principale e sta suonando, mettila in pausa
     if (currentTrack && currentTrack.id === track.id && isPlaying) {
-        audioPlayer.pause();
-        return;
+        audioPlayer.pause(); return;
     }
-    // Se la traccia cliccata è già quella corrente ed è in pausa, riprendi la riproduzione
     if (currentTrack && currentTrack.id === track.id && !isPlaying) {
-         audioPlayer.play().catch(error => console.error("Errore ripresa riproduzione:", error));
-         return;
+         audioPlayer.play().catch(error => console.error("Errore ripresa riproduzione:", error)); return;
      }
 
-    // --- MODIFICA: Pausa tutti gli audio incorporati prima di avviare il principale ---
-    console.log("Pausing all embedded audio players...");
-    pauseEmbeddedAudio(null, false); // Pausa tutti senza eccezioni
-    // --- Fine Modifica ---
+    // --- Rimosso: Non c'è più bisogno di pausare audio incorporati ---
+    // console.log("Pausing all embedded audio players...");
+    // pauseEmbeddedAudio(null, false);
+    // --- Fine Rimozione ---
 
-    // Carica e suona la nuova traccia nel player principale
     currentTrack = track;
     currentAlbum = album;
-    currentTrack.albumId = currentAlbum.id; // Associa album a traccia
+    currentTrack.albumId = currentAlbum.id;
 
     console.log(`Avvio traccia (player principale): ${track.title} from ${album.title}`);
     audioPlayer.src = track.audioSrc;
@@ -320,39 +284,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (albumEl) albumEl.textContent = currentAlbum.title;
     });
 
-    // Aggiorna UI lista tracce (evidenziazione/icona)
+    // Aggiorna UI lista tracce
     if (currentView === "album-detail-view") {
         updateTrackListUI(track.id);
     }
 
-    // Avvia riproduzione player principale
-    audioPlayer.play().catch(error => {
-        console.error("Errore durante avvio riproduzione principale:", error);
-        // Gestito dall'event listener 'error'
-    });
+    audioPlayer.play().catch(error => console.error("Errore durante avvio riproduzione principale:", error));
  }
 
-// --- NUOVA FUNZIONE HELPER: Pausa audio incorporati ---
-// excludeTrackId: ID della traccia da non mettere in pausa (se null, pausa tutte)
-// resetTime: se true, porta currentTime a 0 degli audio in pausa
-function pauseEmbeddedAudio(excludeTrackId = null, resetTime = false) {
-    if (currentView !== "album-detail-view") return; // Sicurezza: opera solo in dettaglio
-    const embeddedAudios = document.querySelectorAll('#album-detail-view .embedded-audio');
-    embeddedAudios.forEach(audio => {
-        const audioTrackId = audio.dataset.trackId;
-        // Se l'ID non corrisponde a quello da escludere (o se non c'è esclusione)
-        if (excludeTrackId === null || audioTrackId != excludeTrackId) {
-            if (!audio.paused) {
-                audio.pause();
-                console.log(`Paused embedded audio for track ID: ${audioTrackId || 'unknown'}`);
-            }
-            if (resetTime) {
-                audio.currentTime = 0;
-            }
-        }
-    });
-}
-// --- Fine Funzione Helper ---
+// --- Rimosso: Funzione non più necessaria ---
+// function pauseEmbeddedAudio(excludeTrackId = null, resetTime = false) { ... }
+// --- Fine Rimozione ---
 
  function updateTrackListUI(activeTrackId) {
     if (currentView !== "album-detail-view") return;
@@ -361,14 +303,11 @@ function pauseEmbeddedAudio(excludeTrackId = null, resetTime = false) {
 
     tracksListContainer.querySelectorAll(".track-item").forEach(item => {
         const icon = item.querySelector(".track-icon");
-        const isCurrentTrack = item.dataset.trackId == activeTrackId; // Confronto ID
-
-        item.classList.toggle("active", isCurrentTrack); // Classe sull'intero elemento item
-
+        const isCurrentTrack = item.dataset.trackId == activeTrackId;
+        item.classList.toggle("active", isCurrentTrack);
         if (icon) {
             icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up", "active");
             if (isCurrentTrack) {
-                // L'icona riflette lo stato del PLAYER PRINCIPALE
                 icon.classList.add("active");
                 icon.classList.add("fas", isPlaying ? "fa-volume-up" : "fa-pause");
             } else {
@@ -385,88 +324,61 @@ function pauseEmbeddedAudio(excludeTrackId = null, resetTime = false) {
              const icon = activeTrackItem.querySelector(".track-icon");
              if (icon && activeTrackItem.classList.contains('active')) {
                   icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up");
-                  // Icona basata sullo stato del PLAYER PRINCIPALE
                   icon.classList.add("fas", isPlayingNow ? 'fa-volume-up' : 'fa-pause');
              }
          }
      }
  }
 
-
- function togglePlayPause() {
+ function togglePlayPause() { // Invariato, controlla player principale
     if (!audioPlayer.src || !currentTrack) {
-        if (albums.length > 0 && albums[0].tracks.length > 0) {
-            playTrack(albums[0].tracks[0], albums[0]); // Avvia la prima traccia se nessuna è selezionata
-        }
+        if (albums.length > 0 && albums[0].tracks.length > 0) playTrack(albums[0].tracks[0], albums[0]);
         return;
     }
-    if (isPlaying) {
-      audioPlayer.pause();
-    } else {
-      if (audioPlayer.readyState >= 2) {
-          audioPlayer.play().catch(error => console.error("Errore ripresa riproduzione:", error));
-      }
-    }
+    if (isPlaying) audioPlayer.pause();
+    else if (audioPlayer.readyState >= 2) audioPlayer.play().catch(e => console.error("Errore play:", e));
  }
 
- function updatePlayPauseButton() {
+ function updatePlayPauseButton() { // Invariato
      document.querySelectorAll(".play-btn").forEach(btn => {
         btn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
      });
  }
 
- function findTrackIndex(track, album) {
+ function findTrackIndex(track, album) { // Invariato
      if (!album || !album.tracks) return -1;
      return album.tracks.findIndex(t => t.id == track.id);
  }
 
-
- function playNextTrack() {
+ function playNextTrack() { // Invariato, usa playTrack
     if (!currentAlbum || !currentTrack) return;
     const currentIndex = findTrackIndex(currentTrack, currentAlbum);
     if (currentIndex !== -1 && currentIndex < currentAlbum.tracks.length - 1) {
       playTrack(currentAlbum.tracks[currentIndex + 1], currentAlbum);
     } else {
         console.log("Ultima traccia dell'album (player principale).");
-        // Potresti voler fermare qui o gestire diversamente
-        if (!audioPlayer.paused) audioPlayer.pause(); // Ferma il player principale
-        // updateTrackListUI(null); // Opzionale: deseleziona nella lista
+        if (!audioPlayer.paused) audioPlayer.pause();
     }
  }
 
- function playPrevTrack() {
+ function playPrevTrack() { // Invariato, usa playTrack
     if (!currentAlbum || !currentTrack) return;
     const currentIndex = findTrackIndex(currentTrack, currentAlbum);
     if (currentIndex > 0) {
       playTrack(currentAlbum.tracks[currentIndex - 1], currentAlbum);
-    } else if (currentIndex === 0) {
-        console.log("Prima traccia dell'album (player principale).");
-        if (audioPlayer.currentTime > 3) {
-             audioPlayer.currentTime = 0; // Riavvolge se oltre 3 sec
-        }
-        // Non fa altro se si preme prev sulla prima traccia entro 3 sec
+    } else if (currentIndex === 0 && audioPlayer.currentTime > 3) {
+        audioPlayer.currentTime = 0;
     }
  }
 
-
   // Store (invariato)
   function renderProducts(category = "all") {
-    const productsGrid = document.querySelector("#stores-view .products-grid");
-    if (!productsGrid) return;
-    productsGrid.innerHTML = "";
+    const productsGrid = document.querySelector("#stores-view .products-grid"); if (!productsGrid) return; productsGrid.innerHTML = "";
     const filteredProducts = category === "all" ? products : products.filter((p) => p.category === category);
-    if (filteredProducts.length === 0) {
-        productsGrid.innerHTML = "<p>Nessun prodotto trovato.</p>"; return;
-    }
-    filteredProducts.forEach((product) => { /* ... codice render prodotto ... */
-      const productElement = document.createElement("div");
-      productElement.className = "product-item";
-      productElement.innerHTML = `
-                <img class="product-image" src="${product.image}" alt="${product.name}">
-                <div class="product-id">${product.id}</div>
-                <div class="product-name">${product.name}</div>
-                <div class="product-price">${product.price}</div>
-            `;
+    if (filteredProducts.length === 0) { productsGrid.innerHTML = "<p>Nessun prodotto trovato.</p>"; return; }
+    filteredProducts.forEach((product) => {
+      const productElement = document.createElement("div"); productElement.className = "product-item";
+      productElement.innerHTML = `<img class="product-image" src="${product.image}" alt="${product.name}"><div class="product-id">${product.id}</div><div class="product-name">${product.name}</div><div class="product-price">${product.price}</div>`;
       productsGrid.appendChild(productElement);
     });
   }
@@ -474,32 +386,18 @@ function pauseEmbeddedAudio(excludeTrackId = null, resetTime = false) {
       const categoryButtons = document.querySelectorAll("#stores-view .category-btn");
       categoryButtons.forEach((button) => {
           button.addEventListener("click", function() {
-              const category = this.getAttribute("data-category");
-              categoryButtons.forEach((btn) => btn.classList.remove("active"));
-              this.classList.add("active");
-              renderProducts(category);
+              const category = this.getAttribute("data-category"); categoryButtons.forEach((btn) => btn.classList.remove("active")); this.classList.add("active"); renderProducts(category);
           });
       });
   }
 
   // Events (invariato)
   function renderEvents() {
-    const eventsGrid = document.querySelector("#events-view .events-grid");
-    if (!eventsGrid) return; eventsGrid.innerHTML = "";
+    const eventsGrid = document.querySelector("#events-view .events-grid"); if (!eventsGrid) return; eventsGrid.innerHTML = "";
     if (events.length === 0) { eventsGrid.innerHTML = "<p>Nessun evento.</p>"; return; }
-    events.forEach((event) => { /* ... codice render evento ... */
-      const eventElement = document.createElement("div");
-      eventElement.className = "event-card";
-      eventElement.innerHTML = `
-                <div class="event-content">
-                    <div class="event-title">${event.title}</div>
-                    <div class="event-subtitle">${event.subtitle}</div>
-                    <div class="event-desc">${event.desc}</div>
-                    <div class="event-location">${event.location}</div>
-                    <div class="event-venue">${event.venue}</div>
-                    <div class="event-date">${event.date}</div>
-                </div>
-            `;
+    events.forEach((event) => {
+      const eventElement = document.createElement("div"); eventElement.className = "event-card";
+      eventElement.innerHTML = `<div class="event-content"><div class="event-title">${event.title}</div><div class="event-subtitle">${event.subtitle}</div><div class="event-desc">${event.desc}</div><div class="event-location">${event.location}</div><div class="event-venue">${event.venue}</div><div class="event-date">${event.date}</div></div>`;
       eventsGrid.appendChild(eventElement);
     });
   }
