@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       id: 2,
       title: "DONDA 2",
       year: "2022",
-      image: "images/donda2.svg", // Immagine personalizzata per DONDA 2
+      image: "images/donda2.jpg", // Immagine personalizzata per DONDA 2
       tracks: [
         { id: 201, title: "True Love", duration: "3:15", audioSrc: "audio/donda2-true-love.mp3" },
         { id: 202, title: "Broken Road", duration: "4:02", audioSrc: "audio/donda2-broken-road.mp3" },
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       id: 3,
       title: "BULDY",
       year: "2025",
-      image: "images/buldy.svg", // Immagine personalizzata per BULDY
+      image: "images/buldy.jpg", // Immagine personalizzata per BULDY
       tracks: [
         { id: 301, title: "First Time", duration: "3:33", audioSrc: "audio/buldy-first-time.mp3" },
         { id: 302, title: "Talking", duration: "2:55", audioSrc: "audio/buldy-talking.mp3" },
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       id: 4,
       title: "JL 2",
       year: "2025",
-      image: "images/jl2.svg", // Immagine personalizzata per JL 2
+      image: "images/jl2.jpg", // Immagine personalizzata per JL 2
       tracks: [
         { id: 401, title: "Stars", duration: "3:10", audioSrc: "audio/jl2-stars.mp3" },
         { id: 402, title: "Vultures", duration: "4:05", audioSrc: "audio/jl2-vultures.mp3" },
@@ -62,21 +62,21 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: "FM-104",
       name: "FREE MARINAIO TEE",
-      image: "fm.png",
+      image: "images/fm.jpg",
       price: "€80.00",
       category: "apparel",
     },
     {
       id: "YS-22",
       name: "YALDHI HOODIE",
-      image: "hoodie.svg",
+      image: "images/hoodie.png",
       price: "€120.00",
       category: "apparel",
     },
     {
       id: "BL-05",
       name: "BULDY VINYL",
-      image: "buldyvin.svg",
+      image: "images/buldyvin.svg",
       price: "€35.00",
       category: "music",
     },
