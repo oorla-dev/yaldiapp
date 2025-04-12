@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (album.image.endsWith(".png")) imageType = "image/png"
       else if (album.image.endsWith(".svg")) imageType = "image/svg+xml"
       else if (album.image.endsWith(".webp")) imageType = "image/webp"
-      albumElement.innerHTML = `<picture><source srcset="${album.image}" type="${imageType}"><img src="${album.image}" alt="${album.title} cover"></picture><div class="album-title">${album.title}</div><div class="album-year">${album.year}</div>`
+      albumElement.innerHTML = `<picture><source srcset="${album.image}" type="${imageType}"><img src="${album.image}" alt="${album.title} cover" loading="lazy"></picture><div class="album-title">${album.title}</div><div class="album-year">${album.year}</div>`
       albumElement.addEventListener("click", () => showAlbumDetail(album))
       albumGrid.appendChild(albumElement)
     })
@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
       albumDetailSource.type = imageType
       albumDetailImg.src = album.image
       albumDetailImg.alt = `${album.title} album cover`
+      albumDetailImg.loading = "lazy"; // Aggiungi lazy loading anche qui
     }
 
     // Render tracks list (SENZA audio incorporati)
@@ -248,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     filteredProducts.forEach((product) => {
       const productElement = document.createElement("div")
       productElement.className = "product-item"
-      productElement.innerHTML = `<img class="product-image" src="${product.image}" alt="${product.name}"><div class="product-id">${product.id}</div><div class="product-name">${product.name}</div><div class="product-price">${product.price}</div>`
+      productElement.innerHTML = `<img class="product-image" src="${product.image}" alt="${product.name}" loading="lazy"><div class="product-id">${product.id}</div><div class="product-name">${product.name}</div><div class="product-price">${product.price}</div>`
       productsGrid.appendChild(productElement)
     })
   }
