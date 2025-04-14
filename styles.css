@@ -23,7 +23,7 @@ body {
   display: none;
 }
 
-/* Album Grid */
+/* Album Grid (invariato) */
 .album-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -56,7 +56,7 @@ body {
   color: #888;
 }
 
-/* Player Bar */
+/* Player Bar (invariato) */
 .player-bar {
   background-color: white;
   border-top: 1px solid #eee;
@@ -108,19 +108,14 @@ body {
   cursor: pointer;
 }
 
-.controls button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Navigation */
+/* Navigation (invariato) */
 .nav-bar {
   display: flex;
   justify-content: space-around;
   padding: 15px 0;
   border-top: 1px solid #eee;
   background-color: white;
-  margin-top: auto;
+  margin-top: auto; /* Aggiunto per assicurare che stia in fondo */
 }
 
 .nav-item {
@@ -136,7 +131,7 @@ body {
   color: #888;
 }
 
-/* Album Detail View */
+/* Album Detail View (invariato) */
 .album-header {
   display: flex;
   align-items: center;
@@ -178,7 +173,7 @@ body {
 .tracks-list {
   flex-grow: 1;
   overflow-y: auto;
-  padding-bottom: 10px;
+  padding-bottom: 10px; /* Aggiunto spazio sotto lista tracce */
 }
 
 .track-item {
@@ -214,6 +209,7 @@ body {
 
 /* Stores View */
 .store-header {
+  /* Invariato */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -222,25 +218,28 @@ body {
 }
 
 .store-title {
+  /* Invariato */
   font-size: 1.25rem;
   font-weight: bold;
 }
 
 .store-icons {
+  /* Invariato */
   display: flex;
   gap: 15px;
 }
 
 .categories {
   display: flex;
-  padding: 15px;
-  padding-bottom: 15px;
+  padding: 15px; /* Mantenuto padding laterale e sopra */
+  padding-bottom: 15px; /* <<< MODIFICA: Aggiunto padding sotto le categorie */
   gap: 15px;
   overflow-x: auto;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Evita che le categorie si restringano verticalmente */
 }
 
 .category-btn {
+  /* Invariato */
   padding: 8px 16px;
   font-size: 0.875rem;
   white-space: nowrap;
@@ -249,16 +248,19 @@ body {
 }
 
 .category-btn.active {
+  /* Invariato */
   background-color: black;
   color: white;
 }
 
 .category-btn:not(.active) {
+  /* Invariato */
   background-color: #f0f0f0;
   color: black;
 }
 
 .products-grid {
+  /* Invariato */
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -268,36 +270,40 @@ body {
 }
 
 .product-item {
+  /* Invariato */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .product-image {
-  width: 95%;
+  width: 95%; /* <<< MODIFICA: Ridotta leggermente la larghezza */
   aspect-ratio: 1 / 1;
   object-fit: contain;
   margin-bottom: 15px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: auto; /* <<< MODIFICA: Aggiunto per centrare l'immagine */
+  margin-right: auto; /* <<< MODIFICA: Aggiunto per centrare l'immagine */
 }
 
 .product-id {
+  /* Invariato */
   font-family: monospace;
   font-size: 0.875rem;
   margin-bottom: 5px;
 }
 
 .product-name {
+  /* Invariato */
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 .product-price {
+  /* Invariato */
   font-size: 0.875rem;
 }
 
-/* Events View */
+/* Events View (invariato) */
 .header {
   display: flex;
   justify-content: space-between;
@@ -401,48 +407,4 @@ body {
 
 .message-info-y {
   align-self: flex-end;
-}
-
-/* Messaggi di stato e notifiche */
-.no-content {
-  text-align: center;
-  color: #888;
-  padding: 20px;
-  font-style: italic;
-}
-
-/* Stile per le immagini non disponibili */
-img[alt="Immagine non disponibile"] {
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  color: #888;
-  text-align: center;
-}
-
-img[alt="Immagine non disponibile"]::after {
-  content: "Immagine non disponibile";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Animazione di caricamento */
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.loading {
-  animation: pulse 1.5s infinite;
 }
