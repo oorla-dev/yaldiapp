@@ -9,9 +9,6 @@
 </head>
 <body>
     <div class="app-container" id="main-view">
-        <div id="link-latest-drop">Latest Drop</div>
-        <div id="link-new-releases">New Releases</div>
-        <div id="link-new-events">New Events</div>
         <div class="album-grid">
             coming soon
         </div>
@@ -57,7 +54,16 @@
         <div class="tracks-list"></div>
 
    </div>
-   <div class="app-container hidden" id="stores-view">
+        <div class="nav-bar">
+            <div class="nav-item" data-view="main-view">YZLY</div>
+            <div class="nav-item" data-view="stores-view">SNDLS</div>
+            <div class="nav-item" data-view="events-view">SPLY</div>
+            <div class="nav-item" data-view="hql-view">HQL</div>
+        </div>
+    </div>
+
+
+    <div class="app-container hidden" id="stores-view">
         <div class="store-header"> <div class="store-title">YALDI.IT</div> <div class="store-icons"> <i class="fas fa-search"></i> <i class="fas fa-shopping-bag"></i> </div> </div>
         <div class="categories"> <button class="category-btn active" data-category="all">ALL</button> <button class="category-btn" data-category="apparel">APPAREL</button> <button class="category-btn" data-category="music">MUSIC</button> </div>
         <div class="products-grid"></div>
