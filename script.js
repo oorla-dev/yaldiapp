@@ -90,20 +90,84 @@ document.addEventListener("DOMContentLoaded", () => {
   const navBars = document.querySelectorAll(".nav-bar")
   const appContainers = document.querySelectorAll(".app-container")
 
+  // MODIFICHE PER COMING SOON: Cache degli elementi specifici per la main view
+  const mainView = document.getElementById("main-view");
+  const albumGrid = mainView ? mainView.querySelector(".album-grid") : null;
+  let comingSoonElement = null; // Variabile per l'elemento "Coming Soon"
+
+
   // --- INIZIALIZZAZIONE ---
   function init() {
     if (!audioPlayer) {
       console.error("Errore Critico: Elemento audio player principale (#audio-player) non trovato!")
       return // Blocca l'esecuzione se manca il player
     }
-    renderAlbumGrid()
-    renderEvents()
-    renderProducts()
+
+    // MODIFICHE PER COMING SOON: Non renderizzare la griglia degli album all'avvio
+    // renderAlbumGrid(); // Questa chiamata viene sostituita dalla logica "Coming Soon"
+
+    // MODIFICHE PER COMING SOON: Prepara l'elemento "Coming Soon"
+    setupComingSoon();
+
+    renderEvents() // Mantieni il rendering delle altre sezioni
+    renderProducts() // Mantieni il rendering delle altre sezioni
     setupNavigation()
     setupAudioPlayer()
     setupCategoryFilters()
-    console.log("App inizializzata.")
+
+    // MODIFICHE PER COMING SOON: Imposta la vista iniziale per mostrare "Coming Soon"
+     if (currentView === "main-view") {
+         showComingSoonMessage(true); // Mostra il messaggio Coming Soon
+     }
+
+
+    console.log("App inizializzata.");
   }
+
+  // MODIFICHE PER COMING SOON: Funzione per creare e preparare l'elemento Coming Soon
+  function setupComingSoon() {
+      if (!mainView) {
+          console.error("Main view non trovata per setup Coming Soon.");
+          return;
+      }
+
+      // Controlla se l'elemento Coming Soon esiste già nel DOM
+      comingSoonElement = mainView.querySelector("#coming-soon-message");
+
+      if (!comingSoonElement) {
+          // Se non esiste, crealo
+          comingSoonElement = document.createElement("div");
+          comingSoonElement.id = "coming-soon-message";
+          // Aggiungi uno stile base (puoi spostarlo in CSS)
+          comingSoonElement.style.cssText = "text-align: center; padding: 50px; font-size: 1.5em; color: #ccc; width: 100%;";
+          comingSoonElement.innerHTML = "<h2>COMING SOON</h2><p>La sezione album è attualmente in costruzione. Torna a controllare presto!</p>";
+
+          // Aggiungi l'elemento alla main view
+          // Puoi decidere dove posizionarlo, ad esempio dopo la griglia (se esiste)
+          if (albumGrid && albumGrid.parentNode) {
+               albumGrid.parentNode.insertBefore(comingSoonElement, albumGrid.nextSibling);
+          } else {
+               // Se la griglia non c'è, aggiungilo direttamente alla main view
+               mainView.appendChild(comingSoonElement);
+          }
+
+          // Assicurati che inizialmente sia nascosto, la funzione switchView gestirà la visibilità
+           comingSoonElement.classList.add("hidden"); // Usa la classe hidden esistente
+      }
+  }
+
+  // MODIFICHE PER COMING SOON: Funzione helper per mostrare/nascondere Coming Soon e griglia album
+  function showComingSoonMessage(show) {
+       if (albumGrid) {
+           // Nascondi la griglia album se stai mostrando Coming Soon
+           albumGrid.classList.toggle("hidden", show);
+       }
+       if (comingSoonElement) {
+            // Mostra Coming Soon se 'show' è true, nascondi altrimenti
+           comingSoonElement.classList.toggle("hidden", !show);
+       }
+  }
+
 
   // --- NAVIGAZIONE TRA VISTE ---
   function setupNavigation() {
@@ -117,8 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (currentView === "album-detail-view") {
           updateTrackListUI(null)
         } // Toglie highlight
-        switchView(targetViewId)
-        // Aggiorna stato active nav bar
+        switchView(targetViewId) // Questa funzione ora gestisce lo stato Coming Soon per main-view
+
+        // Aggiorna stato active nav bar (logica esistente)
         navBars.forEach((navbar) => {
           navbar.querySelectorAll(".nav-item").forEach((navItem) => {
             navItem.classList.toggle("active", navItem.getAttribute("data-view") === targetViewId)
@@ -128,23 +193,46 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
+  // --- SWITCH VIEW (modificata per gestire Coming Soon nella main-view) ---
   function switchView(viewId) {
     console.log("Switching to view:", viewId)
     currentView = viewId
-    appContainers.forEach((view) => view.classList.add("hidden"))
+    appContainers.forEach((view) => view.classList.add("hidden")) // Nascondi tutte le viste
+
     const targetViewElement = document.getElementById(viewId)
     if (targetViewElement) {
-      targetViewElement.classList.remove("hidden")
+      targetViewElement.classList.remove("hidden") // Mostra la vista di destinazione
+
+      // MODIFICHE PER COMING SOON: Gestione specifica per la main-view
+      if (viewId === "main-view") {
+          // Quando passi ALLA main-view, mostra Coming Soon e nascondi la griglia
+          showComingSoonMessage(true);
+      } else {
+         // Quando passi DALLA main-view ad un'altra vista
+         // Gli elementi interni (griglia, coming soon) vengono nascosti automaticamente
+         // perché il loro contenitore (.app-container) viene nascosto.
+         // Tuttavia, per coerenza, possiamo assicurarci che siano nascosti.
+         showComingSoonMessage(false); // Nascondi sia la griglia che il coming soon
+      }
+
     } else {
       console.error("Target view not found:", viewId)
     }
   }
 
   // --- RENDERING CONTENUTI ---
+
+  // MODIFICHE PER COMING SOON: Questa funzione ora non viene chiamata all'avvio
+  // La mantengo nel caso in cui in futuro si volesse riattivare la griglia album
   function renderAlbumGrid() {
-    const albumGrid = document.querySelector("#main-view .album-grid")
+    console.log("renderAlbumGrid chiamata (ma potenzialmente nascosta da Coming Soon)");
+    const albumGrid = document.querySelector("#main-view .album-grid") // Ri-seleziona in caso di modifiche al DOM
     if (!albumGrid) return
-    albumGrid.innerHTML = ""
+
+    // MODIFICHE PER COMING SOON: Assicurati che Coming Soon sia nascosto se decidi di renderizzare la griglia esplicitamente
+    showComingSoonMessage(false); // Nascondi Coming Soon e mostra griglia
+
+    albumGrid.innerHTML = "" // Pulisce la griglia precedente
     albums.forEach((album) => {
       const albumElement = document.createElement("div")
       albumElement.className = "album-item"
@@ -166,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return
     }
 
-    // Aggiorna info album
+    // Aggiorna info album (codice esistente)
     detailView.querySelector(".album-title").textContent = album.title
     detailView.querySelector(".album-title-large").textContent = album.title
     detailView.querySelector(".album-year").textContent = album.year
@@ -185,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
       albumDetailImg.alt = `${album.title} album cover`
     }
 
-    // Render tracks list (SENZA audio incorporati)
+    // Render tracks list (SENZA audio incorporati) (codice esistente)
     const tracksList = detailView.querySelector(".tracks-list")
     if (!tracksList) {
       console.error("Contenitore lista tracce non trovato")
@@ -214,24 +302,27 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // Aggiorna stato visualizzazione lista (highlight traccia corrente)
-    updateTrackListUI(currentTrack && currentTrack.albumId === currentAlbum.id ? currentTrack.id : null)
+    // Passa l'ID della traccia corrente solo se appartiene all'album che stai mostrando
+    updateTrackListUI(currentTrack && currentTrack.albumId === album.id ? currentTrack.id : null);
+
 
     switchView("album-detail-view") // Mostra la vista dettaglio
 
-    // Setup back button
+    // Setup back button (codice esistente)
     const backButton = detailView.querySelector(".back-btn")
     if (backButton) {
-      const newBackButton = backButton.cloneNode(true) // Evita listener duplicati
+      // Clona il bottone per rimuovere listener precedenti e aggiungerne uno nuovo pulito
+      const newBackButton = backButton.cloneNode(true)
       backButton.parentNode.replaceChild(newBackButton, backButton)
       newBackButton.addEventListener("click", () => {
         if (isPlaying) {
           audioPlayer.pause()
         }
         switchView("main-view")
-        document.querySelectorAll("#main-view .nav-item").forEach((navItem) => {
-          // Aggiorna nav bar main view
-          navItem.classList.toggle("active", navItem.getAttribute("data-view") === "main-view")
-        })
+        // Aggiorna nav bar main view (se necessario, switchView aggiorna già l'active)
+        // document.querySelectorAll("#main-view .nav-item").forEach((navItem) => {
+        //   navItem.classList.toggle("active", navItem.getAttribute("data-view") === "main-view")
+        // })
       })
     }
   }
@@ -273,14 +364,19 @@ document.addEventListener("DOMContentLoaded", () => {
   function setupAudioPlayer() {
     // Listener per i controlli principali (associati a TUTTE le barre player per coerenza UI)
     playButtons.forEach((btn) => btn.addEventListener("click", togglePlayPause))
-    prevButtons.forEach((btn) => btn.addEventListener("click", playPrevTrack))
-    nextButtons.forEach((btn) => btn.addEventListener("click", playNextTrack))
+    prevButtons.forEach((btn) => btn("click", playPrevTrack)) // Corretto 'addEventListener'
+    nextButtons.forEach((btn) => btn("click", playNextTrack)) // Corretto 'addEventListener'
 
     // Listener per eventi del tag <audio> principale
     audioPlayer.addEventListener("ended", playNextTrack) // Passa alla traccia successiva alla fine
     audioPlayer.addEventListener("play", handlePlayEvent) // Quando la riproduzione inizia/riprende
     audioPlayer.addEventListener("pause", handlePauseEvent) // Quando la riproduzione va in pausa/finisce
     audioPlayer.addEventListener("error", handleErrorEvent) // In caso di errore caricamento/riproduzione
+     // Potresti voler aggiungere listener per 'timeupdate' per aggiornare una progress bar
+
+     // Aggiunto controllo per i pulsanti prev/next se necessario (erano 'btn('click', ...)')
+     prevButtons.forEach((btn) => btn.addEventListener("click", playPrevTrack));
+     nextButtons.forEach((btn) => btn.addEventListener("click", playNextTrack));
   }
 
   function handlePlayEvent() {
@@ -288,6 +384,17 @@ document.addEventListener("DOMContentLoaded", () => {
     isPlaying = true
     updatePlayPauseButton() // Aggiorna i pulsanti play/pause in tutte le barre
     updateTrackIcon(true) // Aggiorna l'icona nella lista (se visibile)
+     // Aggiorna UI player bar se non è già fatto da playTrack
+     if (currentTrack && currentAlbum) {
+         playerBars.forEach(playerBar => {
+             const img = playerBar.querySelector(".now-playing img");
+             const titleEl = playerBar.querySelector(".track-title");
+             const albumEl = playerBar.querySelector(".track-album");
+             if (img && img.src.includes("placeholder.svg")) img.src = currentAlbum.image || "placeholder.svg";
+             if (titleEl && titleEl.textContent === "Errore Audio") titleEl.textContent = currentTrack.title;
+             if (albumEl && albumEl.textContent === "") albumEl.textContent = currentAlbum.title;
+         });
+     }
   }
 
   function handlePauseEvent() {
@@ -307,14 +414,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const img = playerBar.querySelector(".now-playing img")
       const titleEl = playerBar.querySelector(".track-title")
       const albumEl = playerBar.querySelector(".track-album")
-      if (img) img.src = "placeholder.svg"
+      if (img) img.src = "placeholder.svg" // Immagine placeholder
       if (titleEl) titleEl.textContent = "Errore Audio"
       if (albumEl) albumEl.textContent = ""
     })
-    currentTrack = null
-    currentAlbum = null
-    if (currentView === "album-detail-view") updateTrackListUI(null)
-    alert("Errore durante il caricamento dell'audio. Controlla i percorsi dei file e la console per dettagli.") // Avviso utente
+    currentTrack = null // Resetta lo stato della traccia in caso di errore
+    currentAlbum = null // Resetta lo stato dell'album in caso di errore
+    if (currentView === "album-detail-view") updateTrackListUI(null) // Rimuovi l'highlight dalla lista
+    alert("Errore durante il caricamento dell'audio. Controlla i percorsi dei file audio e la console per dettagli tecnici.") // Avviso utente
   }
 
   // Funzione centrale per avviare/cambiare traccia
@@ -324,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return
     }
 
-    // Gestione click sulla stessa traccia
+    // Gestione click sulla stessa traccia (logica esistente)
     if (currentTrack && currentTrack.id === track.id) {
       if (isPlaying) {
         audioPlayer.pause()
@@ -345,13 +452,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Cambia traccia ---
     console.log(`Attempting to play track (ID: ${track.id}): ${track.title}`)
-    currentTrack = track
-    currentAlbum = album
-    currentTrack.albumId = currentAlbum.id // Associa album a traccia per riferimento
+    // Salva un riferimento alla traccia e all'album corrente
+    // Aggiungo l'albumId alla traccia per facilitare la navigazione (next/prev)
+    const trackToPlay = { ...track, albumId: album.id };
+    currentTrack = trackToPlay;
+    currentAlbum = album;
+
 
     // *** VERIFICA PERCORSO AUDIO ***
     console.log(`Setting audio source to: ${track.audioSrc}`)
-    // Controlla se il percorso sembra valido (controlli base, non garantisce esistenza file)
+    // Controlli base sul percorso
     if (!track.audioSrc || typeof track.audioSrc !== "string" || track.audioSrc.trim() === "") {
       console.error(
         `Errore: Percorso audio non valido per la traccia "${track.title}" (ID: ${track.id}). Ricevuto:`,
@@ -362,16 +472,17 @@ document.addEventListener("DOMContentLoaded", () => {
       return
     }
 
-    // Assicurati che il percorso inizi con YALDHI/ se non lo è già
-    if (!track.audioSrc.startsWith("YALDHI/")) {
-      console.warn(`Percorso audio non inizia con YALDHI/: ${track.audioSrc}. Tentativo di correzione automatica.`)
-      track.audioSrc = "YALDHI/" + track.audioSrc.split("/").pop()
-      console.log(`Percorso corretto: ${track.audioSrc}`)
+    // Correzione automatica del percorso se necessario (basato sul tuo esempio con "YALDHI/")
+    // Evita di correggere se è già un percorso assoluto o inizia con '/'
+    if (!track.audioSrc.startsWith("YALDHI/") && !track.audioSrc.startsWith("/") && !track.audioSrc.includes("://")) {
+       console.warn(`Percorso audio non inizia con YALDHI/, / o protocollo: ${track.audioSrc}. Tentativo di correzione automatica aggiungendo YALDHI/.`);
+       track.audioSrc = "YALDHI/" + track.audioSrc.split("/").pop(); // Prende solo il nome file finale
+       console.log(`Percorso corretto: ${track.audioSrc}`);
     }
 
     audioPlayer.src = track.audioSrc
 
-    // Aggiorna UI Player Bar (tutte le barre)
+    // Aggiorna UI Player Bar (tutte le barre) (logica esistente)
     playerBars.forEach((playerBar) => {
       const img = playerBar.querySelector(".now-playing img")
       const titleEl = playerBar.querySelector(".track-title")
@@ -384,12 +495,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (albumEl) albumEl.textContent = currentAlbum.title
     })
 
-    // Aggiorna UI Lista Tracce (se visibile)
-    if (currentView === "album-detail-view") {
+    // Aggiorna UI Lista Tracce (se visibile e se stai visualizzando l'album corretto)
+    if (currentView === "album-detail-view" && currentAlbum.id === album.id) {
       updateTrackListUI(track.id)
+    } else if (currentView === "album-detail-view") {
+        // Se passi a una traccia di un altro album mentre eri nella vista dettaglio di un album diverso,
+        // assicurati che l'highlight precedente venga rimosso.
+         updateTrackListUI(null);
     }
 
-    // Carica e avvia riproduzione
+
+    // Carica e avvia riproduzione (logica esistente con Promise)
     console.log("Calling load() and play() on audio player...")
     audioPlayer.load() // Necessario per applicare il nuovo src
     const playPromise = audioPlayer.play() // play() restituisce una Promise
@@ -403,144 +519,178 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch((error) => {
           // Errore durante il tentativo di play (es. interazione utente non rilevata, file non caricato)
           console.error("Error attempting to play audio (via Promise):", error)
-          // L'evento 'error' sul tag audio dovrebbe comunque scattare se il problema è il file
-          // Ma potremmo forzare un reset UI qui per sicurezza
-          handleErrorEvent()
+          // Gestisci errori specifici come autoplay bloccato
+          if (error.name === "NotAllowedError" || error.name === "AbortError") {
+             console.warn("Riproduzione bloccata dalle impostazioni del browser o mancata interazione utente.");
+             // Fornisci feedback all'utente
+             alert("La riproduzione automatica è bloccata dal browser. Clicca sul pulsante Play per avviare l'audio.");
+          } else {
+             // Gestisci altri errori
+             handleErrorEvent(); // Utilizza la gestione errori generale
+          }
         })
     }
   }
 
   // --- AGGIORNAMENTO INTERFACCIA UTENTE ---
+
+  // Aggiorna lo stato visuale della lista tracce (highlight e icona)
   function updateTrackListUI(activeTrackId) {
-    if (currentView !== "album-detail-view") return // Opera solo nella vista dettaglio
-    const tracksListContainer = document.querySelector("#album-detail-view .tracks-list")
-    if (!tracksListContainer) return
+    // Applica aggiornamenti solo se sei nella vista dettaglio album E se un album è correntemente visualizzato
+    if (currentView !== "album-detail-view" || !currentAlbum) return;
+    const tracksListContainer = document.querySelector("#album-detail-view .tracks-list");
+    if (!tracksListContainer) return;
 
     tracksListContainer.querySelectorAll(".track-item").forEach((item) => {
-      const icon = item.querySelector(".track-icon")
-      // Usa '==' per confronto flessibile tra dataset (stringa) e id (numero/stringa)
-      const isCurrentTrack = item.dataset.trackId == activeTrackId
+      const icon = item.querySelector(".track-icon");
+      // Confronto ID: usa String() per sicurezza nel confronto tra dataset (stringa) e ID (potrebbe essere numero)
+      const isCurrentTrack = String(item.dataset.trackId) === String(activeTrackId);
 
-      item.classList.toggle("active", isCurrentTrack) // Evidenzia/deseleziona l'intera riga
+      item.classList.toggle("active", isCurrentTrack); // Evidenzia/deseleziona l'intera riga
 
       if (icon) {
         // Aggiorna icona
-        icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up", "active")
+        icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up", "active");
         if (isCurrentTrack) {
-          icon.classList.add("active") // Classe per icona attiva
+          icon.classList.add("active"); // Classe per icona attiva (per eventuale stile CSS)
           // L'icona riflette lo stato isPlaying del player principale
-          icon.classList.add("fas", isPlaying ? "fa-volume-up" : "fa-pause")
+          // Mostra icona volume se in riproduzione, pausa se in pausa
+          icon.classList.add("fas", isPlaying ? "fa-volume-up" : "fa-pause");
         } else {
-          icon.classList.add("fas", "fa-music") // Icona default per tracce non attive
+          icon.classList.add("fas", "fa-music"); // Icona default per tracce non attive
         }
       }
-    })
+    });
   }
 
-  // Aggiorna solo l'icona della traccia attiva (chiamato da play/pause events)
+  // Aggiorna solo l'icona della traccia attiva nella lista (chiamato da play/pause events)
   function updateTrackIcon(isPlayingNow) {
+    // Applica aggiornamenti solo se sei nella vista dettaglio album E c'è una traccia corrente
     if (currentView === "album-detail-view" && currentTrack) {
-      // Trova l'elemento della traccia attualmente attiva nella lista
-      const activeTrackItem = document.querySelector(
-        `#album-detail-view .track-item[data-track-id="${currentTrack.id}"]`,
-      )
-      if (activeTrackItem) {
-        const icon = activeTrackItem.querySelector(".track-icon")
-        // Aggiorna solo se l'icona esiste e l'item è marcato come 'active'
-        if (icon && activeTrackItem.classList.contains("active")) {
-          icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up")
-          // Imposta icona corretta (volume se play, pausa se non play)
-          icon.classList.add("fas", isPlayingNow ? "fa-volume-up" : "fa-pause")
-        }
-      }
+         // Trova l'elemento della traccia attualmente attiva nella lista visualizzata
+         const activeTrackItem = document.querySelector(
+           `#album-detail-view .track-item[data-track-id="${currentTrack.id}"]`
+         );
+         if (activeTrackItem) {
+           const icon = activeTrackItem.querySelector(".track-icon");
+           // Aggiorna solo se l'icona esiste e l'item è marcato come 'active' (dovrebbe esserlo)
+           if (icon && activeTrackItem.classList.contains("active")) {
+             icon.classList.remove("fa-music", "fa-play", "fa-pause", "fa-volume-up");
+             // Imposta icona corretta (volume se play, pausa se non play)
+             icon.classList.add("fas", isPlayingNow ? "fa-volume-up" : "fa-pause");
+           }
+         }
     }
   }
 
-  // Aggiorna i pulsanti play/pause in TUTTE le barre del player
+
+  // Aggiorna i pulsanti play/pause in TUTTE le barre del player (logica esistente)
   function updatePlayPauseButton() {
     playButtons.forEach((btn) => {
       // Cambia l'icona interna del bottone
-      btn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>'
-    })
+      btn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+    });
   }
 
   // --- CONTROLLI PLAYER ---
   function togglePlayPause() {
-    console.log("Toggle Play/Pause button clicked.")
+    console.log("Toggle Play/Pause button clicked.");
     // Se non c'è traccia selezionata, prova ad avviare la prima traccia del primo album
     if (!currentTrack) {
-      console.log("No current track, attempting to play first track overall.")
+      console.log("No current track, attempting to play first track overall.");
       if (albums.length > 0 && albums[0].tracks.length > 0) {
-        playTrack(albums[0].tracks[0], albums[0])
+        // Chiama playTrack con la prima traccia del primo album
+        playTrack(albums[0].tracks[0], albums[0]);
       } else {
-        console.warn("Nessuna traccia disponibile per la riproduzione.")
+        console.warn("Nessuna traccia disponibile negli album per la riproduzione.");
+         alert("Nessuna traccia disponibile per la riproduzione.");
       }
-      return
+      return; // Esci dopo aver gestito il caso "nessuna traccia"
     }
-    // Se una traccia è selezionata, alterna play/pausa
+
+    // Se una traccia è selezionata, alterna play/pausa (logica esistente)
     if (isPlaying) {
-      audioPlayer.pause()
+      audioPlayer.pause();
     } else {
       // Tenta play solo se l'audio ha dati sufficienti
-      if (audioPlayer.readyState >= 2) {
-        // HAVE_CURRENT_DATA or more
-        audioPlayer.play().catch((e) => console.error("Errore play su toggle:", e))
+      if (audioPlayer.readyState >= 2) { // HAVE_CURRENT_DATA o more
+        audioPlayer.play().catch((e) => console.error("Errore play su toggle:", e));
       } else {
-        console.warn("Audio non pronto per play su toggle, stato:", audioPlayer.readyState)
-        // Potresti provare a ricaricare o mostrare un feedback
-        audioPlayer.load() // Prova a ricaricare
-        audioPlayer.play().catch((e) => console.error("Errore play dopo reload su toggle:", e))
+        console.warn("Audio non pronto per play su toggle, stato:", audioPlayer.readyState);
+        // Prova a ricaricare e riprodurre
+        audioPlayer.load();
+        audioPlayer.play().catch((e) => console.error("Errore play dopo load su toggle:", e));
       }
     }
   }
 
   function playNextTrack() {
-    console.log("Next track requested.")
-    if (!currentAlbum || !currentTrack) {
-      console.log("Nessuna traccia corrente per andare alla successiva.")
-      return
+    console.log("Next track requested.");
+    // Trova l'album corrente nei dati originali per accedere alla lista tracce completa
+    const currentAlbumData = albums.find(a => currentAlbum && a.id === currentAlbum.id);
+
+    if (!currentTrack || !currentAlbumData) {
+      console.log("Nessuna traccia corrente o album trovato per andare alla successiva.");
+      return;
     }
-    const currentIndex = findTrackIndex(currentTrack, currentAlbum)
-    if (currentIndex !== -1 && currentIndex < currentAlbum.tracks.length - 1) {
+
+    const currentIndex = findTrackIndex(currentTrack, currentAlbumData);
+
+    if (currentIndex !== -1 && currentIndex < currentAlbumData.tracks.length - 1) {
       // C'è una traccia successiva nello stesso album
-      console.log("Playing next track in album.")
-      playTrack(currentAlbum.tracks[currentIndex + 1], currentAlbum)
+      console.log("Playing next track in album.");
+      playTrack(currentAlbumData.tracks[currentIndex + 1], currentAlbumData);
     } else {
-      console.log("Ultima traccia dell'album raggiunta.")
-      // Fine dell'album: Metti in pausa o implementa logica diversa (es. loop, stop)
-      if (!audioPlayer.paused) audioPlayer.pause()
-      // Opzionale: deseleziona traccia nella UI
-      // updateTrackListUI(null);
-      // currentTrack = null; // Rimuove riferimento alla traccia finita
+      console.log("Ultima traccia dell'album raggiunta.");
+      // Fine dell'album: Metti in pausa
+      if (!audioPlayer.paused) audioPlayer.pause();
+      // Opzionale: potresti voler deselezionare la traccia o passare all'album successivo
+       // updateTrackListUI(null); // Rimuovi highlight dall'ultima traccia
+       // currentTrack = null; // Resetta lo stato se vuoi che il player si fermi completamente
     }
   }
 
   function playPrevTrack() {
-    console.log("Previous track requested.")
-    if (!currentAlbum || !currentTrack) {
-      console.log("Nessuna traccia corrente per andare alla precedente.")
-      return
+    console.log("Previous track requested.");
+     // Trova l'album corrente nei dati originali per accedere alla lista tracce completa
+    const currentAlbumData = albums.find(a => currentAlbum && a.id === currentAlbum.id);
+
+    if (!currentTrack || !currentAlbumData) {
+      console.log("Nessuna traccia corrente o album trovato per andare alla precedente.");
+      return;
     }
-    const currentIndex = findTrackIndex(currentTrack, currentAlbum)
+
+    const currentIndex = findTrackIndex(currentTrack, currentAlbumData);
+
     if (currentIndex > 0) {
       // C'è una traccia precedente nello stesso album
-      console.log("Playing previous track in album.")
-      playTrack(currentAlbum.tracks[currentIndex - 1], currentAlbum)
+      console.log("Playing previous track in album.");
+      playTrack(currentAlbumData.tracks[currentIndex - 1], currentAlbumData);
     } else if (currentIndex === 0) {
-      console.log("Prima traccia dell'album. Riavvolgo se > 3 secondi.")
-      // Se siamo sulla prima traccia, riavvolgi se sono passati più di 3 sec, altrimenti non fare nulla
+      // Se siamo sulla prima traccia, riavvolgi se sono passati più di 3 sec
+      console.log("Prima traccia dell'album.");
       if (audioPlayer.currentTime > 3) {
-        audioPlayer.currentTime = 0
+        console.log("Riavvolgo la traccia corrente.");
+        audioPlayer.currentTime = 0; // Riavvia la traccia corrente
+        // Se era in play, ripartirà dall'inizio
+        // Se era in pausa, sarà pronta per ripartire dall'inizio al prossimo play
+      } else {
+          console.log("Meno di 3 secondi trascorsi, nessuna azione (o potresti implementare salto all'album precedente).");
+          // Opzionale: salta all'ultima traccia dell'album precedente se desiderato
       }
+    } else {
+         console.log("Traccia non trovata nell'album corrente o errore indice.");
     }
   }
 
   // --- FUNZIONI UTILITY ---
   function findTrackIndex(track, album) {
-    if (!track || !album || !album.tracks) return -1
-    // Usa '==' per confronto flessibile ID (potrebbe essere numero o stringa)
-    return album.tracks.findIndex((t) => t.id == track.id)
+    if (!track || !album || !album.tracks) return -1;
+     // Trova l'indice della traccia nell'array dell'album
+     // Confronta gli ID assicurandoti che siano dello stesso tipo (es. stringa)
+    return album.tracks.findIndex((t) => String(t.id) === String(track.id));
   }
+
 
   // --- STORE & EVENTS (Logica semplice di rendering, invariata) ---
   function setupCategoryFilters() {
@@ -555,7 +705,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
+
   // --- AVVIO APPLICAZIONE ---
   init() // Chiama la funzione di inizializzazione dopo che il DOM è pronto
 })
-
