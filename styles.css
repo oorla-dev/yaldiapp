@@ -408,3 +408,14 @@ body {
 .message-info-y {
   align-self: flex-end;
 }
+.welcome-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.coming-soon-message {
+  font-size: 24px;
+  color: #666;
+  text-align: center;
+  margin-top: 50px;
+}
