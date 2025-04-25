@@ -536,6 +536,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Usa '==' per confronto flessibile ID (potrebbe essere numero o stringa)
     return album.tracks.findIndex((t) => t.id == track.id)
   }
+  const audioPlayer = document.getElementById("audio-player");
+if (audioPlayer) {
+    audioPlayer.style.display = "none"; // Nasconde il player
+}
 
   // --- STORE & EVENTS (Logica semplice di rendering, invariata) ---
   function setupCategoryFilters() {
