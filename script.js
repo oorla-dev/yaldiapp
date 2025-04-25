@@ -142,20 +142,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- RENDERING CONTENUTI ---
   function renderAlbumGrid() {
-    const albumGrid = document.querySelector("#main-view .album-grid")
-    if (!albumGrid) return
-    albumGrid.innerHTML = ""
-    albums.forEach((album) => {
-      const albumElement = document.createElement("div")
-      albumElement.className = "album-item"
-      let imageType = "image/jpeg"
-      if (album.image.endsWith(".png")) imageType = "image/png"
-      else if (album.image.endsWith(".svg")) imageType = "image/svg+xml"
-      else if (album.image.endsWith(".webp")) imageType = "image/webp"
-      albumElement.innerHTML = `<picture><source srcset="${album.image}" type="${imageType}"><img src="${album.image}" alt="${album.title} cover"></picture><div class="album-title">${album.title}</div><div class="album-year">${album.year}</div>`
-      albumElement.addEventListener("click", () => showAlbumDetail(album))
-      albumGrid.appendChild(albumElement)
-    })
+  const albumGrid = document.querySelector("#main-view .album-grid")
+  if (!albumGrid) return
+  albumGrid.innerHTML = ""
+
+  // Testo "Coming Soon" al posto della griglia degli album
+  const comingSoonElement = document.createElement("div")
+  comingSoonElement.className = "coming-soon-message"
+  comingSoonElement.textContent = "Coming Soon"
+  albumGrid.appendChild(comingSoonElement)
   }
 
   function showAlbumDetail(album) {
