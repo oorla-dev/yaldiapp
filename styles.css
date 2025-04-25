@@ -110,13 +110,26 @@ body {
 
 /* Navigation (invariato) */
 .nav-bar {
-  display: flex;
-  justify-content: space-around;
-  padding: 15px 0;
-  border-top: 1px solid #eee;
-  background-color: white;
-  margin-top: auto; /* Aggiunto per assicurare che stia in fondo */
+    /* Stili esistenti (mantieni display, justify-content, padding, border, background) */
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    background-color: white;
+
+    /* --- NUOVE REGOLE PER IL FIX --- */
+    position: fixed;     /* Fissala rispetto alla finestra */
+    bottom: 0;           /* Posizionala in fondo */
+    left: 0;             /* Allineala a sinistra... */
+    right: 0;            /* ...e a destra (per centering con margin:auto) */
+    max-width: 500px;    /* Stessa larghezza massima del .app-container */
+    margin-left: auto;   /* Centra la barra */
+    margin-right: auto;  /* Centra la barra */
+    width: 100%;         /* Occupa la larghezza disponibile (entro max-width) */
+    z-index: 1000;       /* Mettila sopra gli altri contenuti */
+    /* Rimuovi 'margin-top: auto;' */
 }
+
 
 .nav-item {
   font-weight: bold;
