@@ -39,6 +39,9 @@ body {
   margin-bottom: 20px;
   cursor: pointer;
 }
+.hidden {
+    display: none !important; /* Usare !important per assicurare che la regola venga applicata */
+}
 
 .album-item img {
   width: 80%;
