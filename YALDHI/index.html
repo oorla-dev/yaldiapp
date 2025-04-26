@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeezy App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container" id="main-view">
+        <div class="album-grid">
+            coming soon
+        </div>
+        <div class="player-bar hidden">
+            <audio id="audio-player"></audio>
+            <div class="now-playing">
+                <img src="placeholder.svg" alt="Now Playing Placeholder">
+                <div class="track-info">
+                    <div class="track-title"></div>
+                    <div class="track-album"></div>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="prev-btn"><i class="fas fa-backward"></i></button>
+                <button class="play-btn"><i class="fas fa-play"></i></button>
+                <button class="next-btn"><i class="fas fa-forward"></i></button>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="nav-item active" data-view="main-view">YZLY</div>
+            <div class="nav-item" data-view="stores-view">SNDLS</div>
+            <div class="nav-item" data-view="events-view">SPLY</div>
+            <div class="nav-item" data-view="hql-view">HQL</div>
+        </div>
+    </div>
+
+    <div class="app-container hidden" id="album-detail-view">
+        <div class="album-header">
+            <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
+            <h1 class="album-title"></h1>
+        </div>
+        <div class="album-info">
+             <picture class="album-cover-picture">
+                <source class="album-source" srcset="placeholder.svg" type="image/png">
+                <img class="album-cover" src="placeholder.svg" alt="Album Cover Placeholder">
+             </picture>
+            <div class="album-details">
+                <h2 class="album-title-large"></h2>
+                <p class="album-year"></p>
+                <p class="album-tracks-count"></p>
+            </div>
+        </div>
+        <div class="tracks-list"></div>
+
+   </div>
+        <div class="nav-bar">
+            <div class="nav-item" data-view="main-view">YZLY</div>
+            <div class="nav-item" data-view="stores-view">SNDLS</div>
+            <div class="nav-item" data-view="events-view">SPLY</div>
+            <div class="nav-item" data-view="hql-view">HQL</div>
+        </div>
+    </div>
+
+
+    <div class="app-container hidden" id="stores-view">
+        <div class="store-header"> <div class="store-title">YALDI.IT</div> <div class="store-icons"> <i class="fas fa-search"></i> <i class="fas fa-shopping-bag"></i> </div> </div>
+        <div class="categories"> <button class="category-btn active" data-category="all">ALL</button> <button class="category-btn" data-category="apparel">APPAREL</button> <button class="category-btn" data-category="music">MUSIC</button> </div>
+        <div class="products-grid"></div>
+        <div class="nav-bar"> <div class="nav-item" data-view="main-view">YZLY</div> <div class="nav-item active" data-view="stores-view">SNDLS</div> <div class="nav-item" data-view="events-view">SPLY</div> <div class="nav-item" data-view="hql-view">HQL</div> </div>
+    </div>
+
+    <div class="app-container hidden" id="events-view">
+        <div class="header"> <div class="header-item">LOGIN</div> <div class="notification-icon"><i class="fas fa-bell"></i></div> </div>
+        <div class="menu"> <div class="menu-item">LATEST DROP</div> <div class="menu-item">NEW RELEASES</div> <div class="menu-item">NEW EVENTS</div> </div>
+        <div class="events-grid"></div>
+        <div class="nav-bar"> <div class="nav-item" data-view="main-view">YZLY</div> <div class="nav-item" data-view="stores-view">SNDLS</div> <div class="nav-item active" data-view="events-view">SPLY</div> <div class="nav-item" data-view="hql-view">HQL</div> </div>
+    </div>
+
+    <div class="app-container hidden" id="hql-view">
+        <div class="message-container">
+            <div class="message-bubble">
+                <p>Coming soon</p>
+            </div>
+            <div class="message-info">YALDEWS • Now</div>
+
+            <div class="message-bubble message-from-y">
+                <p>MORE FEATURES COMING SOON ON NEXT UPDATE</p>
+            </div>
+            <div class="message-info message-info-y">Y • Now</div>
+        </div>
+        <div class="nav-bar"> <div class="nav-item" data-view="main-view">YZLY</div> <div class="nav-item" data-view="stores-view">SNDLS</div> <div class="nav-item" data-view="events-view">SPLY</div> <div class="nav-item active" data-view="hql-view">HQL</div> </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
