@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <!-- Main View (Albums) -->
     <div class="app-container" id="main-view">
         <div class="album-grid">
-            </div>
+            <!-- Albums will be dynamically inserted here -->
+        </div>
         <div class="player-bar">
             <audio id="audio-player"></audio>
             <div class="now-playing">
@@ -34,6 +36,7 @@
         </div>
     </div>
 
+    <!-- Album Detail View -->
     <div class="app-container hidden" id="album-detail-view">
         <div class="album-header">
             <button class="back-btn"><i class="fas fa-arrow-left"></i></button>
@@ -51,8 +54,10 @@
             </div>
         </div>
         <div class="tracks-list">
-            </div>
+            <!-- Tracks will be dynamically inserted here -->
+        </div>
         <div class="player-bar">
+            <!-- Player bar content is duplicated for each view but controlled by the same logic -->
             <audio id="audio-player-detail"></audio>
             <div class="now-playing">
                 <img src="placeholder.svg" alt="Now Playing Placeholder">
@@ -75,6 +80,7 @@
         </div>
     </div>
 
+    <!-- Stores View -->
     <div class="app-container hidden" id="stores-view">
         <div class="store-header">
             <div class="store-title">YALDI.IT</div>
@@ -89,7 +95,8 @@
             <button class="category-btn" data-category="music">MUSIC</button>
         </div>
         <div class="products-grid">
-            </div>
+            <!-- Products will be dynamically inserted here -->
+        </div>
         <div class="nav-bar">
             <div class="nav-item" data-view="main-view">YZLY</div>
             <div class="nav-item active" data-view="stores-view">SNDLS</div>
@@ -98,6 +105,7 @@
         </div>
     </div>
 
+    <!-- Events View -->
     <div class="app-container hidden" id="events-view">
         <div class="header">
             <div class="header-item">LOGIN</div>
@@ -109,7 +117,8 @@
             <div class="menu-item">NEW EVENTS</div>
         </div>
         <div class="events-grid">
-            </div>
+            <!-- Events will be dynamically inserted here -->
+        </div>
         <div class="nav-bar">
             <div class="nav-item" data-view="main-view">YZLY</div>
             <div class="nav-item" data-view="stores-view">SNDLS</div>
@@ -118,6 +127,7 @@
         </div>
     </div>
 
+    <!-- HQL View -->
     <div class="app-container hidden" id="hql-view">
         <div class="message-container">
             <div class="message-bubble">
@@ -135,42 +145,6 @@
             <div class="nav-item" data-view="stores-view">SNDLS</div>
             <div class="nav-item" data-view="events-view">SPLY</div>
             <div class="nav-item active" data-view="hql-view">HQL</div>
-        </div>
-    </div>
-
-    <div class="expanded-player hidden" id="expanded-player">
-        <div class="expanded-header">
-            <button class="close-expanded"><i class="fas fa-chevron-down"></i></button>
-        </div>
-        <div class="expanded-content">
-            <img id="expanded-cover" src="placeholder.svg" alt="Cover" class="expanded-cover">
-            <h2 id="expanded-track-title">Titolo Traccia</h2>
-            <h3 id="expanded-artist-name">Nome Artista</h3>
-
-            <div class="progress-container">
-                <span id="current-time">0:00</span>
-                <input type="range" id="progress-bar" value="0" min="0" step="1">
-                <span id="total-duration">0:00</span>
-            </div>
-
-            <div class="controls-expanded">
-                <button id="shuffle-btn"><i class="fas fa-random"></i></button>
-                <button id="prev-expanded-btn"><i class="fas fa-backward"></i></button>
-                <button id="play-expanded-btn"><i class="fas fa-play"></i></button>
-                <button id="next-expanded-btn"><i class="fas fa-forward"></i></button>
-                <button id="loop-btn"><i class="fas fa-sync-alt"></i></button>
-            </div>
-
-            <div class="next-track" id="next-track-info">
-                <small>Prossimo brano:</small>
-                <div id="next-track-details">
-                    <img src="placeholder.svg" alt="Next Cover" class="next-cover">
-                    <div class="next-track-info">
-                        <span id="next-track-title">Prossimo Titolo</span>
-                        <span id="next-track-artist">Prossimo Artista</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
