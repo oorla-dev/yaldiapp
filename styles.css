@@ -38,7 +38,12 @@ body {
   flex-direction: column;
   margin-bottom: 20px;
   cursor: pointer;
+}
+
+.album-image-container {
   position: relative;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
 .album-item img {
