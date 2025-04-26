@@ -513,3 +513,108 @@ body {
 .opacity-80 {
   opacity: 0.8;
 }
+
+/* Expanded Player */
+.expanded-player {
+  position: fixed;
+  top: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  transition: top 0.4s ease;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.expanded-player.active {
+  top: 0;
+}
+
+.expanded-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.close-expanded {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.expanded-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.expanded-cover {
+  width: 80%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+h2, h3 {
+  margin: 5px 0;
+  text-align: center;
+}
+
+.progress-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.progress-container input[type="range"] {
+  flex-grow: 1;
+}
+
+.controls-expanded {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.controls-expanded button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.controls-expanded button.active {
+  color: black;
+}
+
+.next-track {
+  width: 100%;
+  margin-top: 20px;
+}
+
+#next-track-info {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.next-cover {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
