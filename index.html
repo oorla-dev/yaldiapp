@@ -57,7 +57,6 @@
             <!-- Tracks will be dynamically inserted here -->
         </div>
         <div class="player-bar">
-            <!-- Player bar content is duplicated for each view but controlled by the same logic -->
             <audio id="audio-player-detail"></audio>
             <div class="now-playing">
                 <img src="placeholder.svg" alt="Now Playing Placeholder">
@@ -145,6 +144,43 @@
             <div class="nav-item" data-view="stores-view">SNDLS</div>
             <div class="nav-item" data-view="events-view">SPLY</div>
             <div class="nav-item active" data-view="hql-view">HQL</div>
+        </div>
+    </div>
+
+    <!-- Expanded Player View -->
+    <div class="expanded-player hidden" id="expanded-player">
+        <div class="expanded-header">
+            <button class="close-expanded"><i class="fas fa-chevron-down"></i></button>
+        </div>
+        <div class="expanded-content">
+            <img id="expanded-cover" src="placeholder.svg" alt="Cover" class="expanded-cover">
+            <h2 id="expanded-track-title">Titolo Traccia</h2>
+            <h3 id="expanded-artist-name">Nome Artista</h3>
+
+            <div class="progress-container">
+                <span id="current-time">0:00</span>
+                <input type="range" id="progress-bar" value="0" min="0" step="1">
+                <span id="total-duration">0:00</span>
+            </div>
+
+            <div class="controls-expanded">
+                <button id="shuffle-btn"><i class="fas fa-random"></i></button>
+                <button id="prev-btn"><i class="fas fa-backward"></i></button>
+                <button id="play-btn"><i class="fas fa-play"></i></button>
+                <button id="next-btn"><i class="fas fa-forward"></i></button>
+                <button id="loop-btn"><i class="fas fa-sync-alt"></i></button>
+            </div>
+
+            <div class="next-track">
+                <small>Prossimo brano:</small>
+                <div id="next-track-info">
+                    <img src="placeholder.svg" alt="Next Cover" class="next-cover">
+                    <div class="next-track-details">
+                        <span id="next-track-title">Prossimo Titolo</span>
+                        <span id="next-track-artist">Prossimo Artista</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
