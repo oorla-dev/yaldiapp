@@ -177,17 +177,19 @@ document.addEventListener("DOMContentLoaded", () => {
     
     albums.forEach((album) => {
       const albumElement = document.createElement("div");
-      albumElement.className = `album-item ${!album.available ? "opacity-80" : ""}`;
+      albumElement.className = `album-item`;
       
       let imageType = "image/jpeg";
       if (album.image.endsWith(".png")) imageType = "image/png";
       
       albumElement.innerHTML = `
-        <picture>
-          <source srcset="${album.image}" type="${imageType}">
-          <img src="${album.image}" alt="${album.title} cover">
-        </picture>
-        ${!album.available ? '<div class="album-overlay"><span>COMING SOON</span></div>' : ''}
+        <div class="album-image-container">
+          <picture>
+            <source srcset="${album.image}" type="${imageType}">
+            <img src="${album.image}" alt="${album.title} cover">
+          </picture>
+          ${!album.available ? '<div class="album-overlay"><span>COMING SOON</span></div>' : ''}
+        </div>
         <div class="album-title">${album.title}</div>
         <div class="album-year">${album.year}</div>
       `;
