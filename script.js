@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "DONDA 2",
       year: "2022",
       image: "images/donda2.jpg",
-      available: false,
+      available: true,
       tracks: [
-        { id: 201, title: "TRUE LOVE", duration: "3:15", audioSrc: "YALDHI/05 ALDI IN THE SKY.mp3" },
+        { id: 201, title: "SECURITY", duration: "2:16", audioSrc: "DONDA2/7 - SECURITY.wav" },
         { id: 202, title: "BROKEN ROAD", duration: "4:02", audioSrc: "YALDHI/07 BROTHERS OF ALDI.mp3" },
         { id: 203, title: "GET LOST", duration: "2:47", audioSrc: "YALDHI/01 THE GARDEN OF ALDI.mp3" },
         { id: 204, title: "TOO EASY", duration: "3:22", audioSrc: "YALDHI/06 ALDIEN.mp3" },
