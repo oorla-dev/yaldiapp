@@ -2,63 +2,63 @@
 const mockData = {
     songs: [
         // JL Album
-        { id: 's1', title: 'Intro', artist: 'Kanye West', albumId: 'a1', duration: '1:23', audioUrl: '/YALDHI/08 FVCK GIANVOIT.mp3', cover: '/images/jl2.jpg' },
-        { id: 's2', title: 'Heaven and Hell', artist: 'Kanye West', albumId: 'a1', duration: '2:24', audioUrl: '/YALDHI/01 THE GARDEN OF ALDI.mp3', cover: '/images/jl2.jpg' },
-        { id: 's3', title: 'Still Under Development', artist: 'Kanye West', albumId: 'a1', duration: '0:52', audioUrl: '/YALDHI/02 THE ALDI STORM.m4a', cover: '/images/jl2.jpg' },
+        { id: 's1', title: 'Intro', artist: 'Kanye West', albumId: 'a1', duration: '1:23', audioUrl: 'YALDHI/08 FVCK GIANVOIT.mp3', cover: 'images/jl2.jpg' },
+        { id: 's2', title: 'Heaven and Hell', artist: 'Kanye West', albumId: 'a1', duration: '2:24', audioUrl: 'YALDHI/01 THE GARDEN OF ALDI.mp3', cover: 'images/jl2.jpg' },
+        { id: 's3', title: 'Still Under Development', artist: 'Kanye West', albumId: 'a1', duration: '0:52', audioUrl: 'YALDHI/02 THE ALDI STORM.m4a', cover: 'images/jl2.jpg' },
         
         // BULDY Album
-        { id: 's4', title: 'Aldi Man', artist: 'Kanye West', albumId: 'a2', duration: '4:37', audioUrl: '/YALDHI/03 NEW ALDI.mp3', cover: '/images/buldy.jpg' },
-        { id: 's5', title: 'Close To Aldi', artist: 'Kanye West', albumId: 'a2', duration: '3:58', audioUrl: '/YALDHI/04 80 ALDYIES.m4a', cover: '/images/buldy.jpg' },
-        { id: 's6', title: 'Circaldies', artist: 'Kanye West', albumId: 'a2', duration: '5:39', audioUrl: '/YALDHI/05 ALDI IN THE SKY.mp3', cover: '/images/buldy.jpg' },
-        { id: 's23', title: 'Buldy', artist: 'Kanye West', albumId: 'a2', duration: '4:12', audioUrl: '/YALDHI/06 ALDIEN.mp3', cover: '/images/buldy.jpg' },
-        { id: 's24', title: 'Aldi and the Conad', artist: 'Kanye West', albumId: 'a2', duration: '3:45', audioUrl: '/YALDHI/07 BROTHERS OF ALDI.mp3', cover: '/images/buldy.jpg' },
-        { id: 's25', title: 'ShowAldi', artist: 'Kanye West', albumId: 'a2', duration: '4:28', audioUrl: '/YALDHI/08 FVCK GIANVOIT.mp3', cover: '/images/buldy.jpg' },
-        { id: 's26', title: 'Aldi & Lows', artist: 'Kanye West', albumId: 'a2', duration: '3:33', audioUrl: '/YALDHI/01 THE GARDEN OF ALDI.mp3', cover: '/images/buldy.jpg' },
-        { id: 's27', title: 'ALDIROSE', artist: 'Kanye West', albumId: 'a2', duration: '5:21', audioUrl: '/YALDHI/02 THE ALDI STORM.m4a', cover: '/images/buldy.jpg' },
+        { id: 's4', title: 'Aldi Man', artist: 'Kanye West', albumId: 'a2', duration: '4:37', audioUrl: 'YALDHI/03 NEW ALDI.mp3', cover: 'images/buldy.jpg' },
+        { id: 's5', title: 'Close To Aldi', artist: 'Kanye West', albumId: 'a2', duration: '3:58', audioUrl: 'YALDHI/04 80 ALDYIES.m4a', cover: 'images/buldy.jpg' },
+        { id: 's6', title: 'Circaldies', artist: 'Kanye West', albumId: 'a2', duration: '5:39', audioUrl: 'YALDHI/05 ALDI IN THE SKY.mp3', cover: 'images/buldy.jpg' },
+        { id: 's23', title: 'Buldy', artist: 'Kanye West', albumId: 'a2', duration: '4:12', audioUrl: 'YALDHI/06 ALDIEN.mp3', cover: 'images/buldy.jpg' },
+        { id: 's24', title: 'Aldi and the Conad', artist: 'Kanye West', albumId: 'a2', duration: '3:45', audioUrl: 'YALDHI/07 BROTHERS OF ALDI.mp3', cover: 'images/buldy.jpg' },
+        { id: 's25', title: 'ShowAldi', artist: 'Kanye West', albumId: 'a2', duration: '4:28', audioUrl: 'YALDHI/08 FVCK GIANVOIT.mp3', cover: 'images/buldy.jpg' },
+        { id: 's26', title: 'Aldi & Lows', artist: 'Kanye West', albumId: 'a2', duration: '3:33', audioUrl: 'YALDHI/01 THE GARDEN OF ALDI.mp3', cover: 'images/buldy.jpg' },
+        { id: 's27', title: 'ALDIROSE', artist: 'Kanye West', albumId: 'a2', duration: '5:21', audioUrl: 'YALDHI/02 THE ALDI STORM.m4a', cover: 'images/buldy.jpg' },
         
         // DONDA 2 Album
-        { id: 's7', title: 'Security', artist: 'Kanye West', albumId: 'a3', duration: '1:59', audioUrl: '/YALDHI/03 NEW ALDI.mp3', cover: '/images/donda2.jpg' },
-        { id: 's8', title: 'We Did It Kid', artist: 'Kanye West', albumId: 'a3', duration: '3:07', audioUrl: '/YALDHI/04 80 ALDYIES.m4a', cover: '/images/donda2.jpg' },
-        { id: 's9', title: 'Pablo', artist: 'Kanye West ft. Travis Scott', albumId: 'a3', duration: '2:13', audioUrl: '/YALDHI/05 ALDI IN THE SKY.mp3', cover: '/images/donda2.jpg' },
+        { id: 's7', title: 'Security', artist: 'Kanye West', albumId: 'a3', duration: '1:59', audioUrl: 'YALDHI/03 NEW ALDI.mp3', cover: 'images/donda2.jpg' },
+        { id: 's8', title: 'We Did It Kid', artist: 'Kanye West', albumId: 'a3', duration: '3:07', audioUrl: 'YALDHI/04 80 ALDYIES.m4a', cover: 'images/donda2.jpg' },
+        { id: 's9', title: 'Pablo', artist: 'Kanye West ft. Travis Scott', albumId: 'a3', duration: '2:13', audioUrl: 'YALDHI/05 ALDI IN THE SKY.mp3', cover: 'images/donda2.jpg' },
         
         // YALDHI Album
-        { id: 's10', title: 'THE GARDEN OF ALDI', artist: 'Kanye West', albumId: 'a4', duration: '3:51', audioUrl: '/YALDHI/01 THE GARDEN OF ALDI.mp3', cover: '/images/yaldhi.png' },
-        { id: 's11', title: 'THE ALDI STORM', artist: 'Kanye West', albumId: 'a4', duration: '4:16', audioUrl: '/YALDHI/02 THE ALDI STORM.m4a', cover: '/images/yaldhi.png' },
-        { id: 's12', title: 'NEW ALDI', artist: 'Kanye West', albumId: 'a4', duration: '5:27', audioUrl: '/YALDHI/03 NEW ALDI.mp3', cover: '/images/yaldhi.png' },
-        { id: 's13', title: '80 ALDIES', artist: 'Kanye West', albumId: 'a4', duration: '3:08', audioUrl: '/YALDHI/04 80 ALDYIES.m4a', cover: '/images/yaldhi.png' },
-        { id: 's14', title: 'ALDI IN THE SKY', artist: 'Kanye West', albumId: 'a4', duration: '6:00', audioUrl: '/YALDHI/05 ALDI IN THE SKY.mp3', cover: '/images/yaldhi.png' },
-        { id: 's15', title: 'ALDIEN', artist: 'Kanye West', albumId: 'a4', duration: '3:50', audioUrl: '/YALDHI/06 ALDIEN.mp3', cover: '/images/yaldhi.png' },
-        { id: 's16', title: 'BROTHERS OF ALDI', artist: 'Kanye West', albumId: 'a4', duration: '4:22', audioUrl: '/YALDHI/07 BROTHERS OF ALDI.mp3', cover: '/images/yaldhi.png' },
-        { id: 's17', title: 'FVCK GIANVOIT', artist: 'Kanye West', albumId: 'a4', duration: '2:45', audioUrl: '/YALDHI/08 FVCK GIANVOIT.mp3', cover: '/images/yaldhi.png' },
+        { id: 's10', title: 'THE GARDEN OF ALDI', artist: 'Kanye West', albumId: 'a4', duration: '3:51', audioUrl: 'YALDHI/01 THE GARDEN OF ALDI.mp3', cover: 'images/yaldhi.png' },
+        { id: 's11', title: 'THE ALDI STORM', artist: 'Kanye West', albumId: 'a4', duration: '4:16', audioUrl: 'YALDHI/02 THE ALDI STORM.m4a', cover: 'images/yaldhi.png' },
+        { id: 's12', title: 'NEW ALDI', artist: 'Kanye West', albumId: 'a4', duration: '5:27', audioUrl: 'YALDHI/03 NEW ALDI.mp3', cover: 'images/yaldhi.png' },
+        { id: 's13', title: '80 ALDIES', artist: 'Kanye West', albumId: 'a4', duration: '3:08', audioUrl: 'YALDHI/04 80 ALDYIES.m4a', cover: 'images/yaldhi.png' },
+        { id: 's14', title: 'ALDI IN THE SKY', artist: 'Kanye West', albumId: 'a4', duration: '6:00', audioUrl: 'YALDHI/05 ALDI IN THE SKY.mp3', cover: 'images/yaldhi.png' },
+        { id: 's15', title: 'ALDIEN', artist: 'Kanye West', albumId: 'a4', duration: '3:50', audioUrl: 'YALDHI/06 ALDIEN.mp3', cover: 'images/yaldhi.png' },
+        { id: 's16', title: 'BROTHERS OF ALDI', artist: 'Kanye West', albumId: 'a4', duration: '4:22', audioUrl: 'YALDHI/07 BROTHERS OF ALDI.mp3', cover: 'images/yaldhi.png' },
+        { id: 's17', title: 'FVCK GIANVOIT', artist: 'Kanye West', albumId: 'a4', duration: '2:45', audioUrl: 'YALDHI/08 FVCK GIANVOIT.mp3', cover: 'images/yaldhi.png' },
         
         // YALDHI DELUXE Album
-        { id: 's18', title: 'ALDILESS', artist: 'Kanye West', albumId: 'a5', duration: '3:33', audioUrl: '/YALDHI/01 THE GARDEN OF ALDI.mp3', cover: '/images/yaldhi.png' },
-        { id: 's19', title: 'ALL DI', artist: 'Kanye West', albumId: 'a5', duration: '4:11', audioUrl: '/YALDHI/02 THE ALDI STORM.m4a', cover: '/images/yaldhi.png' },
-        { id: 's20', title: 'ALDI BURNING', artist: 'Kanye West', albumId: 'a5', duration: '5:15', audioUrl: '/YALDHI/03 NEW ALDI.mp3', cover: '/images/yaldhi.png' },
-        { id: 's21', title: 'HOT ALDI', artist: 'Kanye West', albumId: 'a5', duration: '3:42', audioUrl: '/YALDHI/04 80 ALDYIES.m4a', cover: '/images/yaldhi.png' },
-        { id: 's22', title: 'MEET THE ALDI MAKERS', artist: 'Kanye West', albumId: 'a5', duration: '4:28', audioUrl: '/YALDHI/05 ALDI IN THE SKY.mp3', cover: '/images/yaldhi.png' }
+        { id: 's18', title: 'ALDILESS', artist: 'Kanye West', albumId: 'a5', duration: '3:33', audioUrl: 'YALDHI/01 THE GARDEN OF ALDI.mp3', cover: 'images/yaldhi.png' },
+        { id: 's19', title: 'ALL DI', artist: 'Kanye West', albumId: 'a5', duration: '4:11', audioUrl: 'YALDHI/02 THE ALDI STORM.m4a', cover: 'images/yaldhi.png' },
+        { id: 's20', title: 'ALDI BURNING', artist: 'Kanye West', albumId: 'a5', duration: '5:15', audioUrl: 'YALDHI/03 NEW ALDI.mp3', cover: 'images/yaldhi.png' },
+        { id: 's21', title: 'HOT ALDI', artist: 'Kanye West', albumId: 'a5', duration: '3:42', audioUrl: 'YALDHI/04 80 ALDYIES.m4a', cover: 'images/yaldhi.png' },
+        { id: 's22', title: 'MEET THE ALDI MAKERS', artist: 'Kanye West', albumId: 'a5', duration: '4:28', audioUrl: 'YALDHI/05 ALDI IN THE SKY.mp3', cover: 'images/yaldhi.png' }
     ],
     
     albums: [
-        { id: 'a1', title: 'JL', artist: 'Kanye West', cover: '/images/jl2.jpg', songs: ['s1', 's2', 's3'], year: 2024 },
-        { id: 'a2', title: 'BULDY', artist: 'Kanye West', cover: '/images/buldy.jpg', songs: ['s4', 's5', 's6', 's23', 's24', 's25', 's26', 's27'], year: 2023 },
-        { id: 'a3', title: 'DONDA 2', artist: 'Kanye West', cover: '/images/donda2.jpg', songs: ['s7', 's8', 's9'], year: 2022 },
-        { id: 'a4', title: 'YALDHI', artist: 'Kanye West', cover: '/images/yaldhi.png', songs: ['s10', 's11', 's12', 's13', 's14', 's15', 's16', 's17'], year: 2013 },
-        { id: 'a5', title: 'YALDHI DELUXE', artist: 'Kanye West', cover: '/images/yaldhi.png', songs: ['s18', 's19', 's20', 's21', 's22'], year: 2013 }
+        { id: 'a1', title: 'JL', artist: 'Kanye West', cover: 'images/jl2.jpg', songs: ['s1', 's2', 's3'], year: 2024 },
+        { id: 'a2', title: 'BULDY', artist: 'Kanye West', cover: 'images/buldy.jpg', songs: ['s4', 's5', 's6', 's23', 's24', 's25', 's26', 's27'], year: 2023 },
+        { id: 'a3', title: 'DONDA 2', artist: 'Kanye West', cover: 'images/donda2.jpg', songs: ['s7', 's8', 's9'], year: 2022 },
+        { id: 'a4', title: 'YALDHI', artist: 'Kanye West', cover: 'images/yaldhi.png', songs: ['s10', 's11', 's12', 's13', 's14', 's15', 's16', 's17'], year: 2013 },
+        { id: 'a5', title: 'YALDHI DELUXE', artist: 'Kanye West', cover: 'images/yaldhi.png', songs: ['s18', 's19', 's20', 's21', 's22'], year: 2013 }
     ],
     
     playlists: [
-        { id: 'p1', name: 'My Kanye Mix', cover: '/images/buldy.jpg', songs: ['s1', 's4', 's7', 's10', 's18'], creator: 'Orlaaa', duration: '18h 24min' },
-        { id: 'p2', name: 'JL Favorites', cover: '/images/jl2.jpg', songs: ['s1', 's2', 's3'], creator: 'Orlaaa', duration: '4h 39min' },
-        { id: 'p3', name: 'DONDA Collection', cover: '/images/donda2.jpg', songs: ['s7', 's8', 's9'], creator: 'Orlaaa', duration: '7h 19min' },
-        { id: 'p4', name: 'YALDHI Complete', cover: '/images/yaldhi.png', songs: ['s10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's20', 's21', 's22'], creator: 'Orlaaa', duration: '56h 41min' },
-        { id: 'p5', name: 'BULDY Hits', cover: '/images/buldy.jpg', songs: ['s4', 's5', 's6', 's23', 's27'], creator: 'Orlaaa', duration: '22h 15min' }
+        { id: 'p1', name: 'My Kanye Mix', cover: 'images/buldy.jpg', songs: ['s1', 's4', 's7', 's10', 's18'], creator: 'Orlaaa', duration: '18h 24min' },
+        { id: 'p2', name: 'JL Favorites', cover: 'images/jl2.jpg', songs: ['s1', 's2', 's3'], creator: 'Orlaaa', duration: '4h 39min' },
+        { id: 'p3', name: 'DONDA Collection', cover: 'images/donda2.jpg', songs: ['s7', 's8', 's9'], creator: 'Orlaaa', duration: '7h 19min' },
+        { id: 'p4', name: 'YALDHI Complete', cover: 'images/yaldhi.png', songs: ['s10', 's11', 's12', 's13', 's14', 's15', 's16', 's17', 's18', 's19', 's20', 's21', 's22'], creator: 'Orlaaa', duration: '56h 41min' },
+        { id: 'p5', name: 'BULDY Hits', cover: 'images/buldy.jpg', songs: ['s4', 's5', 's6', 's23', 's27'], creator: 'Orlaaa', duration: '22h 15min' }
     ],
     
     artists: [
-        { id: 'ar1', name: 'Kanye West', image: '/images/yaldhi.png', followers: 15000000 },
-        { id: 'ar2', name: 'Ye', image: '/images/buldy.jpg', followers: 239298 },
-        { id: 'ar3', name: 'JAY-Z', image: '/images/donda2.jpg', followers: 8500000 }
+        { id: 'ar1', name: 'Kanye West', image: 'images/yaldhi.png', followers: 15000000 },
+        { id: 'ar2', name: 'Ye', image: 'images/buldy.jpg', followers: 239298 },
+        { id: 'ar3', name: 'JAY-Z', image: 'images/donda2.jpg', followers: 8500000 }
     ],
     
     genres: [
