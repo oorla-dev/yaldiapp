@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YALDI - Yeezy × Aldi Collaboration</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#171717">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.294.0/lucide.min.css">
+</head>
+<body>
+    <!-- Background Image -->
+    <div class="background-image"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo" onclick="handleLogoClick()">YALDI</h1>
+            
+            <!-- Desktop Navigation -->
+            <div class="nav-links desktop-nav">
+                <button class="nav-btn active" onclick="showSection('home')">HOME</button>
+                <button class="nav-btn" onclick="showSection('products')">PRODUCTS</button>
+                <button class="nav-btn" onclick="showSection('music')">MUSIC</button>
+                <button class="nav-btn" onclick="showSection('download')">DOWNLOAD</button>
+                <button class="nav-btn games-btn hidden" onclick="showSection('games')">🎮 GAMES</button>
+                <button class="nav-btn" onclick="showSection('account')">ACCOUNT</button>
+            </div>
+            
+            <!-- Right side actions -->
+            <div class="nav-actions">
+                <span class="user-greeting hidden"></span>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i data-lucide="sun" class="theme-icon light-icon"></i>
+                    <i data-lucide="moon" class="theme-icon dark-icon"></i>
+                </button>
+                <button class="cart-btn" onclick="toggleCart()">
+                    <i data-lucide="shopping-cart"></i>
+                    <span class="cart-badge hidden">0</span>
+                </button>
+                <button class="logout-btn hidden" onclick="handleLogout()">
+                    <i data-lucide="log-out"></i>
+                </button>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav hidden">
+            <button class="nav-btn active" onclick="showSection('home')">HOME</button>
+            <button class="nav-btn" onclick="showSection('products')">PRODUCTS</button>
+            <button class="nav-btn" onclick="showSection('music')">MUSIC</button>
+            <button class="nav-btn" onclick="showSection('download')">DOWNLOAD</button>
+            <button class="nav-btn games-btn hidden" onclick="showSection('games')">🎮 GAMES</button>
+            <button class="nav-btn" onclick="showSection('account')">ACCOUNT</button>
+        </div>
+    </nav>
+
+    <!-- Mini Music Player -->
+    <div class="mini-player hidden">
+        <div class="mini-player-content">
+            <div class="mini-player-cover">
+                <img src="https://i.ibb.co/NgS7rqnn/2-20250302_130159-0001.jpg" alt="Album cover">
+            </div>
+            <div class="mini-player-controls">
+                <button onclick="playPrevTrack()"><i data-lucide="skip-back"></i></button>
+                <button onclick="togglePlay()" class="play-btn">
+                    <i data-lucide="play" class="play-icon"></i>
+                    <i data-lucide="pause" class="pause-icon hidden"></i>
+                </button>
+                <button onclick="playNextTrack()"><i data-lucide="skip-forward"></i></button>
+            </div>
+            <button onclick="clearTrack()" class="close-btn"><i data-lucide="x"></i></button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">YALDI</h1>
+                    <p class="hero-subtitle">YEEZY × ALDI COLLABORATION</p>
+                    
+                    <!-- Countdown -->
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="days">00</div>
+                            <div class="countdown-label">DAYS</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="hours">00</div>
+                            <div class="countdown-label">HOURS</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="minutes">00</div>
+                            <div class="countdown-label">MINUTES</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="seconds">00</div>
+                            <div class="countdown-label">SECONDS</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="showSection('products')">EXPLORE PRODUCTS</button>
+                        <button class="btn btn-outline" onclick="showSection('download')">GET APP</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="section">
+            <div class="container">
+                <h2 class="section-title">COLLECTION</h2>
+                
+                <!-- Featured Product -->
+                <div class="featured-section">
+                    <h3 class="subsection-title">FEATURED</h3>
+                    <div class="featured-product">
+                        <div class="product-card featured">
+                            <div class="product-image">
+                                <img src="https://i.ibb.co/N2MRs64X/FREE-MARINAIO.jpg" alt="FREE MARINAIO TEE">
+                                <div class="featured-badge">FEATURED</div>
+                            </div>
+                            <div class="product-info">
+                                <h3>FREE MARINAIO TEE</h3>
+                                <p class="product-code">FM-01</p>
+                                <p class="product-price">€30.00</p>
+                                <div class="size-selector">
+                                    <label>Taglia:</label>
+                                    <select class="size-select" data-product="1">
+                                        <option value="">Seleziona taglia</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="addToCart(1)">AGGIUNGI AL CARRELLO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Apparel -->
+                <div class="products-section">
+                    <h3 class="subsection-title">APPAREL</h3>
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://i.ibb.co/MDZf9tSY/Progetto-senza-titolo.jpg" alt="YALDI HOODIE">
+                            </div>
+                            <div class="product-info">
+                                <h3>YALDI HOODIE</h3>
+                                <p class="product-code">YH-01</p>
+                                <p class="product-price">€55.00</p>
+                                <div class="size-selector">
+                                    <label>Taglia:</label>
+                                    <select class="size-select" data-product="2">
+                                        <option value="">Seleziona taglia</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="addToCart(2)">AGGIUNGI AL CARRELLO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Footwear -->
+                <div class="products-section">
+                    <h3 class="subsection-title">FOOTWEAR</h3>
+                    <div class="products-grid footwear-grid">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img src="https://i.ibb.co/MDD2ZSgp/Progetto-senza-titolo-2.jpg" alt="YALDI CLASSIC">
+                            </div>
+                            <div class="product-info">
+                                <h3>YALDI CLASSIC</h3>
+                                <p class="product-code">YC-01</p>
+                                <p class="product-price">€20.00</p>
+                                <div class="size-selector">
+                                    <label>Taglia:</label>
+                                    <select class="size-select" data-product="4">
+                                        <option value="">Seleziona taglia</option>
+                                        <option value="38">38</option>
+                                        <option value="39">39</option>
+                                        <option value="40">40</option>
+                                        <option value="41">41</option>
+                                        <option value="42">42</option>
+                                        <option value="43">43</option>
+                                        <option value="44">44</option>
+                                        <option value="45">45</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="addToCart(4)">AGGIUNGI AL CARRELLO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Music Section -->
+        <section id="music" class="section">
+            <div class="container">
+                <h2 class="section-title">YALDI MUSIC</h2>
+                
+                <!-- Albums Grid -->
+                <div class="albums-grid">
+                    <div class="album-card active" onclick="selectAlbum(1)">
+                        <div class="album-image">
+                            <img src="https://i.ibb.co/NgS7rqnn/2-20250302_130159-0001.jpg" alt="YALDHI">
+                        </div>
+                        <div class="album-info">
+                            <h3>YALDHI</h3>
+                        </div>
+                    </div>
+                    <div class="album-card coming-soon" onclick="selectAlbum(2)">
+                        <div class="album-image">
+                            <img src="/placeholder.svg?height=300&width=300" alt="DONDA 2">
+                            <div class="coming-soon-overlay">
+                                <span class="coming-soon-badge">COMING SOON</span>
+                            </div>
+                        </div>
+                        <div class="album-info">
+                            <h3>DONDA 2</h3>
+                        </div>
+                    </div>
+                    <div class="album-card coming-soon" onclick="selectAlbum(3)">
+                        <div class="album-image">
+                            <img src="/placeholder.svg?height=300&width=300" alt="BULDY">
+                            <div class="coming-soon-overlay">
+                                <span class="coming-soon-badge">COMING SOON</span>
+                            </div>
+                        </div>
+                        <div class="album-info">
+                            <h3>BULDY</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tracks List -->
+                <div class="tracks-section">
+                    <h3 class="tracks-title">YALDHI - TRACKLIST</h3>
+                    <div class="tracks-list">
+                        <div class="track-item" onclick="playTrack(0)">
+                            <div class="track-controls">
+                                <button class="track-play-btn">
+                                    <i data-lucide="play"></i>
+                                </button>
+                                <div class="track-info">
+                                    <h4>AITS-01</h4>
+                                    <p>ALDI IN THE SKY</p>
+                                </div>
+                            </div>
+                            <div class="track-duration">3:24</div>
+                        </div>
+                        <div class="track-item" onclick="playTrack(1)">
+                            <div class="track-controls">
+                                <button class="track-play-btn">
+                                    <i data-lucide="play"></i>
+                                </button>
+                                <div class="track-info">
+                                    <h4>MTAM-01</h4>
+                                    <p>MEET THE ALDI MANAGERS</p>
+                                </div>
+                            </div>
+                            <div class="track-duration">2:58</div>
+                        </div>
+                        <div class="track-item" onclick="playTrack(2)">
+                            <div class="track-controls">
+                                <button class="track-play-btn">
+                                    <i data-lucide="play"></i>
+                                </button>
+                                <div class="track-info">
+                                    <h4>FG-01</h4>
+                                    <p>FVUCK GIANVOIT</p>
+                                </div>
+                            </div>
+                            <div class="track-duration">4:12</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="section">
+            <div class="container">
+                <h2 class="section-title">GET THE APP</h2>
+                
+                <div class="download-grid">
+                    <div class="download-card">
+                        <div class="download-icon">
+                            <i data-lucide="smartphone"></i>
+                        </div>
+                        <h3>ANDROID</h3>
+                        <p>Download per dispositivi Android</p>
+                        <a href="https://drive.google.com/uc?id=1drf-daOFYutG0Sr4QR1-RcuuaE6Xkbxf" class="btn btn-primary" target="_blank">
+                            <i data-lucide="download"></i>
+                            DOWNLOAD APK
+                        </a>
+                    </div>
+                    <div class="download-card disabled">
+                        <div class="download-icon">
+                            <i data-lucide="smartphone"></i>
+                        </div>
+                        <h3>iOS</h3>
+                        <p>Versione iOS non ancora pronta</p>
+                        <button class="btn btn-outline" disabled>
+                            <span class="coming-soon-badge">COMING SOON</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="section">
+            <div class="container">
+                <h2 class="section-title">YALDI GAMES</h2>
+                <p class="games-subtitle">🎮 Easter Egg Sbloccato! Benvenuto nella sezione segreta dei giochi YALDI</p>
+                
+                <div class="games-grid">
+                    <div class="game-card blue-gradient" onclick="openGame('yaldi-runner')">
+                        <div class="game-header">
+                            <div class="game-icon">🎯</div>
+                            <div class="game-info">
+                                <h3>YALDI RUNNER</h3>
+                                <p>Corri attraverso i corridoi di ALDI</p>
+                            </div>
+                        </div>
+                        <div class="game-footer">
+                            <span class="game-status">DISPONIBILE</span>
+                            <button class="btn btn-outline">GIOCA</button>
+                        </div>
+                    </div>
+                    <div class="game-card green-gradient" onclick="openGame('puzzle-yeezy')">
+                        <div class="game-header">
+                            <div class="game-icon">🧩</div>
+                            <div class="game-info">
+                                <h3>PUZZLE YEEZY</h3>
+                                <p>Risolvi puzzle con le sneakers</p>
+                            </div>
+                        </div>
+                        <div class="game-footer">
+                            <span class="game-status">DISPONIBILE</span>
+                            <button class="btn btn-outline">GIOCA</button>
+                        </div>
+                    </div>
+                    <div class="game-card orange-gradient" onclick="openGame('aldi-quest')">
+                        <div class="game-header">
+                            <div class="game-icon">🏆</div>
+                            <div class="game-info">
+                                <h3>ALDI QUEST</h3>
+                                <p>Avventura nel mondo YALDI</p>
+                            </div>
+                        </div>
+                        <div class="game-footer">
+                            <span class="game-status">DISPONIBILE</span>
+                            <button class="btn btn-outline">GIOCA</button>
+                        </div>
+                    </div>
+                    <div class="game-card pink-gradient" onclick="openGame('music-hero')">
+                        <div class="game-header">
+                            <div class="game-icon">🎵</div>
+                            <div class="game-info">
+                                <h3>MUSIC HERO</h3>
+                                <p>Gioca con le tracce YALDI</p>
+                            </div>
+                        </div>
+                        <div class="game-footer">
+                            <span class="game-status">DISPONIBILE</span>
+                            <button class="btn btn-outline">GIOCA</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="games-tip">
+                    <p>💡 Suggerimento: Clicca 3 volte sul logo YALDI per accedere nuovamente a questa sezione</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Section -->
+        <section id="account" class="section">
+            <div class="container">
+                <h2 class="section-title">ACCOUNT</h2>
+                
+                <div class="account-layout">
+                    <!-- Account Navigation -->
+                    <div class="account-nav">
+                        <button class="account-nav-btn active" onclick="showAccountSection('login')" id="login-nav">
+                            <i data-lucide="log-in"></i>
+                            ACCEDI
+                        </button>
+                        <button class="account-nav-btn" onclick="showAccountSection('register')" id="register-nav">
+                            <i data-lucide="user-plus"></i>
+                            REGISTRATI
+                        </button>
+                        <button class="account-nav-btn hidden" onclick="showAccountSection('profile')" id="profile-nav">
+                            <i data-lucide="user"></i>
+                            PROFILO
+                        </button>
+                        <button class="account-nav-btn hidden" onclick="showAccountSection('settings')" id="settings-nav">
+                            <i data-lucide="settings"></i>
+                            IMPOSTAZIONI
+                        </button>
+                    </div>
+                    
+                    <!-- Account Content -->
+                    <div class="account-content">
+                        <!-- Login Form -->
+                        <div id="login-form" class="account-form active">
+                            <div class="form-header">
+                                <div class="form-icon">
+                                    <i data-lucide="log-in"></i>
+                                </div>
+                                <h3>ACCEDI AL TUO ACCOUNT</h3>
+                                <p>Inserisci le tue credenziali per accedere</p>
+                            </div>
+                            <form onsubmit="handleLogin(event)">
+                                <div class="form-group">
+                                    <label for="login-email">Email</label>
+                                    <input type="email" id="login-email" placeholder="la-tua-email@esempio.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">Password</label>
+                                    <input type="password" id="login-password" placeholder="La tua password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">ACCEDI</button>
+                            </form>
+                            <div class="form-footer">
+                                <p>Non hai un account? <button onclick="showAccountSection('register')" class="link-btn">Registrati qui</button></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Register Form -->
+                        <div id="register-form" class="account-form">
+                            <div class="form-header">
+                                <div class="form-icon">
+                                    <i data-lucide="user-plus"></i>
+                                </div>
+                                <h3>CREA UN NUOVO ACCOUNT</h3>
+                                <p>Unisciti alla community YALDI</p>
+                            </div>
+                            <form onsubmit="handleRegister(event)">
+                                <div class="form-group">
+                                    <label for="register-name">Nome Completo</label>
+                                    <input type="text" id="register-name" placeholder="Il tuo nome completo" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-email">Email</label>
+                                    <input type="email" id="register-email" placeholder="la-tua-email@esempio.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-password">Password</label>
+                                    <input type="password" id="register-password" placeholder="Crea una password sicura" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-confirm">Conferma Password</label>
+                                    <input type="password" id="register-confirm" placeholder="Ripeti la password" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">REGISTRATI</button>
+                            </form>
+                            <div class="form-footer">
+                                <p>Hai già un account? <button onclick="showAccountSection('login')" class="link-btn">Accedi qui</button></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Profile Form -->
+                        <div id="profile-form" class="account-form">
+                            <div class="form-header">
+                                <div class="profile-avatar">
+                                    <span id="avatar-letter">Y</span>
+                                </div>
+                                <h3 id="profile-username">@username</h3>
+                            </div>
+                            <form onsubmit="saveProfile(event)">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profile-name">Nome Completo</label>
+                                        <input type="text" id="profile-name" placeholder="Il tuo nome">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-username-input">Username</label>
+                                        <input type="text" id="profile-username-input" placeholder="@username">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-bio">Bio</label>
+                                    <textarea id="profile-bio" placeholder="Racconta qualcosa di te..." rows="3"></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profile-location">Posizione</label>
+                                        <input type="text" id="profile-location" placeholder="Città, Paese">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-website">Sito Web</label>
+                                        <input type="url" id="profile-website" placeholder="https://...">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i data-lucide="save"></i>
+                                    SALVA PROFILO
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Settings Form -->
+                        <div id="settings-form" class="account-form">
+                            <h3>IMPOSTAZIONI AVANZATE</h3>
+                            <div class="settings-sections">
+                                <div class="settings-section">
+                                    <h4><i data-lucide="palette"></i> Aspetto</h4>
+                                    <div class="setting-item">
+                                        <div class="setting-info">
+                                            <label>Tema</label>
+                                            <p>Scegli il tema dell'interfaccia</p>
+                                        </div>
+                                        <select id="theme-select" onchange="changeTheme(this.value)">
+                                            <option value="light">Chiaro</option>
+                                            <option value="dark">Scuro</option>
+                                            <option value="system">Sistema</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h4><i data-lucide="headphones"></i> Audio</h4>
+                                    <div class="setting-item">
+                                        <div class="setting-info">
+                                            <label>Riproduzione Automatica</label>
+                                            <p>Passa automaticamente alla traccia successiva</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" id="autoplay-toggle" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="settings-section">
+                                    <h4><i data-lucide="bell"></i> Notifiche</h4>
+                                    <div class="setting-item">
+                                        <div class="setting-info">
+                                            <label>Notifiche Push</label>
+                                            <p>Ricevi notifiche sul dispositivo</p>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" id="notifications-toggle">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="saveSettings()" class="btn btn-primary">
+                                <i data-lucide="save"></i>
+                                SALVA IMPOSTAZIONI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i data-lucide="shopping-cart"></i> CARRELLO</h3>
+                <button onclick="toggleCart()" class="close-btn">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-empty" class="cart-empty">
+                    <i data-lucide="shopping-cart"></i>
+                    <h3>Il carrello è vuoto</h3>
+                    <p>Aggiungi alcuni prodotti per iniziare</p>
+                    <button onclick="showSection('products')" class="btn btn-primary">ESPLORA PRODOTTI</button>
+                </div>
+                <div id="cart-items" class="cart-items hidden"></div>
+                <div id="cart-total" class="cart-total hidden">
+                    <div class="total-line">
+                        <span>TOTALE:</span>
+                        <span id="total-amount">€0.00</span>
+                    </div>
+                    <button onclick="checkout()" class="btn btn-primary">PROCEDI AL CHECKOUT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Modal -->
+    <div id="game-modal" class="modal">
+        <div class="modal-content game-modal-content">
+            <div class="modal-header">
+                <h3 id="game-title">GAME</h3>
+                <button onclick="closeGame()" class="close-btn">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="game-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 YALDI. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Audio element for music -->
+    <audio id="audio-player"></audio>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
