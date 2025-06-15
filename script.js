@@ -70,7 +70,7 @@ const albums = [
   {
     id: 3,
     title: "BULDY",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "images/buldy.jpg",
     available: true,
     tracks: [
       { id: 9, title: "ALDIES (CIRCLES)", duration: "3:33", file: "BULDY/ALDIES(CIRCLES)-2.wav" },
